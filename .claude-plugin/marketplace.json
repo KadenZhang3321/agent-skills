@@ -1,0 +1,42 @@
+{
+  "name": "agent-skills",
+  "owner": {
+    "name": "Zhenyu Zheng",
+    "email": "zheng.zhenyu@outlook.com"
+  },
+  "metadata": {
+    "description": "Ascend Agent's custom skills for NPU development and more",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "agent-skills-infrastructure",
+      "description": "Infrastructure team skills.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/infrastructure/docker-image-pr-fix",
+        "./skills/infrastructure/github-action-diagnose"
+      ]
+    },
+    {
+      "name": "agent-skills-operation",
+      "description": "Operation team skills.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/operation/content/release-vllm-reno-poster"
+      ]
+    },
+    {
+      "name": "agent-skills-upstream",
+      "description": "Upstream team skills.",
+      "source": "./",
+      "strict": false,
+      "skills": [
+        "./skills/upstream/triton-upgrade",
+        "./skills/upstream/vllm-ascend-releasing-note"
+      ]
+    }
+  ]
+}
