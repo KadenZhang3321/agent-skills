@@ -79,14 +79,14 @@ git push origin feature/add-new-skill
 
    在 Claude Code 中输入 `/plugin` 或点击插件图标，然后：
    - 选择 `Browse and install plugins`（浏览并安装插件）
-   - 选择 `agent-skills` marketplace
+  - 选择 `opensourceways-agent-skills` marketplace
    - 选择你想要安装的技能（例如 `triton-upgrade`）
    - 点击 `Install now`（立即安装）
 
    **方式 B：命令行直接安装**
 
    ```
-   /plugin install triton-upgrade@agent-skills
+  /plugin install triton-upgrade@opensourceways-agent-skills
    ```
 
 
@@ -100,12 +100,12 @@ git push origin feature/add-new-skill
 
    ```json
    {
-     "ascend-agent-skills": {
+     "opensourceways-agent-skills": {
        "source": {
          "source": "github",
          "repo": "opensourceways/agent-skills"
        },
-       "installLocation": "~/.claude/plugins/marketplaces/agent-skills",
+       "installLocation": "~/.claude/plugins/marketplaces/opensourceways-agent-skills",
        "lastUpdated": "2026-02-13T00:00:00.000Z"
      }
    }
@@ -118,7 +118,7 @@ git push origin feature/add-new-skill
    在终端中运行安装命令：
 
    ```bash
-   claude plugin install triton-upgrade@agent-skills
+  claude plugin install triton-upgrade@opensourceways-agent-skills
    ```
 
 
