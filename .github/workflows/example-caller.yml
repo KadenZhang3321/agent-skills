@@ -1,0 +1,45 @@
+# example-caller.yml
+#
+# 调用方示例文件 —— 可直接复制到目标仓库的 .github/workflows/ 目录使用。
+#
+# 使用前，按需修改以下字段：
+#   - org_name:     目标组织名称（留空则跳过组织成员检查）
+#   - model:        Claude 模型名称
+#   - auth_method:  认证方式（api_key 或 oidc）
+#   - api_base_url: 第三方 API 地址（可选，留空使用官方）
+
+name: Claude Bot
+
+on:
+  # Issue/PR 评论时触发（需在评论中 @claude）
+  issue_comment:
+    types: [created]
+
+  # 新建 Issue 时自动触发
+  issues:
+    types: [opened]
+
+# 工作流级别权限声明（调用方负责声明）
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  # id-token: write  # 仅 auth_method: oidc 时需要
+
+jobs:
+  claude:
+    uses: opensourceways/agent-skills/.github/workflows/_claude-code.yml@main
+    secrets: inherit
+    with:
+      # ---- 模型配置 ----
+      timeout_minutes: 60
+
+      # ---- 认证方式 ----
+      auth_method: 'api_key'
+
+      # ---- 组织检查 ----
+      org_name: 'opensourceways'
+
+      # ---- 可选配置 ----
+      # setup_script: 'pip install boto3'
+      # additional_claude_args: ''

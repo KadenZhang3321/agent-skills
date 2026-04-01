@@ -1,0 +1,472 @@
+# _claude-code.yml
+# 核心可复用工作流，供组织内其他仓库通过 workflow_call 调用。
+# 调用方需在 workflow 级别声明以下权限：
+#   contents: read
+#   pull-requests: write
+#   issues: write
+#   id-token: write   (仅当 auth_method: oidc 时需要)
+
+name: Claude Code (Reusable)
+
+on:
+  workflow_call:
+    inputs:
+      # Claude 模型名称
+      model:
+        description: 'Claude model to use (e.g. claude-sonnet-4, claude-opus-4)'
+        type: string
+        default: 'claude-sonnet-4'
+      # 单次运行的最大超时时间（分钟）
+      timeout_minutes:
+        description: 'Job timeout in minutes'
+        type: number
+        default: 60
+      # 可选的初始化脚本内容（shell 命令，多行用换行分隔）
+      setup_script:
+        description: 'Optional setup script to run before invoking Claude (e.g. pip install boto3)'
+        type: string
+        default: ''
+      # 传给 Claude CLI 的额外参数
+      additional_claude_args:
+        description: 'Additional arguments passed to the Claude CLI / API call'
+        type: string
+        default: ''
+      # 认证方式：oidc（通过 AWS Bedrock）或 api_key（Anthropic API Key 或第三方兼容 API）
+      auth_method:
+        description: 'Authentication method: "oidc" (AWS Bedrock via OIDC) or "api_key" (Anthropic API or third-party compatible API)'
+        type: string
+        default: 'oidc'
+      # 第三方 API base URL（留空则使用官方 https://api.anthropic.com）
+      api_base_url:
+        description: 'Custom API base URL. Leave empty to use official https://api.anthropic.com'
+        type: string
+        default: ''
+      # API 格式：anthropic（默认）或 openai（兼容 OpenRouter、Azure 等）
+      api_format:
+        description: 'API format: "anthropic" (default, /v1/messages) or "openai" (compatible, /v1/chat/completions)'
+        type: string
+        default: 'anthropic'
+      # AWS Region（仅 oidc 模式下使用）
+      aws_region:
+        description: 'AWS region for Bedrock (only used when auth_method is oidc)'
+        type: string
+        default: 'us-east-1'
+      # AWS IAM Role ARN（仅 oidc 模式下使用）
+      aws_role_arn:
+        description: 'AWS IAM Role ARN to assume via OIDC (only used when auth_method is oidc)'
+        type: string
+        default: ''
+      # 组织名称（用于成员检查）。留空则跳过组织检查，适用于个人仓库测试。
+      org_name:
+        description: 'GitHub organization name for membership check. Leave empty to skip (for personal repo testing).'
+        type: string
+        default: 'vllm-project'
+
+    # secrets 由调用方通过 `secrets: inherit` 透传，此处无需声明
+
+jobs:
+  claude-response:
+    name: Invoke Claude and Reply
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ inputs.timeout_minutes }}
+    # 在 job 级别过滤：
+    # - issue_comment 事件：评论中必须包含 @claude
+    # - issues 事件：无需 @claude（自动触发）
+    # - 机器人账号（*[bot]、dependabot）一律跳过
+    if: |
+      (
+        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
+        github.event_name == 'issues'
+      ) &&
+      !endsWith(github.actor, '[bot]') &&
+      github.actor != 'dependabot'
+
+    steps:
+      # ---------------------------------------------------------------
+      # 1. 安全检查
+      # ---------------------------------------------------------------
+
+      # 1a. 检查触发者是否为组织成员（org_name 为空时跳过，适用于个人仓库）
+      - name: Check organization membership
+        id: check_org
+        if: inputs.org_name != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTOR: ${{ github.actor }}
+          ORG: ${{ inputs.org_name }}
+        run: |
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/orgs/$ORG/members/$ACTOR")
+
+          if [[ "$HTTP_STATUS" == "204" ]]; then
+            echo "is_member=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::$ACTOR is a member of $ORG."
+          else
+            echo "is_member=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::$ACTOR is NOT a member of $ORG (HTTP $HTTP_STATUS). Access denied."
+          fi
+
+      - name: Exit if not org member
+        if: inputs.org_name != '' && steps.check_org.outputs.is_member == 'false'
+        run: |
+          echo "Security check failed: actor is not an organization member."
+          exit 1
+
+      # 1d. 检查触发者是否拥有仓库写权限（write 或 admin）
+      - name: Check repository write permission
+        id: check_permission
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ACTOR: ${{ github.actor }}
+          REPO: ${{ github.repository }}
+        run: |
+          PERMISSION=$(curl -s \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$REPO/collaborators/$ACTOR/permission" \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('permission','none'))")
+
+          echo "permission=$PERMISSION" >> "$GITHUB_OUTPUT"
+
+          if [[ "$PERMISSION" == "write" ]] || [[ "$PERMISSION" == "admin" ]]; then
+            echo "has_write=true" >> "$GITHUB_OUTPUT"
+            echo "::notice::$ACTOR has $PERMISSION permission."
+          else
+            echo "has_write=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::$ACTOR has insufficient permission: $PERMISSION"
+          fi
+
+      - name: Exit if insufficient permission
+        if: steps.check_permission.outputs.has_write == 'false'
+        run: |
+          echo "Security check failed: actor does not have write permission."
+          exit 1
+
+      # ---------------------------------------------------------------
+      # 2. 检出代码（供 setup_script 使用）
+      # ---------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # ---------------------------------------------------------------
+      # 3. 环境准备
+      # ---------------------------------------------------------------
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install base dependencies
+        run: pip install requests
+
+      - name: Run setup script
+        if: inputs.setup_script != ''
+        run: |
+          echo "Running custom setup script..."
+          eval "${{ inputs.setup_script }}"
+
+      # ---------------------------------------------------------------
+      # 4a. AWS OIDC 认证（oidc 模式）
+      # ---------------------------------------------------------------
+      - name: Configure AWS credentials via OIDC
+        if: inputs.auth_method == 'oidc'
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ inputs.aws_role_arn }}
+          aws-region: ${{ inputs.aws_region }}
+
+      # ---------------------------------------------------------------
+      # 5. 构建 prompt（将 Issue/PR 标题、正文、评论拼接）
+      # ---------------------------------------------------------------
+      - name: Build prompt
+        id: build_prompt
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          EVENT_NAME: ${{ github.event_name }}
+          # Issue / PR 信息
+          ISSUE_NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
+          ISSUE_TITLE: ${{ github.event.issue.title || github.event.pull_request.title }}
+          ISSUE_BODY: ${{ github.event.issue.body || github.event.pull_request.body }}
+          # 评论信息（issue_comment 事件）
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+          ADDITIONAL_ARGS: ${{ inputs.additional_claude_args }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json
+
+          event_name = os.environ.get("EVENT_NAME", "")
+          issue_number = os.environ.get("ISSUE_NUMBER", "")
+          issue_title = os.environ.get("ISSUE_TITLE", "")
+          issue_body = os.environ.get("ISSUE_BODY", "") or ""
+          comment_body = os.environ.get("COMMENT_BODY", "") or ""
+          comment_author = os.environ.get("COMMENT_AUTHOR", "")
+          additional_args = os.environ.get("ADDITIONAL_ARGS", "")
+
+          parts = []
+          if issue_title:
+              parts.append(f"## Issue/PR #{issue_number}: {issue_title}")
+          if issue_body.strip():
+              parts.append(f"### Description\n{issue_body.strip()}")
+          if comment_body.strip():
+              parts.append(f"### Comment by @{comment_author}\n{comment_body.strip()}")
+          if additional_args.strip():
+              parts.append(f"### Additional context\n{additional_args.strip()}")
+
+          prompt = "\n\n".join(parts)
+
+          # 写入环境文件，供后续步骤使用
+          env_file = os.environ.get("GITHUB_ENV", "")
+          if env_file:
+              with open(env_file, "a") as f:
+                  # 使用 heredoc 方式写入多行内容
+                  f.write("CLAUDE_PROMPT<<PROMPT_EOF\n")
+                  f.write(prompt + "\n")
+                  f.write("PROMPT_EOF\n")
+
+          print(f"Prompt length: {len(prompt)} chars")
+          PYEOF
+
+      # ---------------------------------------------------------------
+      # 6a. 调用 Claude via Anthropic API（api_key 模式）
+      # ---------------------------------------------------------------
+      - name: Invoke Claude via Anthropic API
+        if: inputs.auth_method == 'api_key'
+        id: claude_api
+        continue-on-error: true
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          MODEL: ${{ inputs.model }}
+          API_BASE_URL: ${{ inputs.api_base_url }}
+          API_FORMAT: ${{ inputs.api_format }}
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, sys
+          import urllib.request, urllib.error
+
+          api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+          if not api_key:
+              print("::error::CLAUDE_API_KEY secret is not set.")
+              sys.exit(1)
+
+          model     = os.environ.get("MODEL", "claude-sonnet-4")
+          prompt    = os.environ.get("CLAUDE_PROMPT", "")
+          base_url  = os.environ.get("API_BASE_URL", "").rstrip("/")
+          api_format = os.environ.get("API_FORMAT", "anthropic").strip().lower()
+
+          # ---- Anthropic Messages API 格式 ----
+          if api_format == "anthropic":
+              endpoint = (base_url or "https://api.anthropic.com") + "/v1/messages"
+              payload  = {
+                  "model": model,
+                  "max_tokens": 4096,
+                  "messages": [{"role": "user", "content": prompt}],
+              }
+              headers = {
+                  "x-api-key": api_key,
+                  "anthropic-version": "2023-06-01",
+                  "content-type": "application/json",
+              }
+
+          # ---- OpenAI 兼容格式（OpenRouter、Azure 等）----
+          elif api_format == "openai":
+              endpoint = (base_url or "https://api.openai.com") + "/v1/chat/completions"
+              payload  = {
+                  "model": model,
+                  "max_tokens": 4096,
+                  "messages": [{"role": "user", "content": prompt}],
+              }
+              headers = {
+                  "Authorization": f"Bearer {api_key}",
+                  "content-type": "application/json",
+              }
+
+          else:
+              print(f"::error::Unknown api_format '{api_format}'. Use 'anthropic' or 'openai'.")
+              sys.exit(1)
+
+          print(f"Using endpoint: {endpoint} (format={api_format})")
+
+          req = urllib.request.Request(
+              endpoint,
+              data=json.dumps(payload).encode(),
+              headers=headers,
+              method="POST",
+          )
+
+          try:
+              with urllib.request.urlopen(req, timeout=300) as resp:
+                  result = json.loads(resp.read())
+          except urllib.error.HTTPError as e:
+              body = e.read().decode()
+              print(f"::error::API error {e.code}: {body}")
+              sys.exit(1)
+          except urllib.error.URLError as e:
+              print(f"::error::Network error: {e.reason}")
+              sys.exit(1)
+
+          # ---- 提取响应文本和 token 数 ----
+          if api_format == "anthropic":
+              text = "".join(
+                  b.get("text", "") for b in result.get("content", []) if b.get("type") == "text"
+              )
+              input_tokens  = result.get("usage", {}).get("input_tokens", 0)
+              output_tokens = result.get("usage", {}).get("output_tokens", 0)
+          else:  # openai
+              text = result.get("choices", [{}])[0].get("message", {}).get("content", "")
+              input_tokens  = result.get("usage", {}).get("prompt_tokens", 0)
+              output_tokens = result.get("usage", {}).get("completion_tokens", 0)
+
+          env_file = os.environ.get("GITHUB_ENV", "")
+          if env_file:
+              with open(env_file, "a") as f:
+                  f.write("CLAUDE_RESPONSE<<RESPONSE_EOF\n")
+                  f.write(text + "\n")
+                  f.write("RESPONSE_EOF\n")
+                  f.write(f"CLAUDE_INPUT_TOKENS={input_tokens}\n")
+                  f.write(f"CLAUDE_OUTPUT_TOKENS={output_tokens}\n")
+
+          print(f"Input tokens: {input_tokens}, Output tokens: {output_tokens}")
+          PYEOF
+
+      # ---------------------------------------------------------------
+      # 6b. 调用 Claude via AWS Bedrock（oidc 模式）
+      # ---------------------------------------------------------------
+      - name: Invoke Claude via AWS Bedrock
+        if: inputs.auth_method == 'oidc'
+        id: claude_bedrock
+        continue-on-error: true
+        env:
+          MODEL: ${{ inputs.model }}
+          AWS_REGION: ${{ inputs.aws_region }}
+        run: |
+          pip install boto3 --quiet
+          python3 - <<'PYEOF'
+          import os, json, sys
+
+          try:
+              import boto3
+          except ImportError:
+              print("::error::boto3 is not installed. Add 'pip install boto3' to setup_script.")
+              sys.exit(1)
+
+          model = os.environ.get("MODEL", "claude-sonnet-4")
+          region = os.environ.get("AWS_REGION", "us-east-1")
+          prompt = os.environ.get("CLAUDE_PROMPT", "")
+
+          # Bedrock 模型 ID 映射（根据实际可用 ARN 调整）
+          model_id_map = {
+              "claude-sonnet-4":   "anthropic.claude-sonnet-4-5",
+              "claude-opus-4":     "anthropic.claude-opus-4-5",
+              "claude-haiku-4":    "anthropic.claude-haiku-4-5-20251001",
+          }
+          bedrock_model_id = model_id_map.get(model, model)
+
+          client = boto3.client("bedrock-runtime", region_name=region)
+
+          payload = {
+              "anthropic_version": "bedrock-2023-05-31",
+              "max_tokens": 4096,
+              "messages": [{"role": "user", "content": prompt}]
+          }
+
+          try:
+              resp = client.invoke_model(
+                  modelId=bedrock_model_id,
+                  body=json.dumps(payload),
+                  contentType="application/json",
+                  accept="application/json",
+              )
+              result = json.loads(resp["body"].read())
+          except Exception as e:
+              print(f"::error::Bedrock invocation failed: {e}")
+              sys.exit(1)
+
+          text = ""
+          for block in result.get("content", []):
+              if block.get("type") == "text":
+                  text += block.get("text", "")
+
+          input_tokens = result.get("usage", {}).get("input_tokens", 0)
+          output_tokens = result.get("usage", {}).get("output_tokens", 0)
+
+          env_file = os.environ.get("GITHUB_ENV", "")
+          if env_file:
+              with open(env_file, "a") as f:
+                  f.write("CLAUDE_RESPONSE<<RESPONSE_EOF\n")
+                  f.write(text + "\n")
+                  f.write("RESPONSE_EOF\n")
+                  f.write(f"CLAUDE_INPUT_TOKENS={input_tokens}\n")
+                  f.write(f"CLAUDE_OUTPUT_TOKENS={output_tokens}\n")
+
+          print(f"Input tokens: {input_tokens}, Output tokens: {output_tokens}")
+          PYEOF
+
+      # ---------------------------------------------------------------
+      # 7. 将 Claude 的回复发布为 Issue/PR 评论
+      # ---------------------------------------------------------------
+      - name: Post Claude response as comment
+        continue-on-error: true
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const response = process.env.CLAUDE_RESPONSE || '';
+            const model = '${{ inputs.model }}';
+            const inputTokens = process.env.CLAUDE_INPUT_TOKENS || '0';
+            const outputTokens = process.env.CLAUDE_OUTPUT_TOKENS || '0';
+
+            if (!response.trim()) {
+              core.warning('Claude returned an empty response, skipping comment.');
+              return;
+            }
+
+            // 确定 issue/PR 编号
+            const issueNumber =
+              context.payload.issue?.number ||
+              context.payload.pull_request?.number;
+
+            if (!issueNumber) {
+              core.warning('Could not determine issue/PR number, skipping comment.');
+              return;
+            }
+
+            const body = [
+              response,
+              '',
+              '---',
+              `*Powered by **${model}** via Claude Bot | 🔢 Tokens: ${inputTokens} in / ${outputTokens} out*`,
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body,
+            });
+
+            core.info(`Comment posted on #${issueNumber}`);
+
+      # ---------------------------------------------------------------
+      # 8. 在 Actions Job Summary 中显示 Token 用量
+      # ---------------------------------------------------------------
+      - name: Report token usage
+        if: always()
+        env:
+          MODEL: ${{ inputs.model }}
+        run: |
+          INPUT="${CLAUDE_INPUT_TOKENS:-0}"
+          OUTPUT="${CLAUDE_OUTPUT_TOKENS:-0}"
+          TOTAL=$((INPUT + OUTPUT))
+
+          echo "### Claude Token Usage" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| | Tokens |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Model | \`$MODEL\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Input | $INPUT |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Output | $OUTPUT |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| **Total** | **$TOTAL** |" >> "$GITHUB_STEP_SUMMARY"

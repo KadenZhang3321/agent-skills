@@ -5,6 +5,7 @@
 ## 团队职责
 
 Infrastructure 团队负责技术设施建设，包括：
+
 - 基础设施搭建和维护
 - DevOps 工具链建设
 - CI/CD 流水线优化
@@ -13,7 +14,7 @@ Infrastructure 团队负责技术设施建设，包括：
 
 ## 目录结构建议
 
-```
+```text
 infrastructure/
 ├── README.md           # 本文件
 ├── devops/            # DevOps 相关
@@ -30,74 +31,67 @@ infrastructure/
 
 | 名字 | 功能 |
 | --- | --- |
-| Github-action-diagnose | 诊断昇腾CI github action问题 |
+| [github-action-diagnose](./github-action-diagnose/SKILL.md) | 诊断昇腾 CI GitHub Action 失败，定位基础设施故障与根因 |
+| [claude-bot](./claude-bot/claude.md) | GitHub Issues/PR 中响应 `@claude` 的 AI 助手 |
 
 ### Github-action-diagnose
 
 #### 使用示例
 
-**示例 1：通过 GitHub Actions Run URL 诊断**
+#### 示例 1：通过 GitHub Actions Job URL 诊断（推荐，精确到单个 Job）
 
-```
-/github-action-diagnose https://github.com/my-org/my-repo/actions/runs/12345678901
-```
-
-技能会自动：
-1. 提取 `owner/repo` = `my-org/my-repo`，`run_id` = `12345678901`
-2. 执行 `gh run view 12345678901 --repo my-org/my-repo --log-failed`
-3. 进入 5 步诊断流程
-
----
-
-**示例 2：通过 Run ID 诊断（在 repo 目录下）**
-
-```
-/github-action-diagnose 12345678901
+```text
+/github-action-diagnose https://github.com/vllm-project/vllm-ascend/actions/runs/23656949484/job/68954806226
 ```
 
-技能会从当前目录推断 repo，然后执行诊断。
+#### 示例 2：通过 Run URL 诊断（自动分析所有失败 Job）
 
----
-
-**示例 3：直接粘贴日志内容**
-
+```text
+/github-action-diagnose https://github.com/vllm-project/vllm-ascend/actions/runs/23282406275
 ```
-/github-action-diagnose
-2024-01-15T10:23:45.123Z [error] npu-smi info: ERR99999 Device not found
-2024-01-15T10:23:45.456Z [error] error code 507035
-2024-01-15T10:23:46.000Z Process exited with code 1
+
+#### 示例 3：通过 Run ID 诊断
+
+```text
+/github-action-diagnose 23282406275
 ```
 
 ---
 
-**示例输出 A：基础设施故障**
+#### 示例输出 A：基础设施故障（Artifact 上传超时）
 
+```text
+# CI 故障诊断报告
+
+**Run**: Nightly-A3 #23656949484
+**PR**: vllm-project/vllm-ascend (main)
+**时间**: 2026-03-27T21:21:23Z ~ 2026-03-27T21:48:37Z
+
+## 故障一：DeepSeek-V3.1-BF16.yaml (multi-node-deepseek-v3.1)
+
+- **定性**: 环境问题（基础设施）
+- **根因**: Upload logs 步骤上传 Artifact 时网络超时，实际测试已成功完成
+- **关键标识**: `Failed to CreateArtifact: Unable to make request: ETIMEDOUT`
+- **责任方**: 基础设施团队
+- **建议**: 重跑；检查 Runner 到 GitHub 的出口网络
 ```
-# GitHub Action 故障诊断报告
 
-## 1. 故障概览
-- **任务名称**: train-resnet50
-- **Run ID**: 12345678901
-- **故障定性**: 硬件故障
-- **判定依据**: NPU 驱动报 ERR99999，Device not found
+#### 示例输出 B：代码 Bug
 
-## 2. 详细诊断
-- **失败步骤**: Run steps (pytest)
-- **报错原文**: `npu-smi info: ERR99999 error code 507035`
-- **物理节点**: a3-runner-0023 -> Pod a3-0/runner-abc -> node-a3-12
-- **根因分析**: 物理机 node-a3-12 上 NPU 设备驱动异常，设备不可用
-```
+```text
+# CI 故障诊断报告
 
----
+**Run**: PR CI #xxx
+**PR**: vllm-project/vllm-ascend#1234 (feature/xxx)
+**时间**: ...
 
-**示例输出 B：非基础设施问题**
+## 故障一：e2e-singlecard-light
 
-```
-未发现环境/基础设施故障。
-
-分析依据：调度正常（Set up job 完成）、镜像拉取成功、NPU 挂载无报错。
-失败发生在业务代码层：Python Traceback 指向 tests/test_model.py:42，
-AssertionError: expected accuracy > 0.8, got 0.75。
+- **定性**: 代码 Bug（PR 引入）
+- **根因**: UnboundLocalError，PR 修改了 import 路径但未处理 ImportError 分支
+- **关键标识**: `UnboundLocalError: cannot access local variable 'huggingface_hub'`
+- **责任方**: PR 作者
+- **建议**: 修改 vllm_ascend/xxx.py，在 except ImportError 分支设置默认值
 ```
 
 ## 团队规范
