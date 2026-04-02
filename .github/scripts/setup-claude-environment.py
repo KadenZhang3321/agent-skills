@@ -246,11 +246,11 @@ def main() -> None:
     desired = dict(DESIRED_CONFIG)
     desired["environment_name"] = env_name
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"  Claude Bot Environment Setup")
     print(f"  Repository : {repo}")
     print(f"  Environment: {env_name}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     # 1. 检查管理员权限
     print("[1/4] Checking admin permission...")
@@ -269,7 +269,9 @@ def main() -> None:
         diffs = diff_config(existing, desired)
 
         if not diffs:
-            print("  ✓ Environment configuration matches desired state. No changes needed.")
+            print(
+                "  ✓ Environment configuration matches desired state. No changes needed."
+            )
             if not args.force:
                 print("\nDone.")
                 return
@@ -294,14 +296,14 @@ def main() -> None:
     print(f"  ✓ Environment '{env_name}' has been {action.lower()}d:")
     print_environment_summary(result)
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  Setup complete!")
     print(f"  View at: https://github.com/{repo}/settings/environments")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
     print(
         "Next steps:\n"
         f"  1. Copy .github/workflows/example-caller.yml to {repo}/.github/workflows/\n"
-        "  2. Set required secrets (CLAUDE_API_KEY or OIDC config, USAGE_PAT)\n"
+        "  2. Set required secrets (CLAUDE_API_KEY, USAGE_PAT)\n"
         "  3. Commit and push to trigger on the next @claude mention\n"
     )
 

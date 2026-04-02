@@ -5,7 +5,6 @@
 # 使用前，按需修改以下字段：
 #   - org_name:     目标组织名称（留空则跳过组织成员检查）
 #   - model:        Claude 模型名称
-#   - auth_method:  认证方式（api_key 或 oidc）
 #   - api_base_url: 第三方 API 地址（可选，留空使用官方）
 
 name: Claude Bot
@@ -24,7 +23,6 @@ permissions:
   contents: read
   pull-requests: write
   issues: write
-  # id-token: write  # 仅 auth_method: oidc 时需要
 
 jobs:
   claude:
@@ -33,9 +31,6 @@ jobs:
     with:
       # ---- 模型配置 ----
       timeout_minutes: 60
-
-      # ---- 认证方式 ----
-      auth_method: 'api_key'
 
       # ---- 组织检查 ----
       org_name: 'opensourceways'
