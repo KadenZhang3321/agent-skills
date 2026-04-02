@@ -1,0 +1,9 @@
+{
+  "allowed_orgs": [
+    "opensourceways"
+  ],
+  "allowed_repos": [
+    "KadenZhang3321/agent-skills",
+    "KadenZhang3321/hello-world"
+  ]
+}

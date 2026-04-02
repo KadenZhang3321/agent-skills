@@ -1,47 +1,92 @@
 # example-caller.yml
 #
-# 调用方示例文件 —— 可直接复制到目标仓库的 .github/workflows/ 目录使用。
-# 支持 @claude 触发和自动触发（新建 Issue 时）
+# 手动触发模板 —— 复制到目标仓库的 .github/workflows/ 目录使用。
+# 当 PR 或 Issue 评论中包含 @claude 时，自动触发 Claude Code 分析。
 #
-# 注意：可复用工作流中已硬编码白名单，只有授权仓库才能调用。
-# 使用前确认你的仓库已在白名单中。
+# 前置条件（仅需一次）：
+#   在目标仓库 Settings > Secrets > Actions 中添加：
+#     DISPATCH_TOKEN = <由 agent-skills 管理员分发的 PAT，具备 public_repo 权限>
+#
+# 无需配置 CLAUDE_API_KEY —— API Key 统一由 agent-skills 管理。
 
 name: Claude Bot
 
 on:
-  # Issue/PR 评论时触发（需在评论中 @claude）
   issue_comment:
     types: [created]
 
-  # 新建 Issue 时自动触发
-  issues:
-    types: [opened]
-
-  # 其他工作流调用时触发
-  workflow_call:
-
-# 工作流级别权限声明（调用方负责声明）
-# 如果 allow_code_change: true，需要 contents: write
 permissions:
   contents: read
-  pull-requests: write
-  issues: write
 
 jobs:
-  claude-code:
-    uses: opensourceways/agent-skills/.github/workflows/_claude-code.yml@main
-    with:
-      # API Key - 使用调用方仓库的 secret
-      claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
-      
-      # ---- 模型配置 ----
-      model: 'claude-sonnet-4-20250514'
-      timeout_minutes: 60
+  trigger-claude:
+    name: Trigger Claude Code
+    runs-on: ubuntu-latest
+    # 只响应包含 @claude 的评论，忽略机器人账号
+    if: |
+      contains(github.event.comment.body, '@claude') &&
+      !endsWith(github.actor, '[bot]') &&
+      github.actor != 'dependabot'
 
-      # ---- 安全检查 ----
-      org_name: ''
+    steps:
+      # 检测当前评论是否来自 PR（而非普通 Issue）
+      - name: Detect PR context
+        id: context
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$REPO/pulls/$ISSUE_NUMBER")
 
-      # ---- 可选配置 ----
-      # allow_code_change: false  # 是否允许 CC 修改代码（默认 false）
-      # setup_script: ''          # 初始化脚本
-      # additional_claude_args: ''  # 传给 CC 的额外参数（如 --skill my-skill）
+          if [[ "$HTTP_STATUS" == "200" ]]; then
+            echo "pr_number=$ISSUE_NUMBER" >> "$GITHUB_OUTPUT"
+          else
+            echo "pr_number=" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 发送 dispatch 到 agent-skills，触发 Claude Code
+      - name: Dispatch to agent-skills
+        env:
+          DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+          PR_NUMBER: ${{ steps.context.outputs.pr_number }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          COMMENT_BODY: ${{ github.event.comment.body }}
+          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
+          CALLER_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, subprocess, sys
+
+          payload = {
+            'caller_repo':      os.environ['CALLER_REPO'],
+            'pr_number':        os.environ.get('PR_NUMBER', ''),
+            'issue_number':     os.environ['ISSUE_NUMBER'],
+            'comment_body':     os.environ['COMMENT_BODY'],
+            'comment_author':   os.environ['COMMENT_AUTHOR'],
+            'allow_code_change': 'true',
+            'skill_name':       '',
+            'model':            'claude-sonnet-4-20250514',
+          }
+
+          dispatch_body = json.dumps({
+            'event_type':     'claude-request',
+            'client_payload': payload,
+          })
+
+          r = subprocess.run([
+            'curl', '-sf', '-X', 'POST',
+            '-H', f'Authorization: Bearer {os.environ["DISPATCH_TOKEN"]}',
+            '-H', 'Accept: application/vnd.github+json',
+            'https://api.github.com/repos/KadenZhang3321/agent-skills/dispatches',
+            '-d', dispatch_body,
+          ], capture_output=True, text=True)
+
+          if r.returncode != 0:
+            print(f'::error::Dispatch failed: {r.stderr}')
+            sys.exit(1)
+
+          print('Dispatched to agent-skills. Claude will post a comment shortly.')
+          PYEOF

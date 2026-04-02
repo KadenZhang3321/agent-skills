@@ -1,24 +1,73 @@
 # embeddable-caller.yml
 #
-# 可嵌入的 Claude Code 调用代码片段
-# 复制到任意工作流的 jobs 下即可使用
+# 自动触发模板 —— 将下方的 job 嵌入到你已有的 CI 工作流中，
+# 实现 PR 开启时自动触发 Claude Code 分析。
 #
-# 注意：可复用工作流中已硬编码白名单，只有授权仓库可以调用。
+# 前置条件（仅需一次）：
+#   在目标仓库 Settings > Secrets > Actions 中添加：
+#     DISPATCH_TOKEN = <由 agent-skills 管理员分发的 PAT，具备 public_repo 权限>
+#
+# 无需配置 CLAUDE_API_KEY —— API Key 统一由 agent-skills 管理。
+#
+# 用法：
+#   将整个文件作为独立工作流使用，或将 jobs.trigger-claude 片段
+#   复制到你现有 CI 工作流的 jobs: 块下，与其他 job 并行运行。
 
-  claude-code:
-    uses: opensourceways/agent-skills/.github/workflows/_claude-code.yml@main
-    with:
-      # API Key - 使用调用方仓库的 secret
-      claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
-      
-      # 模型配置
-      model: 'claude-sonnet-4-20250514'
-      timeout_minutes: 60
-      
-      # 可选配置
-      # setup_script: 'pip install pytest'
-      # additional_claude_args: '--skill my-custom-skill'
-      # allow_code_change: true
-      
-      # 组织检查（留空则跳过）
-      # org_name: ''
+name: Claude Bot (Auto)
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+permissions:
+  contents: read
+
+jobs:
+  trigger-claude:
+    name: Trigger Claude Code Analysis
+    runs-on: ubuntu-latest
+    # 跳过草稿 PR，避免噪音
+    if: github.event.pull_request.draft == false
+
+    steps:
+      - name: Dispatch to agent-skills
+        env:
+          DISPATCH_TOKEN: ${{ secrets.DISPATCH_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          ISSUE_NUMBER: ${{ github.event.pull_request.number }}
+          COMMENT_AUTHOR: ${{ github.event.pull_request.user.login }}
+          CALLER_REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, subprocess
+
+          payload = {
+            'caller_repo':       os.environ['CALLER_REPO'],
+            'pr_number':         os.environ['PR_NUMBER'],
+            'issue_number':      os.environ['ISSUE_NUMBER'],
+            'comment_body':      'Auto-triggered: Please review this PR and suggest improvements.',
+            'comment_author':    os.environ['COMMENT_AUTHOR'],
+            'allow_code_change': 'false',   # 自动模式：仅分析，不修改代码
+            'skill_name':        '',
+            'model':             'claude-sonnet-4-20250514',
+          }
+
+          dispatch_body = json.dumps({
+            'event_type':     'claude-request',
+            'client_payload': payload,
+          })
+
+          r = subprocess.run([
+            'curl', '-sf', '-X', 'POST',
+            '-H', f'Authorization: Bearer {os.environ["DISPATCH_TOKEN"]}',
+            '-H', 'Accept: application/vnd.github+json',
+            'https://api.github.com/repos/KadenZhang3321/agent-skills/dispatches',
+            '-d', dispatch_body,
+          ], capture_output=True, text=True)
+
+          if r.returncode != 0:
+            # 自动模式下调度失败不阻断 CI
+            print(f'::warning::Dispatch failed: {r.stderr}')
+          else:
+            print('Claude analysis dispatched. Results will appear as a PR comment.')
+          PYEOF

@@ -1,336 +1,342 @@
 # _claude-code.yml
-# 核心可复用 Claude Code 工作流，供组织内其他仓库通过 workflow_call 调用。
-# 支持通过 @claude 触发或在其他工作流中直接调用。
-# 调用方需在 workflow 级别声明以下权限：
-#   contents: read
-#   pull-requests: write
-#   issues: write
-#   contents: write (如果需要 Claude 修改代码)
+# Claude Code Handler — 由白名单仓库通过 repository_dispatch 触发。
+#
+# 本仓库（opensourceways/agent-skills）需配置以下 Secrets：
+#   CLAUDE_API_KEY  — Anthropic API Key（集中管理，调用方无需配置）
+#   AGENT_PAT       — 具备 repo 权限的 PAT（用于读写调用方仓库、发布评论、创建 PR）
 
-name: Claude Code (Reusable)
+name: Claude Code Handler
 
 on:
-  workflow_call:
-    inputs:
-      # API Key（由调用方显式传入，不再使用 inherit）
-      claude_api_key:
-        description: 'Anthropic API Key'
-        type: string
-        required: true
-      # Claude 模型名称
-      model:
-        description: 'Claude model to use (e.g. claude-sonnet-4-20250514, claude-opus-4-20251114)'
-        type: string
-        default: 'claude-sonnet-4-20250514'
-      # 单次运行的最大超时时间（分钟）
-      timeout_minutes:
-        description: 'Job timeout in minutes'
-        type: number
-        default: 60
-      # 可选的初始化脚本内容（shell 命令，多行用换行分隔）
-      setup_script:
-        description: 'Optional setup script to run before invoking Claude (e.g. pip install pytest)'
-        type: string
-        default: ''
-      # 传给 Claude CLI 的额外参数（如 skill 名称）
-      additional_claude_args:
-        description: 'Additional arguments passed to Claude CLI (e.g. --skill my-skill)'
-        type: string
-        default: ''
-      # 是否允许 Claude 修改代码（编辑/写入文件）
-      allow_code_change:
-        description: 'Allow Claude to edit/write files'
-        type: boolean
-        default: false
-      # 组织名称（用于成员检查）。留空则跳过组织检查，适用于个人仓库测试。
-      org_name:
-        description: 'GitHub organization name for membership check. Leave empty to skip.'
-        type: string
-        default: ''
+  repository_dispatch:
+    types: [claude-request]
 
 jobs:
   claude-code:
-    name: Invoke Claude Code
+    name: Handle Claude Request
     runs-on: ubuntu-latest
-    timeout-minutes: ${{ inputs.timeout_minutes }}
-    # 触发条件：
-    # - workflow_call: 其他工作流直接调用
-    # - issue_comment: PR/Issue 评论中包含 @claude
-    # - issues: 新建 Issue 时自动触发
-    # 排除机器人账号
-    if: |
-      (
-        github.event_name == 'workflow_call' ||
-        (github.event_name == 'issue_comment' && contains(github.event.comment.body, '@claude')) ||
-        github.event_name == 'issues'
-      ) &&
-      !endsWith(github.actor, '[bot]') &&
-      github.actor != 'dependabot'
+    timeout-minutes: 60
 
     steps:
-      # ---------------------------------------------------------------
-      # 0. 白名单检查（硬编码，只有授权仓库可以调用）
-      # ---------------------------------------------------------------
-      - name: Check whitelist
-        id: check_whitelist
-        run: |
-          REPO="${{ github.repository }}"
-          ORG="${{ github.repository_owner }}"
-          
-          # 硬编码白名单 - 只有这些仓库可以调用
-          ALLOWED_REPOS="KadenZhang3321/agent-skills,KadenZhang3321/hello-world"
-          
-          REPO_ALLOWED="false"
-          IFS=',' read -ra REPO_ARRAY <<< "$ALLOWED_REPOS"
-          for allowed_repo in "${REPO_ARRAY[@]}"; do
-            if [[ "$allowed_repo" == "$REPO" ]]; then
-              REPO_ALLOWED="true"
-              break
-            fi
-          done
-          
-          if [[ "$REPO_ALLOWED" != "true" ]]; then
-            echo "::error::Repository $REPO is not in whitelist."
-            echo "Allowed repos: $ALLOWED_REPOS"
-            exit 1
-          fi
-          
-          echo "::notice::Repository $REPO is whitelisted"
-
-      # ---------------------------------------------------------------
-      # 1. 安全检查（组织成员 + 写权限）
-      # ---------------------------------------------------------------
-
-      # 1a. 检查触发者是否为组织成员
-      - name: Check organization membership
-        id: check_org
-        if: inputs.org_name != ''
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTOR: ${{ github.actor }}
-          ORG: ${{ inputs.org_name }}
-        run: |
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/orgs/$ORG/members/$ACTOR")
-
-          if [[ "$HTTP_STATUS" == "204" ]]; then
-            echo "is_member=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::$ACTOR is a member of $ORG."
-          else
-            echo "is_member=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::$ACTOR is NOT a member of $ORG (HTTP $HTTP_STATUS). Access denied."
-          fi
-
-      - name: Exit if not org member
-        if: inputs.org_name != '' && steps.check_org.outputs.is_member == 'false'
-        run: |
-          echo "Security check failed: actor is not an organization member."
-          exit 1
-
-      # 1b. 检查触发者是否拥有仓库写权限
-      - name: Check repository write permission
-        id: check_permission
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          ACTOR: ${{ github.actor }}
-          REPO: ${{ github.repository }}
-        run: |
-          PERMISSION=$(curl -s \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            "https://api.github.com/repos/$REPO/collaborators/$ACTOR/permission" \
-            | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('permission','none'))")
-
-          echo "permission=$PERMISSION" >> "$GITHUB_OUTPUT"
-
-          if [[ "$PERMISSION" == "write" ]] || [[ "$PERMISSION" == "admin" ]]; then
-            echo "has_write=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::$ACTOR has $PERMISSION permission."
-          else
-            echo "has_write=false" >> "$GITHUB_OUTPUT"
-            echo "::warning::$ACTOR has insufficient permission: $PERMISSION"
-          fi
-
-      - name: Exit if insufficient permission
-        if: steps.check_permission.outputs.has_write == 'false'
-        run: |
-          echo "Security check failed: actor does not have write permission."
-          exit 1
-
-      # ---------------------------------------------------------------
-      # 2. 准备环境
-      # ---------------------------------------------------------------
-      - name: Checkout repository
+      # ------------------------------------------------------------------
+      # 0. Checkout agent-skills（用于读取白名单和 Skill 文件）
+      # ------------------------------------------------------------------
+      - name: Checkout agent-skills
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          path: agent-skills
 
-      - name: Set up Node.js
+      # ------------------------------------------------------------------
+      # 1. 白名单校验
+      # ------------------------------------------------------------------
+      - name: Check caller whitelist
+        env:
+          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, sys
+          caller_repo = os.environ['CALLER_REPO']
+          caller_org  = caller_repo.split('/')[0]
+          with open('agent-skills/.github/allowed-callers.json') as f:
+              config = json.load(f)
+          if caller_org in config.get('allowed_orgs', []) or caller_repo in config.get('allowed_repos', []):
+              print(f'Caller {caller_repo} is whitelisted')
+          else:
+              print(f'::error::Caller {caller_repo} is not in the whitelist. '
+                    f'Update .github/allowed-callers.json to grant access.')
+              sys.exit(1)
+          PYEOF
+
+      # ------------------------------------------------------------------
+      # 2. 检查触发者在调用方仓库的权限（需要 write/admin/maintain）
+      # ------------------------------------------------------------------
+      - name: Check user permission
+        env:
+          GH_TOKEN: ${{ secrets.AGENT_PAT }}
+          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
+          ACTOR: ${{ github.event.client_payload.comment_author }}
+        run: |
+          PERMISSION=$(curl -sf \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/$CALLER_REPO/collaborators/$ACTOR/permission" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin).get('permission','none'))")
+
+          if [[ "$PERMISSION" == "write" || "$PERMISSION" == "admin" || "$PERMISSION" == "maintain" ]]; then
+            echo "::notice::$ACTOR has $PERMISSION permission on $CALLER_REPO"
+          else
+            echo "::error::$ACTOR has insufficient permission ($PERMISSION) on $CALLER_REPO"
+            exit 1
+          fi
+
+      # ------------------------------------------------------------------
+      # 3. Checkout 调用方仓库
+      # ------------------------------------------------------------------
+      - name: Checkout caller repo
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.client_payload.caller_repo }}
+          token: ${{ secrets.AGENT_PAT }}
+          path: caller-repo
+          fetch-depth: 0
+
+      # ------------------------------------------------------------------
+      # 4. 安装 Claude Code CLI
+      # ------------------------------------------------------------------
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
 
-      # ---------------------------------------------------------------
-      # 3. 安装 Claude Code CLI
-      # ---------------------------------------------------------------
       - name: Install Claude Code
         run: |
-          # 使用 npm 安装
           npm install -g @anthropic-ai/claude-code
-          
-          # 验证安装
           claude --version
 
-      # ---------------------------------------------------------------
-      # 4. 运行 setup_script
-      # ---------------------------------------------------------------
-      - name: Run setup script
-        if: inputs.setup_script != ''
-        run: |
-          echo "Running custom setup script..."
-          eval "${{ inputs.setup_script }}"
-
-      # ---------------------------------------------------------------
-      # 5. 构建 prompt
-      # ---------------------------------------------------------------
-      - name: Build prompt
-        id: build_prompt
+      # ------------------------------------------------------------------
+      # 5. 拉取 PR Diff（如果是 PR 评论）
+      # ------------------------------------------------------------------
+      - name: Fetch PR diff
+        if: github.event.client_payload.pr_number != ''
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-          EVENT_NAME: ${{ github.event_name }}
-          ISSUE_NUMBER: ${{ github.event.issue.number || github.event.pull_request.number }}
-          ISSUE_TITLE: ${{ github.event.issue.title || github.event.pull_request.title }}
-          ISSUE_BODY: ${{ github.event.issue.body || github.event.pull_request.body }}
-          COMMENT_BODY: ${{ github.event.comment.body }}
-          COMMENT_AUTHOR: ${{ github.event.comment.user.login }}
-          ADDITIONAL_ARGS: ${{ inputs.additional_claude_args }}
+          GH_TOKEN: ${{ secrets.AGENT_PAT }}
+          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
+          PR_NUMBER: ${{ github.event.client_payload.pr_number }}
+        run: |
+          curl -sf \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3.diff" \
+            "https://api.github.com/repos/$CALLER_REPO/pulls/$PR_NUMBER" \
+            -o /tmp/pr.diff \
+          || touch /tmp/pr.diff
+          echo "PR diff: $(wc -c < /tmp/pr.diff) bytes"
+
+      # ------------------------------------------------------------------
+      # 6. 构建 prompt
+      # ------------------------------------------------------------------
+      - name: Build prompt
+        env:
+          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
+          PR_NUMBER: ${{ github.event.client_payload.pr_number }}
+          COMMENT_BODY: ${{ github.event.client_payload.comment_body }}
+          COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author }}
+          SKILL_NAME: ${{ github.event.client_payload.skill_name }}
+          ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
         run: |
           python3 - <<'PYEOF'
-          import os, json
+          import os
 
-          event_name = os.environ.get("EVENT_NAME", "")
-          issue_number = os.environ.get("ISSUE_NUMBER", "")
-          issue_title = os.environ.get("ISSUE_TITLE", "")
-          issue_body = os.environ.get("ISSUE_BODY", "") or ""
-          comment_body = os.environ.get("COMMENT_BODY", "") or ""
-          comment_author = os.environ.get("COMMENT_AUTHOR", "")
-          additional_args = os.environ.get("ADDITIONAL_ARGS", "") or ""
-          repo = os.environ.get("REPO", "")
+          caller_repo       = os.environ.get('CALLER_REPO', '')
+          pr_number         = os.environ.get('PR_NUMBER', '') or ''
+          comment_body      = os.environ.get('COMMENT_BODY', '') or ''
+          comment_author    = os.environ.get('COMMENT_AUTHOR', '')
+          skill_name        = os.environ.get('SKILL_NAME', '') or ''
+          allow_code_change = os.environ.get('ALLOW_CODE_CHANGE', 'false').lower() == 'true'
 
-          parts = []
-          if issue_title:
-              parts.append(f"## Issue/PR #{issue_number}: {issue_title}")
-          if issue_body.strip():
-              parts.append(f"### Description\n{issue_body.strip()}")
+          # 加载 Skill 指令
+          skill_prompt = ''
+          if skill_name:
+              skill_path = f'agent-skills/skills/{skill_name}/SKILL.md'
+              try:
+                  skill_prompt = open(skill_path).read()
+              except FileNotFoundError:
+                  print(f'Warning: skill not found: {skill_path}')
+
+          parts = [f'You are a code assistant for repository **{caller_repo}**.']
+
+          if skill_prompt:
+              parts.append(f'## Skill Instructions\n\n{skill_prompt}')
+
+          if pr_number:
+              parts.append(f'You are reviewing **PR #{pr_number}** in {caller_repo}.')
+              try:
+                  diff = open('/tmp/pr.diff').read().strip()
+                  if diff:
+                      if len(diff) > 100_000:
+                          diff = diff[:100_000] + '\n\n[diff truncated at 100KB]'
+                      parts.append(f'## PR Diff\n\n```diff\n{diff}\n```')
+              except FileNotFoundError:
+                  pass
+
           if comment_body.strip():
-              parts.append(f"### Comment by @{comment_author}\n{comment_body.strip()}")
-          if additional_args.strip():
-              parts.append(f"### Additional context\n{additional_args.strip()}")
+              parts.append(f'## Request from @{comment_author}\n\n{comment_body.strip()}')
 
-          prompt = "\n\n".join(parts)
+          if allow_code_change:
+              parts.append(
+                  'The repository is checked out in the current working directory.\n'
+                  'You are allowed to **edit files** to fix issues.\n'
+                  'After making changes, summarize what you changed and why.'
+              )
+          else:
+              parts.append(
+                  'The repository is checked out in the current working directory.\n'
+                  'Provide a detailed code review with specific, actionable suggestions.\n'
+                  'Do NOT modify any files.'
+              )
 
-          env_file = os.environ.get("GITHUB_ENV", "")
-          if env_file:
-              with open(env_file, "a") as f:
-                  f.write("CLAUDE_PROMPT<<PROMPT_EOF\n")
-                  f.write(prompt + "\n")
-                  f.write("PROMPT_EOF\n")
+          prompt = '\n\n'.join(parts)
 
-          print(f"Prompt length: {len(prompt)} chars")
+          with open(os.environ['GITHUB_ENV'], 'a') as f:
+              f.write('CLAUDE_PROMPT<<PROMPT_EOF\n' + prompt + '\nPROMPT_EOF\n')
+
+          print(f'Prompt ready: {len(prompt)} chars')
           PYEOF
 
-      # ---------------------------------------------------------------
-      # 6. 调用 Claude Code CLI
-      # ---------------------------------------------------------------
+      # ------------------------------------------------------------------
+      # 7. 调用 Claude Code
+      # ------------------------------------------------------------------
       - name: Invoke Claude Code
         id: claude_run
         env:
-          ANTHROPIC_API_KEY: ${{ inputs.claude_api_key }}
-          MODEL: ${{ inputs.model }}
-          ALLOW_CODE_CHANGE: ${{ inputs.allow_code_change }}
+          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          MODEL: ${{ github.event.client_payload.model || 'claude-sonnet-4-20250514' }}
+          ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
+        working-directory: caller-repo
         run: |
-          # 检查 API Key
           if [[ -z "$ANTHROPIC_API_KEY" ]]; then
-            echo "::error::ANTHROPIC_API_KEY is not set"
+            echo "::error::CLAUDE_API_KEY is not configured in the agent-skills repository secrets"
             exit 1
           fi
-          
-          # 构建 prompt
-          PROMPT="${CLAUDE_PROMPT:-}"
-          if [[ -z "$PROMPT" ]]; then
-            # 如果没有从前面步骤获取到 prompt，使用默认内容
-            PROMPT="Please respond with 'Hello from Claude Code!'"
+
+          if [[ "$ALLOW_CODE_CHANGE" == "true" ]]; then
+            TOOLS="Read,Edit,Write,Glob,Grep,Bash"
+          else
+            TOOLS="Read,Glob,Grep,Bash"
           fi
-          
-          # 使用 claude -p 模式（管道模式，非交互）
-          echo "Running Claude with model: $MODEL"
-          echo "Allow code change: $ALLOW_CODE_CHANGE"
-          echo "Prompt: $PROMPT"
-          
-          # 设置环境变量供 claude 使用
-          export ANTHROPIC_API_KEY
-          
-          # 运行 Claude
-          claude -p "$PROMPT" --model $MODEL || true
-          
-          # 检查是否有文件变更
+
+          CLAUDE_OUTPUT=$(claude -p "$CLAUDE_PROMPT" \
+            --model "$MODEL" \
+            --allowedTools "$TOOLS" \
+            2>/tmp/claude_stderr.txt)
+          EXIT_CODE=$?
+
+          echo "$CLAUDE_OUTPUT" > /tmp/claude_output.txt
+          echo "$CLAUDE_OUTPUT"
+
           if git status --porcelain | grep -q .; then
             echo "code_changed=true" >> "$GITHUB_OUTPUT"
-            echo "::notice::Claude made some file changes"
           else
             echo "code_changed=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # ---------------------------------------------------------------
-      # 7. 自动提交代码变更（如果允许）
-      # ---------------------------------------------------------------
-      - name: Commit and push changes
-        if: inputs.allow_code_change == true && steps.claude_run.outputs.code_changed == 'true'
+          exit $EXIT_CODE
+
+      # ------------------------------------------------------------------
+      # 8. 新建分支 + 提交 + 开 PR（仅当 Claude 修改了代码时）
+      # ------------------------------------------------------------------
+      - name: Create PR with Claude's changes
+        if: steps.claude_run.outputs.code_changed == 'true' && github.event.client_payload.allow_code_change == 'true'
+        id: create_pr
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.AGENT_PAT }}
+          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+        working-directory: caller-repo
         run: |
-          # 配置 git
-          git config --global user.name "Claude Code Bot"
-          git config --global user.email "claude-bot@users.noreply.github.com"
-          
-          # 添加所有变更
+          git config user.name "Claude Code Bot"
+          git config user.email "claude-bot@users.noreply.github.com"
+
+          BRANCH="claude-fix-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH"
           git add -A
-          
-          # 检查是否有变更需要提交
-          if git diff --cached --quiet; then
-            echo "No changes to commit"
-            exit 0
-          fi
-          
-          # 提交
-          git commit -m "AI: Code changes by Claude Code"
-          
-          # 推送
-          git push
+          git commit -m "fix: code improvements by Claude Code Bot"
+          git push "https://x-access-token:${GH_TOKEN}@github.com/${CALLER_REPO}.git" "$BRANCH"
 
-      # ---------------------------------------------------------------
-      # 8. 获取 Claude 输出并发布评论
-      # ---------------------------------------------------------------
-      - name: Get Claude output
-        id: get_output
+          DEFAULT_BRANCH=$(curl -sf \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            "https://api.github.com/repos/$CALLER_REPO" \
+            | python3 -c "import sys,json; print(json.load(sys.stdin).get('default_branch','main'))")
+
+          export PR_BRANCH="$BRANCH"
+          export PR_BASE="$DEFAULT_BRANCH"
+          export PR_ISSUE="$ISSUE_NUMBER"
+
+          PR_URL=$(python3 - <<'PYEOF'
+          import json, os, subprocess
+          payload = json.dumps({
+            'title': 'fix: Claude Code suggested improvements',
+            'body': (
+              'Automatically generated by Claude Code Bot.\n\n'
+              f'Related to #{os.environ["PR_ISSUE"]}'
+            ),
+            'head': os.environ['PR_BRANCH'],
+            'base': os.environ['PR_BASE'],
+          })
+          r = subprocess.run([
+            'curl', '-sf', '-X', 'POST',
+            '-H', f'Authorization: Bearer {os.environ["GH_TOKEN"]}',
+            '-H', 'Accept: application/vnd.github+json',
+            f'https://api.github.com/repos/{os.environ["CALLER_REPO"]}/pulls',
+            '-d', payload,
+          ], capture_output=True, text=True)
+          data = json.loads(r.stdout)
+          print(data.get('html_url', ''))
+          PYEOF
+          )
+
+          echo "pr_url=$PR_URL" >> "$GITHUB_OUTPUT"
+          echo "::notice::PR created: $PR_URL"
+
+      # ------------------------------------------------------------------
+      # 9. 将 Claude 的回复发布为评论
+      # ------------------------------------------------------------------
+      - name: Post comment
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.AGENT_PAT }}
+          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
+          ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
+          PR_URL: ${{ steps.create_pr.outputs.pr_url }}
         run: |
-          # 尝试从日志中提取 Claude 的输出
-          # 由于 CLI 输出在日志中，这里记录触发信息
-          echo " Claude execution completed" >> "$GITHUB_STEP_SUMMARY"
-          echo "::notice::Claude Code execution completed"
+          python3 - <<'PYEOF'
+          import json, os, subprocess
 
-      # ---------------------------------------------------------------
-      # 9. Token 用量报告
-      # ---------------------------------------------------------------
-      - name: Report execution status
+          try:
+              output = open('/tmp/claude_output.txt').read().strip()
+          except FileNotFoundError:
+              output = ''
+
+          if not output:
+              output = '_Claude returned an empty response._'
+
+          pr_url = os.environ.get('PR_URL', '')
+
+          body = f'## Claude Code Analysis\n\n{output}'
+          if pr_url:
+              body += f'\n\n---\nI made code changes and opened a PR: {pr_url}'
+
+          comment = json.dumps({'body': body})
+          repo  = os.environ['CALLER_REPO']
+          issue = os.environ['ISSUE_NUMBER']
+          token = os.environ['GH_TOKEN']
+
+          r = subprocess.run([
+            'curl', '-sf', '-X', 'POST',
+            '-H', f'Authorization: Bearer {token}',
+            '-H', 'Accept: application/vnd.github+json',
+            f'https://api.github.com/repos/{repo}/issues/{issue}/comments',
+            '-d', comment,
+          ], capture_output=True, text=True)
+
+          if r.returncode == 0:
+              print('Comment posted successfully')
+          else:
+              print(f'::warning::Failed to post comment: {r.stderr}')
+          PYEOF
+
+      # ------------------------------------------------------------------
+      # 10. Job 执行摘要
+      # ------------------------------------------------------------------
+      - name: Write job summary
         if: always()
         run: |
-          echo "### Claude Code Execution" >> "$GITHUB_STEP_SUMMARY"
+          echo "### Claude Code Run Summary" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Status | " >> "$GITHUB_STEP_SUMMARY"
-          echo "|--------|" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Model | \`${{ inputs.model }}\` |" >> "$GITHUB_STEP_SUMMARY"
-          echo "| Code changes | ${{ steps.claude_run.outputs.code_changed }} |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|-------|-------|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Caller repo | \`${{ github.event.client_payload.caller_repo }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Triggered by | \`${{ github.event.client_payload.comment_author }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| PR | \`${{ github.event.client_payload.pr_number || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Model | \`${{ github.event.client_payload.model || 'claude-sonnet-4-20250514' }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Code changed | \`${{ steps.claude_run.outputs.code_changed }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| New PR | \`${{ steps.create_pr.outputs.pr_url || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
