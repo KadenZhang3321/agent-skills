@@ -204,14 +204,39 @@ jobs:
             TOOLS="Read,Glob,Grep,Bash"
           fi
 
-          CLAUDE_OUTPUT=$(claude -p "$CLAUDE_PROMPT" \
+          claude -p "$CLAUDE_PROMPT" \
             --model "$MODEL" \
             --allowedTools "$TOOLS" \
-            2>/tmp/claude_stderr.txt)
+            --output-format json \
+            2>/tmp/claude_stderr.txt \
+            > /tmp/claude_raw.json
           EXIT_CODE=$?
 
-          echo "$CLAUDE_OUTPUT" > /tmp/claude_output.txt
-          echo "$CLAUDE_OUTPUT"
+          python3 - <<'PYEOF'
+          import json, os
+
+          try:
+              data = json.loads(open('/tmp/claude_raw.json').read())
+              result        = data.get('result', '')
+              cost          = data.get('cost_usd', data.get('total_cost_usd', 0)) or 0
+              usage         = data.get('usage', {})
+              input_tokens  = usage.get('input_tokens', 'N/A')
+              output_tokens = usage.get('output_tokens', 'N/A')
+          except Exception as e:
+              print(f'Warning: could not parse JSON output: {e}')
+              result        = open('/tmp/claude_raw.json').read()
+              cost          = 'N/A'
+              input_tokens  = 'N/A'
+              output_tokens = 'N/A'
+
+          open('/tmp/claude_output.txt', 'w').write(result)
+          print(result[:1000])
+
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as f:
+              f.write(f'cost_usd={cost}\n')
+              f.write(f'input_tokens={input_tokens}\n')
+              f.write(f'output_tokens={output_tokens}\n')
+          PYEOF
 
           if git status --porcelain | grep -q .; then
             echo "code_changed=true" >> "$GITHUB_OUTPUT"
@@ -340,3 +365,6 @@ jobs:
           echo "| Model | \`${{ github.event.client_payload.model || 'claude-sonnet-4-20250514' }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Code changed | \`${{ steps.claude_run.outputs.code_changed }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| New PR | \`${{ steps.create_pr.outputs.pr_url || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Input tokens | \`${{ steps.claude_run.outputs.input_tokens }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Output tokens | \`${{ steps.claude_run.outputs.output_tokens }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Cost (USD) | \`${{ steps.claude_run.outputs.cost_usd }}\` |" >> "$GITHUB_STEP_SUMMARY"
