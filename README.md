@@ -277,6 +277,10 @@ A: Claude Code 的配置文件通常在：
 - 全局配置：`~/.claude/config.json`
 - 项目配置：`<project-root>/.claude/config.json`
 
+## 🤖 Claude Bot 集成指南
+
+如何将 Claude Bot 集成到组织下的任意仓库，请参阅：[`.github/workflows/README.md`](.github/workflows/README.md)
+
 ## 📞 联系方式
 
 如有问题或建议，请：
@@ -291,4 +295,4 @@ A: Claude Code 的配置文件通常在：
 ---
 
 **维护者**: [添加维护者信息]
-**最后更新**: 2026-02-03
+**最后更新**: 2026-03-28

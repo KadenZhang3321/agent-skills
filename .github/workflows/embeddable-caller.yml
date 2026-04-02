@@ -1,0 +1,24 @@
+# embeddable-caller.yml
+#
+# 可嵌入的 Claude Code 调用代码片段
+# 复制到任意工作流的 jobs 下即可使用
+#
+# 注意：可复用工作流中已硬编码白名单，只有授权仓库可以调用。
+
+  claude-code:
+    uses: opensourceways/agent-skills/.github/workflows/_claude-code.yml@main
+    with:
+      # API Key - 使用调用方仓库的 secret
+      claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
+      
+      # 模型配置
+      model: 'claude-sonnet-4-20250514'
+      timeout_minutes: 60
+      
+      # 可选配置
+      # setup_script: 'pip install pytest'
+      # additional_claude_args: '--skill my-custom-skill'
+      # allow_code_change: true
+      
+      # 组织检查（留空则跳过）
+      # org_name: ''

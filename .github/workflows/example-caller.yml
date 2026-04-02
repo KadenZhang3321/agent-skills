@@ -1,0 +1,47 @@
+# example-caller.yml
+#
+# 调用方示例文件 —— 可直接复制到目标仓库的 .github/workflows/ 目录使用。
+# 支持 @claude 触发和自动触发（新建 Issue 时）
+#
+# 注意：可复用工作流中已硬编码白名单，只有授权仓库才能调用。
+# 使用前确认你的仓库已在白名单中。
+
+name: Claude Bot
+
+on:
+  # Issue/PR 评论时触发（需在评论中 @claude）
+  issue_comment:
+    types: [created]
+
+  # 新建 Issue 时自动触发
+  issues:
+    types: [opened]
+
+  # 其他工作流调用时触发
+  workflow_call:
+
+# 工作流级别权限声明（调用方负责声明）
+# 如果 allow_code_change: true，需要 contents: write
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  claude-code:
+    uses: opensourceways/agent-skills/.github/workflows/_claude-code.yml@main
+    with:
+      # API Key - 使用调用方仓库的 secret
+      claude_api_key: ${{ secrets.CLAUDE_API_KEY }}
+      
+      # ---- 模型配置 ----
+      model: 'claude-sonnet-4-20250514'
+      timeout_minutes: 60
+
+      # ---- 安全检查 ----
+      org_name: ''
+
+      # ---- 可选配置 ----
+      # allow_code_change: false  # 是否允许 CC 修改代码（默认 false）
+      # setup_script: ''          # 初始化脚本
+      # additional_claude_args: ''  # 传给 CC 的额外参数（如 --skill my-skill）
