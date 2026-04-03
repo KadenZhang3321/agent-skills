@@ -16,6 +16,9 @@ jobs:
     name: Handle Claude Request
     runs-on: ubuntu-latest
     timeout-minutes: 60
+    container:
+      image: ${{ github.event.client_payload.caller_image || 'ubuntu:latest' }}
+      options: --user root
 
     steps:
       # ------------------------------------------------------------------
@@ -81,9 +84,10 @@ jobs:
           fetch-depth: 0
 
       # ------------------------------------------------------------------
-      # 4. 安装 Claude Code CLI
+      # 4. 安装 Claude Code CLI（如果容器内没有 Node.js）
       # ------------------------------------------------------------------
       - name: Setup Node.js
+        if: github.event.client_payload.caller_image == ''
         uses: actions/setup-node@v4
         with:
           node-version: '20'
@@ -256,10 +260,21 @@ jobs:
           exit $EXIT_CODE
 
       # ------------------------------------------------------------------
-      # 8. 直接提交到当前 PR 分支（仅当 Claude 修改了代码时）
+      # 8. 执行验证命令（仅当 verify_command 不为空时）
+      # ------------------------------------------------------------------
+      - name: Run verify command
+        if: github.event.client_payload.verify_command != ''
+        id: verify
+        working-directory: caller-repo
+        run: |
+          ${{ github.event.client_payload.verify_command }}
+        timeout-minutes: 30
+
+      # ------------------------------------------------------------------
+      # 9. 直接提交到当前 PR 分支（仅当 Claude 修改了代码时）
       # ------------------------------------------------------------------
       - name: Commit Claude's changes to PR branch
-        if: steps.claude_run.outputs.code_changed == 'true' && github.event.client_payload.allow_code_change == 'true'
+        if: steps.claude_run.outputs.code_changed == 'true' && github.event.client_payload.allow_code_change == 'true' && (github.event.client_payload.verify_command == '' || steps.verify.conclusion == 'success')
         id: create_pr
         env:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
@@ -348,6 +363,9 @@ jobs:
           echo "| PR | \`${{ github.event.client_payload.pr_number || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Model | \`${{ github.event.client_payload.model || 'claude-sonnet-4-20250514' }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Code changed | \`${{ steps.claude_run.outputs.code_changed }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Caller image | \`${{ github.event.client_payload.caller_image || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Verify command | \`${{ github.event.client_payload.verify_command || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Verify result | \`${{ steps.verify.outcome || 'skipped' }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| New PR | \`${{ steps.create_pr.outputs.pr_url || 'N/A' }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Input tokens | \`${{ steps.claude_run.outputs.input_tokens }}\` |" >> "$GITHUB_STEP_SUMMARY"
           echo "| Output tokens | \`${{ steps.claude_run.outputs.output_tokens }}\` |" >> "$GITHUB_STEP_SUMMARY"

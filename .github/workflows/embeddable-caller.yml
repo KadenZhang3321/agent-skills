@@ -71,6 +71,14 @@ jobs:
             #   'claude-opus-4-20251114'    （最强，较慢）
             #   'claude-haiku-4-5-20251001' （最快，轻量任务）
             'model':             'claude-sonnet-4-20250514',
+
+            # 调用方提供的镜像（可选，不传则使用 ubuntu-latest）
+            # 镜像需要预装 Node.js、Git、依赖已安装
+            'caller_image':      '',
+
+            # 验证命令（可选，不传则不验证）
+            # 验证失败则 job 失败，不 push 代码
+            'verify_command':    '',
           }
 
           dispatch_body = json.dumps({

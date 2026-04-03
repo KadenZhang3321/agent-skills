@@ -54,6 +54,30 @@ curl -sSL https://raw.githubusercontent.com/opensourceways/agent-skills/main/.gi
 | `allow_code_change` | `'false'` | `'true'` 允许 Claude 修改文件并直接 commit 到当前 PR 分支；`'false'` 只分析 |
 | `skill_name` | `''` | 指定 Skill 路径（见下方说明），留空不使用 |
 | `model` | `'claude-sonnet-4-20250514'` | Claude 模型名称 |
+| `caller_image` | `''` | 调用方提供的镜像（仅工作流自动触发使用），留空使用 `ubuntu-latest` |
+| `verify_command` | `''` | 验证命令（仅工作流自动触发使用），验证失败则不 push 代码 |
+
+### caller_image 示例（仅工作流自动触发）
+
+```yaml
+# 调用方提供的镜像，镜像需要预装 Node.js、Git、依赖已安装
+'caller_image': 'ghcr.io/caller/project:main',
+
+# 使用 ubuntu-latest（默认）
+'caller_image': '',
+```
+
+### verify_command 示例（仅工作流自动触发）
+
+```yaml
+# 验证命令，验证失败则 job 失败，不 push 代码
+'verify_command': 'npm run build && npm test',
+
+# 不验证（默认）
+'verify_command': '',
+```
+
+> 注意：`caller_image` 和 `verify_command` 仅在 **工作流自动触发**（embeddable-caller.yml）时使用，手动 `@claude` 触发时不传这两个参数。
 
 ### allow_code_change 示例
 
@@ -130,18 +154,24 @@ agent-skills 内置 Skill 列表见 [skills/](../../skills/)。
 
 ```
 调用方仓库                         agent-skills
-──────────────────                 ────────────────────────────────
+─────────────────                 ────────────────────────────────
 @claude 评论触发
   └─ example-caller.yml
        └─ 发送 repository_dispatch ──→ _claude-code.yml
-                                         1. 白名单校验
-                                         2. 用户权限校验
-                                         3. Checkout 调用方仓库
-                                         4. 拉取 PR Diff
-                                         5. 构建 Prompt（含 Skill）
-                                         6. 调用 Claude（使用集中的 API Key）
-                                         7. 有代码变更 → 在原PR上新提交commit
-                                         8. 在原 PR/Issue 发布评论
+                                          1. 白名单校验
+                                          2. 用户权限校验
+                                          3. 使用 caller_image 创建容器（如未传则用 ubuntu-latest）
+                                          4. 安装 Claude Code
+                                          5. Checkout 调用方仓库
+                                          6. 拉取 PR Diff
+                                          7. 构建 Prompt（含 Skill）
+                                          8. 调用 Claude（使用集中的 API Key）
+                                          9. verify_command 不为空？
+                                             ├─ 否 → 直接 push
+                                             └─ 是 → 执行验证命令
+                                                    ├─ 成功 → push
+                                                    └─ 失败 → 不 push
+                                          10. 在原 PR/Issue 发布评论
 ```
 
 ---
