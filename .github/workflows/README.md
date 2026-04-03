@@ -21,7 +21,7 @@ API Key 集中存储在 `KadenZhang3321/agent-skills`，调用方无需配置。
 
 ```bash
 mkdir -p .github/workflows
-curl -sSL https://raw.githubusercontent.com/KadenZhang3321/agent-skills/main/.github/workflows/example-caller.yml \
+curl -sSL https://raw.githubusercontent.com/opensourceways/agent-skills/main/.github/workflows/example-caller.yml \
   -o .github/workflows/claude-bot.yml
 git add .github/workflows/claude-bot.yml
 git commit -m "ci: add Claude Bot workflow"
@@ -37,7 +37,7 @@ git push
 复制 [embeddable-caller.yml](./embeddable-caller.yml) 到目标仓库：
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/KadenZhang3321/agent-skills/main/.github/workflows/embeddable-caller.yml \
+curl -sSL https://raw.githubusercontent.com/opensourceways/agent-skills/main/.github/workflows/embeddable-caller.yml \
   -o .github/workflows/claude-auto.yml
 ```
 
@@ -140,7 +140,7 @@ agent-skills 内置 Skill 列表见 [skills/](../../skills/)。
                                          4. 拉取 PR Diff
                                          5. 构建 Prompt（含 Skill）
                                          6. 调用 Claude（使用集中的 API Key）
-                                         7. 有代码变更 → 新建分支 + 开 PR
+                                         7. 有代码变更 → 在原PR上新提交commit
                                          8. 在原 PR/Issue 发布评论
 ```
 
