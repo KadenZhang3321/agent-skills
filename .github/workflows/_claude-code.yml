@@ -151,7 +151,7 @@ jobs:
               if not skill_prompt:
                   print(f'Warning: skill "{skill_name}" not found in caller-repo/.github/skills/ or agent-skills/skills/')
 
-          parts = [f'You are a code assistant for repository **{caller_repo}**.']
+          parts = [f'You are a code assistant for repository **{caller_repo}**. Always respond in the same language as the user\'s request. If the user writes in Chinese, respond in Chinese.']
 
           if skill_prompt:
               parts.append(f'## Skill Instructions\n\n{skill_prompt}')
