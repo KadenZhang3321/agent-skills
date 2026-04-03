@@ -1,128 +1,172 @@
 # Claude Code 工作流集成指南
 
-本节介绍如何在任意仓库中集成 Claude Code 工作流，支持通过 `@claude` 触发或在其他工作流中直接调用。
+在任意仓库中集成 Claude Code，通过 `@claude` 触发代码审查，或在 CI 中自动分析 PR。
+API Key 集中存储在 `KadenZhang3321/agent-skills`，调用方无需配置。
 
-## 概述
+## 前置条件（每个调用方仓库做一次）
 
-可复用工作流（`_claude-code.yml`）提供：
-- Claude Code CLI 调用（可读取 skill 和修改代码）
-- 白名单检查（组织和仓库）
-- 安全检查（组织成员 + 仓库写权限）
-- 自动提交代码变更（可选）
+1. 向 agent-skills 管理员申请一个 PAT（`repo` scope）
+2. 在调用方仓库添加 Secret：  
+   **Settings → Secrets and variables → Actions → New repository secret**  
+   - Name: `DISPATCH_TOKEN`  
+   - Value: 申请到的 PAT
+
+---
 
 ## 快速开始
 
-### 方式一：在其他工作流中嵌入调用（推荐）
+### 方式一：手动触发（`@claude` 评论）
 
-将以下代码嵌入到你的工作流中：
-
-```yaml
-jobs:
-  claude-code:
-    uses: opensourceways/agent-skills/.github/workflows/_claude-code.yml@main
-    secrets: inherit
-    with:
-      allowed_orgs: 'opensourceways'
-      model: 'claude-sonnet-4-20250514'
-```
-
-完整参数说明见 [embeddable-caller.yml](./embeddable-caller.yml)。
-
-### 方式二：复制示例工作流
-
-将 [example-caller.yml](./example-caller.yml) 复制到目标仓库：
+复制 [example-caller.yml](./example-caller.yml) 到目标仓库：
 
 ```bash
 mkdir -p .github/workflows
-curl -sSL https://raw.githubusercontent.com/opensourceways/agent-skills/main/.github/workflows/example-caller.yml \
+curl -sSL https://raw.githubusercontent.com/KadenZhang3321/agent-skills/main/.github/workflows/example-caller.yml \
   -o .github/workflows/claude-bot.yml
 git add .github/workflows/claude-bot.yml
-git commit -m "ci: add Claude Code workflow"
+git commit -m "ci: add Claude Bot workflow"
 git push
 ```
 
-## 触发方式
+使用：在任意 PR 或 Issue 评论区输入 `@claude <你的问题>`，Claude 会自动回复。
 
-| 触发方式 | 说明 |
-|---------|------|
-| `@claude` 提及 | 在 Issue/PR 评论中包含 `@claude` 时触发 |
-| 新建 Issue | 创建新 Issue 时自动触发（无需 @claude） |
-| `workflow_call` | 在其他工作流中调用时触发 |
+---
+
+### 方式二：PR 自动触发
+
+复制 [embeddable-caller.yml](./embeddable-caller.yml) 到目标仓库：
+
+```bash
+curl -sSL https://raw.githubusercontent.com/KadenZhang3321/agent-skills/main/.github/workflows/embeddable-caller.yml \
+  -o .github/workflows/claude-auto.yml
+```
+
+使用：每次 PR 开启或更新时，Claude 自动分析代码并发评论。
+
+---
 
 ## 参数说明
 
-| 参数 | 必填 | 默认值 | 说明 |
-|------|------|--------|------|
-| `allowed_orgs` | 否 | opensourceways | 白名单组织（逗号分隔） |
-| `allowed_repos` | 否 | - | 白名单仓库（逗号分隔，如 org/repo1,org/repo2） |
-| `model` | 否 | claude-sonnet-4-20250514 | Claude 模型名称 |
-| `timeout_minutes` | 否 | 60 | 超时时间（分钟） |
-| `org_name` | 否 | - | 组织成员检查（留空则跳过） |
-| `allow_code_change` | 否 | false | 是否允许 Claude 修改代码 |
-| `setup_script` | 否 | - | 初始化脚本（shell 命令） |
-| `additional_claude_args` | 否 | - | 传给 Claude 的额外参数 |
+在 caller 文件的 `payload` 中配置以下参数：
 
-### 使用 Skill
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| `allow_code_change` | `'false'` | `'true'` 允许 Claude 修改文件并直接 commit 到当前 PR 分支；`'false'` 只分析 |
+| `skill_name` | `''` | 指定 Skill 路径（见下方说明），留空不使用 |
+| `model` | `'claude-sonnet-4-20250514'` | Claude 模型名称 |
 
-在调用方的仓库中创建 skill：
-
-```
-my-repo/
-├── .claude/
-│   └── skills/
-│       └── my-skill/
-│           └── SKILL.md
-```
-
-然后在 `additional_claude_args` 中指定：
+### allow_code_change 示例
 
 ```yaml
-additional_claude_args: '--skill my-skill'
+# 只审查，不改代码（推荐用于自动触发）
+'allow_code_change': 'false',
+
+# 允许改代码，直接 commit 到当前 PR 分支
+'allow_code_change': 'true',
 ```
 
-## 权限要求
+### skill_name 示例
 
-调用方需在 workflow 级别声明以下权限：
+Skill 按以下顺序查找，优先使用调用方仓库自己的：
+
+1. **调用方仓库**：`.github/skills/<skill_name>/SKILL.md`
+2. **agent-skills**：`skills/<skill_name>/SKILL.md`
 
 ```yaml
-permissions:
-  contents: read          # 读取代码
-  pull-requests: write   # 写入 PR 评论
-  issues: write          # 写入 Issue 评论
-  # 如果 allow_code_change: true，需要：
-  # contents: write      # 允许 Claude 修改并提交代码
+# 使用 agent-skills 内置 Skill
+'skill_name': 'infrastructure/github-action-diagnose',
+'skill_name': 'infrastructure/docker-image-pr-fix',
+'skill_name': 'upstream/vllm-ascend-releasing-note',
+
+# 使用调用方仓库自定义 Skill
+# 在调用方仓库创建 .github/skills/my-skill/SKILL.md，然后：
+'skill_name': 'my-skill',
+
+# 不使用 Skill
+'skill_name': '',
 ```
 
-## 安全检查
+agent-skills 内置 Skill 列表见 [skills/](../../skills/)。
 
-工作流内置以下安全检查：
+### model 示例
 
-1. **白名单检查** - 验证调用仓库在白名单中
-2. **组织成员检查** - 触发者必须是目标组织成员
-3. **仓库写权限检查** - 触发者需拥有 `write` 或 `admin` 权限
-4. **机器人过滤** - 自动跳过 `*[bot]` 和 `dependabot`
+```yaml
+# 默认（速度与能力均衡，推荐）
+'model': 'claude-sonnet-4-20250514',
 
-## API 密钥管理
+# 最强模型，适合复杂分析
+'model': 'claude-opus-4-20251114',
 
-`CLAUDE_API_KEY` 由 `opensourceways/agent-skills` 仓库统一管理，通过 `secrets: inherit` 传递给调用方。
+# 最快，适合轻量任务
+'model': 'claude-haiku-4-5-20251001',
+```
 
-调用方无需在自身仓库配置 secrets。
+---
+
+## 白名单管理
+
+允许访问的组织和仓库在 [../.github/allowed-callers.json](../allowed-callers.json) 中配置：
+
+```json
+{
+  "allowed_orgs": [
+    "opensourceways"
+  ],
+  "allowed_repos": [
+    "KadenZhang3321/agent-skills",
+    "KadenZhang3321/hello-world"
+  ]
+}
+```
+
+- `allowed_orgs`：整个组织下所有仓库都可以使用
+- `allowed_repos`：单独授权某个仓库（不在上述组织内也可以）
+
+新增仓库或组织，修改此文件并合并到 main 即可，无需其他改动。
+
+---
+
+## 工作原理
+
+```
+调用方仓库                         agent-skills
+──────────────────                 ────────────────────────────────
+@claude 评论触发
+  └─ example-caller.yml
+       └─ 发送 repository_dispatch ──→ _claude-code.yml
+                                         1. 白名单校验
+                                         2. 用户权限校验
+                                         3. Checkout 调用方仓库
+                                         4. 拉取 PR Diff
+                                         5. 构建 Prompt（含 Skill）
+                                         6. 调用 Claude（使用集中的 API Key）
+                                         7. 有代码变更 → 新建分支 + 开 PR
+                                         8. 在原 PR/Issue 发布评论
+```
+
+---
+
+## agent-skills 需配置的 Secrets
+
+| Secret | 用途 |
+|--------|------|
+| `CLAUDE_API_KEY` | Anthropic API Key，用于调用 Claude |
+| `AGENT_PAT` | PAT（`repo` scope），用于读写调用方仓库、发评论、创建 PR |
+
+---
 
 ## 故障排查
 
-**问题：工作流不触发**
-- 检查评论中是否包含 `@claude`（区分大小写）
-- 确认调用仓库在白名单中
-- 查看 Actions 页面的工作流运行日志
+**agent-skills Actions 没有触发**
+- 检查 `DISPATCH_TOKEN` 是否配置了 `repo` scope（`public_repo` 不够）
+- 确认 agent-skills 的 Actions 已开启
 
-**问题：白名单拒绝**
-- 检查 `allowed_orgs` 和 `allowed_repos` 配置
-- 确认仓库名称格式正确（如 `org/repo`）
+**白名单拒绝**
+- 在 `allowed-callers.json` 中添加对应的 org 或 repo
 
-**问题：`CLAUDE_API_KEY secret is not set`**
-- 确认调用方使用了 `secrets: inherit`
-- 检查 opensourceways/agent-skills 仓库的 secrets 配置
+**Claude 没有发评论**
+- 检查 `AGENT_PAT` 是否有目标仓库的写权限
+- 查看 agent-skills Actions 中该次 run 的 `Post comment` 步骤日志
 
-**问题：Claude 无法修改代码**
-- 确认 `allow_code_change: true`
-- 确认 workflow 声明了 `contents: write` 权限
+**Token/Cost 显示 N/A**
+- 检查 `CLAUDE_API_KEY` 是否正确配置
