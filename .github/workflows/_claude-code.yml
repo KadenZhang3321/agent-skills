@@ -21,9 +21,9 @@ jobs:
       options: --user root
 
     steps:
-      # 安装 Python3（容器可能没有预装）
-      - name: Install Python3
-        run: apt-get update && apt-get install -y python3 python3-pip curl git bash
+      # 安装 Python3 和 Java（容器可能没有预装）
+      - name: Install Python3 and Java
+        run: apt-get update && apt-get install -y python3 python3-pip curl git bash openjdk-17-jdk
         shell: bash
 
       # ------------------------------------------------------------------
