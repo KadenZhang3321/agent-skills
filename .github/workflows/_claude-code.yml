@@ -23,7 +23,8 @@ jobs:
     steps:
       # 安装 Python3（容器可能没有预装）
       - name: Install Python3
-        run: apt-get update && apt-get install -y python3 python3-pip curl git
+        run: apt-get update && apt-get install -y python3 python3-pip curl git bash
+        shell: bash
 
       # ------------------------------------------------------------------
       # 0. Checkout agent-skills（用于读取白名单和 Skill 文件）
@@ -40,6 +41,7 @@ jobs:
         env:
           CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
         run: |
+          shell: bash
           python3 - <<'PYEOF'
           import json, os, sys
           caller_repo = os.environ['CALLER_REPO']
@@ -63,6 +65,7 @@ jobs:
           CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
           ACTOR: ${{ github.event.client_payload.comment_author }}
         run: |
+          shell: bash
           PERMISSION=$(curl -sf \
             -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github+json" \
@@ -98,6 +101,7 @@ jobs:
 
       - name: Install Claude Code
         run: |
+          shell: bash
           npm install -g @anthropic-ai/claude-code
           claude --version
 
@@ -111,6 +115,7 @@ jobs:
           CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
           PR_NUMBER: ${{ github.event.client_payload.pr_number }}
         run: |
+          shell: bash
           curl -sf \
             -H "Authorization: Bearer $GH_TOKEN" \
             -H "Accept: application/vnd.github.v3.diff" \
@@ -131,6 +136,7 @@ jobs:
           SKILL_NAME: ${{ github.event.client_payload.skill_name }}
           ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
         run: |
+          shell: bash
           python3 - <<'PYEOF'
           import os
 
@@ -210,6 +216,7 @@ jobs:
           ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
         working-directory: caller-repo
         run: |
+          shell: bash
           if [[ -z "$ANTHROPIC_API_KEY" ]]; then
             echo "::error::CLAUDE_API_KEY is not configured in the agent-skills repository secrets"
             exit 1
@@ -271,6 +278,7 @@ jobs:
         id: verify
         working-directory: caller-repo
         run: |
+          shell: bash
           ${{ github.event.client_payload.verify_command }}
         timeout-minutes: 30
 
@@ -286,6 +294,7 @@ jobs:
           PR_NUMBER: ${{ github.event.client_payload.pr_number }}
         working-directory: caller-repo
         run: |
+          shell: bash
           git config user.name "Claude Code Bot"
           git config user.email "claude-bot@users.noreply.github.com"
 
@@ -316,6 +325,7 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
           PR_URL: ${{ steps.create_pr.outputs.pr_url }}
         run: |
+          shell: bash
           python3 - <<'PYEOF'
           import json, os, subprocess
 
@@ -358,6 +368,7 @@ jobs:
       - name: Write job summary
         if: always()
         run: |
+          shell: bash
           echo "### Claude Code Run Summary" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
           echo "| Field | Value |" >> "$GITHUB_STEP_SUMMARY"
