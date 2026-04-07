@@ -52,7 +52,8 @@ curl -sSL https://raw.githubusercontent.com/opensourceways/agent-skills/main/.gi
 | 参数 | 默认值 | 说明 |
 |------|--------|------|
 | `allow_code_change` | `'false'` | `'true'` 允许 Claude 修改文件并直接 commit 到当前 PR 分支；`'false'` 只分析 |
-| `skill_name` | `''` | 指定 Skill 路径（见下方说明），留空不使用 |
+| `skill_name` | `''` | 指定 Skill 名称（见下方说明），留空不使用 |
+| `skill_url` | `''` | 远程 Skill 文件的 raw URL，优先级高于 skill_name |
 | `model` | `'claude-sonnet-4-20250514'` | Claude 模型名称 |
 | `caller_image` | `''` | 调用方提供的镜像（仅工作流自动触发使用），留空使用 `ubuntu-latest` |
 | `verify_command` | `''` | 验证命令（仅工作流自动触发使用），验证失败则不 push 代码 |
@@ -91,19 +92,19 @@ curl -sSL https://raw.githubusercontent.com/opensourceways/agent-skills/main/.gi
 
 ### skill_name 示例
 
-Skill 按以下顺序查找，优先使用调用方仓库自己的：
+Skill 按以下顺序查找：
 
-1. **调用方仓库**：`.github/skills/<skill_name>/SKILL.md`
-2. **agent-skills**：`skills/<skill_name>/SKILL.md`
+1. **远程 URL**：如果指定了 `skill_url`，从 URL 下载（优先级最高）
+2. **调用方仓库（.github）**：`.github/skills/<skill_name>/SKILL.md`
+3. **调用方仓库（.ai）**：`.ai/skills/<skill_name>/SKILL.md`
+4. **agent-skills**：`skills/<skill_name>/SKILL.md`
 
 ```yaml
 # 使用 agent-skills 内置 Skill
 'skill_name': 'infrastructure/github-action-diagnose',
 'skill_name': 'infrastructure/docker-image-pr-fix',
-'skill_name': 'upstream/vllm-ascend-releasing-note',
 
-# 使用调用方仓库自定义 Skill
-# 在调用方仓库创建 .github/skills/my-skill/SKILL.md，然后：
+# 使用调用方仓库自定义 Skill（会按上述顺序查找）
 'skill_name': 'my-skill',
 
 # 不使用 Skill
@@ -111,6 +112,20 @@ Skill 按以下顺序查找，优先使用调用方仓库自己的：
 ```
 
 agent-skills 内置 Skill 列表见 [skills/](../../skills/)。
+
+### skill_url 示例
+
+使用远程仓库的 Skill 文件（优先于 skill_name）：
+
+```yaml
+# 使用远程 Skill（注意：URL 必须是 raw 内容链接）
+'skill_url': 'https://raw.githubusercontent.com/owner/repo/main/.ai/skills/my-skill/SKILL.md',
+
+# 远程 Skill 与 skill_name 同时存在时，优先使用 skill_url
+# 'skill_url': 'https://raw.githubusercontent.com/opensourceways/om-webserver/main/.ai/skills/architect-project-analysis/SKILL.md',
+```
+
+> 提示：GitHub raw URL 格式为 `https://raw.githubusercontent.com/<owner>/<repo>/<branch>/<path>`
 
 ### model 示例
 
