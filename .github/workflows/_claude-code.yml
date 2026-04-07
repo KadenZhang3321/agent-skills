@@ -186,7 +186,8 @@ jobs:
           if allow_code_change:
               parts.append(
                   'The repository is checked out in the current working directory.\n'
-                  'You are allowed to **edit files** to fix issues.\n'
+                  'You have FULL permission to **edit, create, and delete files** to fix issues or implement improvements.\n'
+                  'Please directly make the necessary code changes, then run verify_command to validate.\n'
                   'After making changes, summarize what you changed and why.'
               )
           else:
