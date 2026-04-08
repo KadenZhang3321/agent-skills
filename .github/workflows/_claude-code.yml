@@ -337,36 +337,27 @@ jobs:
         shell: bash
 
       # ------------------------------------------------------------------
-      # 9. 直接提交到当前 PR 分支（仅当 Claude 修改了代码时）
+      # 9. 生成 patch 文件并上传 artifact（仅当 Claude 修改了代码时）
+      #    不直接 commit/push，把改动发回给调用方处理
       # ------------------------------------------------------------------
-      - name: Commit Claude's changes to PR branch
+      - name: Create patch file
+        id: create_patch
         if: steps.claude_run.outputs.code_changed == 'true' && github.event.client_payload.allow_code_change == 'true' && (github.event.client_payload.verify_command == '' || steps.verify.conclusion == 'success')
-        id: create_pr
-        env:
-          GH_TOKEN: ${{ secrets.AGENT_PAT }}
-          CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
-          PR_NUMBER: ${{ github.event.client_payload.pr_number }}
         working-directory: caller-repo
         run: |
-          git config user.name "Claude Code Bot"
-          git config user.email "claude-bot@users.noreply.github.com"
+          git diff --no-color > /tmp/claude-changes.patch
+          PATCH_SIZE=$(wc -c < /tmp/claude-changes.patch)
+          echo "patch_size=$PATCH_SIZE" >> "$GITHUB_OUTPUT"
+          echo "patch_path=/tmp/claude-changes.patch" >> "$GITHUB_OUTPUT"
+          echo "::notice::Created patch file: $PATCH_SIZE bytes"
 
-          # 如果是 PR 评论触发，获取 PR 的 head 分支并切换过去
-          if [[ -n "$PR_NUMBER" ]]; then
-            PR_BRANCH=$(curl -sf \
-              -H "Authorization: Bearer $GH_TOKEN" \
-              -H "Accept: application/vnd.github+json" \
-              "https://api.github.com/repos/$CALLER_REPO/pulls/$PR_NUMBER" \
-              | python3 -c "import sys,json; print(json.load(sys.stdin)['head']['ref'])")
-            git checkout "$PR_BRANCH" 2>/dev/null || git checkout -b "$PR_BRANCH"
-            echo "::notice::Committing to PR branch: $PR_BRANCH"
-          fi
-
-          git add -A
-          git commit -m "fix: code improvements suggested by Claude Code Bot"
-          git push "https://x-access-token:${GH_TOKEN}@github.com/${CALLER_REPO}.git" HEAD
-          echo "pr_url=" >> "$GITHUB_OUTPUT"
-        shell: bash
+      - name: Upload patch as artifact
+        if: steps.create_patch.outputs.patch_path
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-changes-patch
+          path: ${{ steps.create_patch.outputs.patch_path }}
+          retention-days: 1
 
       # ------------------------------------------------------------------
       # 9. 将 Claude 的回复发布为评论
@@ -377,7 +368,7 @@ jobs:
           GH_TOKEN: ${{ secrets.AGENT_PAT }}
           CALLER_REPO: ${{ github.event.client_payload.caller_repo }}
           ISSUE_NUMBER: ${{ github.event.client_payload.issue_number }}
-          PR_URL: ${{ steps.create_pr.outputs.pr_url }}
+          PR_URL: ""
         run: |
           python3 - <<'PYEOF'
           import json, os, subprocess
