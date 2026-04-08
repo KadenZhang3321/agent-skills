@@ -244,7 +244,6 @@ jobs:
       - name: Invoke Claude Code
         id: claude_run
         env:
-          ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
           MODEL: ${{ github.event.client_payload.model || 'claude-sonnet-4-20250514' }}
           ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
           DANGEROUSLY_SKIP_PERMISSIONS: ${{ github.event.client_payload.dangerously_skip_permissions }}
@@ -252,11 +251,6 @@ jobs:
           SHOW_FULL_OUTPUT: ${{ github.event.client_payload.show_full_output }}
         working-directory: caller-repo
         run: |
-          if [[ -z "$ANTHROPIC_API_KEY" ]]; then
-            echo "::error::CLAUDE_API_KEY is not configured in the agent-skills repository secrets"
-            exit 1
-          fi
-
           # 如果启用 show_full_output，使用 group 展示完整输出
           if [[ "$SHOW_FULL_OUTPUT" == "true" ]]; then
             echo "::group::Claude Code Full Output"
