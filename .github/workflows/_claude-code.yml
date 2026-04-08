@@ -106,6 +106,19 @@ jobs:
         shell: bash
 
       # ------------------------------------------------------------------
+      # 4.1 设置调用方仓库的环境变量（从 client_payload 传入）
+      # ------------------------------------------------------------------
+      - name: Setup caller environment variables
+        env:
+          CALLER_ENV_VARS: ${{ github.event.client_payload.caller_env_vars }}
+        run: |
+          if [ -n "$CALLER_ENV_VARS" ]; then
+            echo "$CALLER_ENV_VARS" >> $GITHUB_ENV
+            echo "::notice::Loaded caller environment variables"
+          fi
+        shell: bash
+
+      # ------------------------------------------------------------------
       # 5. 拉取 PR Diff（如果是 PR 评论）
       # ------------------------------------------------------------------
       - name: Fetch PR diff
@@ -134,6 +147,8 @@ jobs:
           COMMENT_BODY: ${{ github.event.client_payload.comment_body }}
           COMMENT_AUTHOR: ${{ github.event.client_payload.comment_author }}
           SKILL_NAME: ${{ github.event.client_payload.skill_name }}
+          SKILL_URL: ${{ github.event.client_payload.skill_url }}
+          CUSTOM_PROMPT: ${{ github.event.client_payload.custom_prompt }}
           ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
         run: |
           python3 - <<'PYEOF'
@@ -145,14 +160,19 @@ jobs:
           comment_author    = os.environ.get('COMMENT_AUTHOR', '')
           skill_name        = os.environ.get('SKILL_NAME', '') or ''
           skill_url         = os.environ.get('SKILL_URL', '') or ''
+          custom_prompt     = os.environ.get('CUSTOM_PROMPT', '') or ''
           allow_code_change = os.environ.get('ALLOW_CODE_CHANGE', 'false').lower() == 'true'
 
           # 加载 Skill 指令
-          # 优先级：1) skill_url（远程URL）2) skill_name - 调用方 .github/skills/ 3) skill_name - 调用方 .ai/skills/ 4) skill_name - agent-skills skills/
+          # 优先级：1) custom_prompt（直接传入的 prompt）2) skill_url（远程URL）3) skill_name - 调用方 .github/skills/ 4) skill_name - 调用方 .ai/skills/ 5) skill_name - agent-skills skills/
           skill_prompt = ''
 
-          # 优先：远程 URL
-          if skill_url:
+          # 最高优先级：直接传入的 custom_prompt
+          if custom_prompt:
+              skill_prompt = custom_prompt
+              print(f'Using custom_prompt directly')
+          # 远程 URL
+          elif skill_url:
               try:
                   import urllib.request
                   skill_prompt = urllib.request.urlopen(skill_url).read().decode()
@@ -227,6 +247,9 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
           MODEL: ${{ github.event.client_payload.model || 'claude-sonnet-4-20250514' }}
           ALLOW_CODE_CHANGE: ${{ github.event.client_payload.allow_code_change }}
+          DANGEROUSLY_SKIP_PERMISSIONS: ${{ github.event.client_payload.dangerously_skip_permissions }}
+          ALLOWED_TOOLS: ${{ github.event.client_payload.allowed_tools }}
+          SHOW_FULL_OUTPUT: ${{ github.event.client_payload.show_full_output }}
         working-directory: caller-repo
         run: |
           if [[ -z "$ANTHROPIC_API_KEY" ]]; then
@@ -234,19 +257,38 @@ jobs:
             exit 1
           fi
 
-          if [[ "$ALLOW_CODE_CHANGE" == "true" ]]; then
-            TOOLS="Read,Edit,Write,Glob,Grep,Bash"
-          else
-            TOOLS="Read,Glob,Grep,Bash"
+          # 如果启用 show_full_output，使用 group 展示完整输出
+          if [[ "$SHOW_FULL_OUTPUT" == "true" ]]; then
+            echo "::group::Claude Code Full Output"
           fi
 
-          claude -p "$CLAUDE_PROMPT" \
-            --model "$MODEL" \
-            --allowedTools "$TOOLS" \
-            --output-format json \
+          # 构建 Claude 参数
+          CLAUDE_ARGS="--model $MODEL --output-format json"
+
+          # 如果传递了 dangerously_skip_permissions 且为 true
+          if [[ "$DANGEROUSLY_SKIP_PERMISSIONS" == "true" ]]; then
+            CLAUDE_ARGS="$CLAUDE_ARGS --dangerously-skip-permissions"
+          fi
+
+          # 如果传递了 allowed_tools，优先使用；否则根据 allow_code_change 使用默认
+          if [[ -n "$ALLOWED_TOOLS" ]]; then
+            CLAUDE_ARGS="$CLAUDE_ARGS --allowedTools $ALLOWED_TOOLS"
+          else
+            if [[ "$ALLOW_CODE_CHANGE" == "true" ]]; then
+              CLAUDE_ARGS="$CLAUDE_ARGS --allowedTools Read,Edit,Write,Glob,Grep,Bash"
+            else
+              CLAUDE_ARGS="$CLAUDE_ARGS --allowedTools Read,Glob,Grep,Bash"
+            fi
+          fi
+
+          claude -p "$CLAUDE_PROMPT" $CLAUDE_ARGS \
             2>/tmp/claude_stderr.txt \
             > /tmp/claude_raw.json
           EXIT_CODE=$?
+
+          if [[ "$SHOW_FULL_OUTPUT" == "true" ]]; then
+            echo "::endgroup::"
+          fi
 
           python3 - <<'PYEOF'
           import json, os
