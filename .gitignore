@@ -1,39 +1,60 @@
-# macOS
-.DS_Store
-.AppleDouble
-.LSOverride
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Claude Code settings
-.claude/
-.omc/
-
-# Temporary files
-*.tmp
-*.bak
-*.log
-
-# Node modules (if any skills use npm)
+```
+# Dependencies
 node_modules/
-
-# Python (if any skills use Python)
-__pycache__/
-*.py[cod]
-*.egg-info/
 .venv/
 venv/
-
-# Environment files
-.env
-.env.local
-
-# Build outputs
+__pycache__/
+.mypy_cache/
+.pytest_cache/
 dist/
 build/
-*.out
+target/
+.gradle/
+
+# Logs and temp files
+*.log
+*.tmp
+*.swp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Editors
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
+*.zst
+*.lz4
+*.lzh
+*.cab
+*.arj
+*.rpm
+*.deb
+*.Z
+*.lz
+*.lzo
+*.tar.gz
+*.tar.bz2
+*.tar.xz
+*.tar.zst
+```
