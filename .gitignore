@@ -1,0 +1,39 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Claude Code settings
+.claude/
+.omc/
+
+# Temporary files
+*.tmp
+*.bak
+*.log
+
+# Node modules (if any skills use npm)
+node_modules/
+
+# Python (if any skills use Python)
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Environment files
+.env
+.env.local
+
+# Build outputs
+dist/
+build/
+*.out

@@ -1,0 +1,995 @@
+title,pr_number,user_facing_impact,category,decision,reason
+[CI]Fix test nightly workflow. (#3603),3603,[CI]Fix test nightly workflow.,Ignore,Ignore,Internal/CI/test change
+"Reapply ""[MoE] [Refactor] Remove manual memory cleanup (#3365)"" (#3483) (#3365)",3365,"Reapply ""[MoE] [Refactor] Remove manual memory cleanup",Ignore,Ignore,Internal/CI/test change
+fix : support chunked_prefill with deepseek_mtp (#2711),2711,fix : support chunked_prefill with deepseek_mtp,Highlights,Include,Major feature
+[Misc] clean up useless function (#3348),3348,[Misc] clean up useless function,Ignore,Ignore,Internal/CI/test change
+[Feat] Dynamic Batch Feature (#3490),3490,[Feat] Dynamic Batch Feature,Features,Include,New feature
+[Feat] add native kvcache offload (#3433),3433,[Feat] add native kvcache offload,Features,Include,New feature
+[CI] Multi-Node CI scalable (#3611),3611,[CI] Multi-Node CI scalable,Ignore,Ignore,Internal/CI/test change
+clean up uesless ut test (#3622),3622,clean up uesless ut test,Others,Include,Miscellaneous
+unify logic between aclgraph and torchair (#3560),3560,unify logic between aclgraph and torchair,Highlights,Include,Major feature
+[Fix] Fixes attribute error in MLA implementation (#3618),3618,[Fix] Fixes attribute error in MLA implementation,Features,Include,New feature
+[BugFix][main] Fix quantization related mtp bug with patch (#3620),3620,[BugFix][main] Fix quantization related mtp bug with patch,Highlights,Include,Major feature
+[Feat] Prefetching Attention QKV Linear Weight With `AddRmsNormQuant` Custom Op (#3517),3517,[Feat] Prefetching Attention QKV Linear Weight With `AddRmsNormQuant` Custom Op,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Upgrade docker run command (#3645),3645,[Doc] Upgrade docker run command,Documentation,Include,Documentation update
+[main][refactor] refactor SequenceRowParallelOp forward (#3616),3616,[main][refactor] refactor SequenceRowParallelOp forward,Ignore,Ignore,Internal/CI/test change
+[Doc] Update the modelslim website from gitee to gitcode. (#3615),3615,[Doc] Update the modelslim website from gitee to gitcode.,Documentation,Include,Documentation update
+[BugFix] fix deepseek torchair precision (#3624),3624,[BugFix] fix deepseek torchair precision,Others,Include,Bug fix
+perf : optimize memory for deepseek mtp (#2713),2713,perf : optimize memory for deepseek mtp,Highlights,Include,Major feature
+[Misc] Add a model loader that utilizes HCCL for weight loading (#2888),2888,[Misc] Add a model loader that utilizes HCCL for weight loading,Others,Include,Miscellaneous
+[TEST]Add initial multi modal cases for nightly test and deepseek-r1 tests (#3631),3631,[TEST]Add initial multi modal cases for nightly test and deepseek-r1 tests,Highlights,Include,Model support
+[Structured Output] Replace `apply_grammar_bitmask()` method with that in vllm to avoid maintenance (#2524),2524,[Structured Output] Replace `apply_grammar_bitmask()` method with that in vllm to avoid maintenance,Others,Include,Miscellaneous
+[Bugfix] fix delay free prefill req & D node support prefix cache (#3607),3607,[Bugfix] fix delay free prefill req & D node support prefix cache,Features,Include,New feature
+[Doc] Update the Pangu Pro MoE tutorials. (#3651),3651,[Doc] Update the Pangu Pro MoE tutorials.,Documentation,Include,Model tutorial
+[Test] add a new Qwen3-32b-int8 test case with feature_stack3 (#3676),3676,[Test] add a new Qwen3-32b-int8 test case with feature_stack3,Others,Include,Miscellaneous
+[main][bugfix] Add 'layer_type' param to get_pergroup_param() for compatibility (#3682),3682,[main][bugfix] Add 'layer_type' param to get_pergroup_param() for compatibility,Others,Include,Bug fix
+[BugFix]fix deepseek torchair recompile (#3678),3678,[BugFix]fix deepseek torchair recompile,Others,Include,Bug fix
+support cp&dcp (#3260),3260,support cp&dcp,Highlights,Include,Major feature
+[MoE][Multistream] Avoid performing communication in extra stream. (#3582),3582,[MoE][Multistream] Avoid performing communication in extra stream.,Others,Include,Miscellaneous
+[Benchmark] Upgrade benchmark args for new vllm version (#3218),3218,[Benchmark] Upgrade benchmark args for new vllm version,Others,Include,Miscellaneous
+[UT] Fix test_sample_recovered_tokens_pytorch_autoregressive (#3434),3434,[UT] Fix test_sample_recovered_tokens_pytorch_autoregressive,Ignore,Ignore,Internal/CI/test change
+remove useless code (#3685),3685,remove useless code,Others,Include,Miscellaneous
+[TEST]Add initial prefix cache case for nightly test (#3709),3709,[TEST]Add initial prefix cache case for nightly test,Ignore,Ignore,Internal/CI/test change
+[1/N][Refactor] Refactor code to adapt with vllm main (#3612),3612,[1/N][Refactor] Refactor code to adapt with vllm main,Ignore,Ignore,Internal/CI/test change
+[BugFix] Check all expert maps when using muilty instance. (#3576),3576,[BugFix] Check all expert maps when using muilty instance.,Others,Include,Bug fix
+[TEST]Add initial multi modal cases of Qwen2.5-VL-32B-Instruct for nightly test (#3707),3707,[TEST]Add initial multi modal cases of Qwen2.5-VL-32B-Instruct for nightly test,Others,Include,Miscellaneous
+"[Bugfix] The server fails to locate the request, leading to the server hanging. (#3703)",3703,"[Bugfix] The server fails to locate the request, leading to the server hanging.",Others,Include,Bug fix
+[Main][Perf] Add fused matmul/reduce-scatter kernel for performance optimization. (#3693),3693,[Main][Perf] Add fused matmul/reduce-scatter kernel for performance optimization.,Performance,Include,Operator fusion
+[Refactor] Refactor Ascend attention implementation forward (#3714),3714,[Refactor] Refactor Ascend attention implementation forward,Ignore,Ignore,Internal/CI/test change
+[Feat] Add mrope fusion op (#3708),3708,[Feat] Add mrope fusion op,Performance,Include,Operator fusion
+[BugFix][P/D] Modify the recalculation logic to prevent waiting requests from filling up the D node KVCache (#3641),3641,[BugFix][P/D] Modify the recalculation logic to prevent waiting requests from filling up the D node KVCache,Others,Include,Bug fix
+[CI][Doc] Optimize multi-node CI (#3565),3565,[CI][Doc] Optimize multi-node CI,Ignore,Ignore,Internal/CI/test change
+[UT][fix] Add missing get_ascend_config mock to NPUWorker initialization tests (#3729),3729,[UT][fix] Add missing get_ascend_config mock to NPUWorker initialization tests,Ignore,Ignore,Internal/CI/test change
+[Misc] Limit ray version (#3660),3660,[Misc] Limit ray version,Others,Include,Miscellaneous
+[CI] Skip ops test for e2e (#3665),3665,[CI] Skip ops test for e2e,Ignore,Ignore,Internal/CI/test change
+Update version doc (#3599),3599,Update version doc,Others,Include,Miscellaneous
+[BugFix][Core] Fix a bug running multi-modal with ascend_scheduler (#3675),3675,[BugFix][Core] Fix a bug running multi-modal with ascend_scheduler,Others,Include,Bug fix
+[Bugfix] Fix zero attention output in qwen3-next (#3572),3572,[Bugfix] Fix zero attention output in qwen3-next,Highlights,Include,Model support
+[Refactor] optimize _prepare_inputs method in eagle_proposer (#3296),3296,[Refactor] optimize _prepare_inputs method in eagle_proposer,Ignore,Ignore,Internal/CI/test change
+[BugFix] Comment out newly added vlm e2e. (#3736),3736,[BugFix] Comment out newly added vlm e2e.,Others,Include,Bug fix
+[Test] Add e2e test and accuracy test for Qwen3-Next-80B-A3B-Instruct (#3450),3450,[Test] Add e2e test and accuracy test for Qwen3-Next-80B-A3B-Instruct,Highlights,Include,Model support
+[Doc] Update supported models (#3481),3481,[Doc] Update supported models,Documentation,Include,Documentation update
+[Refactor] [MoE] Rename moe-related classes & files (#3646),3646,[Refactor] [MoE] Rename moe-related classes & files,Ignore,Ignore,Internal/CI/test change
+[Test] add test for prefix cache feature of deepseek (#3733),3733,[Test] add test for prefix cache feature of deepseek,Others,Include,Miscellaneous
+[bugfixfix] correct _register function place for mooncacke (#3747),3747,[bugfixfix] correct _register function place for mooncacke,Others,Include,Miscellaneous
+Upgrade to new vllm commit (#3719),3719,Upgrade to new vllm commit,Others,Include,Miscellaneous
+[main] remove dbo code (#3712),3712,[main] remove dbo code,Others,Include,Miscellaneous
+add qwq testcase (#3757),3757,add qwq testcase,Others,Include,Miscellaneous
+[BugFix] Fix Qwen3-next break (#3428),3428,[BugFix] Fix Qwen3-next break,Highlights,Include,Model support
+[Installation] limit opencv-python-headless version to resolve numpy version conflict (#3713),3713,[Installation] limit opencv-python-headless version to resolve numpy version conflict,Others,Include,Miscellaneous
+[feat]dcp pcp support aclgraph (#3731),3731,[feat]dcp pcp support aclgraph,Highlights,Include,Major feature
+[CI] Add custom op to nightly (#3765),3765,[CI] Add custom op to nightly,Hardware and Operator Support,Include,Operator/hardware support
+[CI] Enable 2 jobs for nightly test (#3781),3781,[CI] Enable 2 jobs for nightly test,Features,Include,New feature
+Bump actions/download-artifact from 5 to 6 (#3787),3787,Bump actions/download-artifact from 5 to 6,Ignore,Ignore,Internal/CI/test change
+Bump actions/upload-artifact from 4 to 5 (#3786),3786,Bump actions/upload-artifact from 4 to 5,Ignore,Ignore,Internal/CI/test change
+[Doc][Example][Bugfix] Elements in local_device_ids should be casted … (#3782),3782,[Doc][Example][Bugfix] Elements in local_device_ids should be casted …,Documentation,Include,Documentation update
+[bugfix][main]fix proxy decode bug (#3750),3750,[bugfix][main]fix proxy decode bug,Others,Include,Bug fix
+[MM][Doc] Update online serving tutorials for `Qwen2-Audio` (#3606),3606,[MM][Doc] Update online serving tutorials for `Qwen2-Audio`,Documentation,Include,Model tutorial
+support prefill cache mode use fia op (#3696),3696,support prefill cache mode use fia op,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Update FAQ (#3792),3792,[Doc] Update FAQ,Documentation,Include,Documentation update
+【Bugfix】bugfix for weight load of  kimi-k2 (#3798),3798,【Bugfix】bugfix for weight load of  kimi-k2,Highlights,Include,Model support
+[TEST]Add 2P1D multi node cases for nightly test (#3764),3764,[TEST]Add 2P1D multi node cases for nightly test,Others,Include,Miscellaneous
+[CI] Add multi-node test case for a2 (#3805),3805,[CI] Add multi-node test case for a2,Ignore,Ignore,Internal/CI/test change
+Upgrade to 0.11.1 newest vllm commit (#3762),3762,Upgrade to 0.11.1 newest vllm commit,Others,Include,Miscellaneous
+[CI] Fix nightly CI (#3821),3821,[CI] Fix nightly CI,Others,Include,Miscellaneous
+[Main][Bugfix]Avoid using the fusion operator in the MOE model (#3834),3834,[Main][Bugfix]Avoid using the fusion operator in the MOE model,Performance,Include,Operator fusion
+[TEST]Add aisbench log and A2 cases (#3841),3841,[TEST]Add aisbench log and A2 cases,Hardware and Operator Support,Include,Operator/hardware support
+[long_seq_optim] BSND to TND and FA_UPDATE replacement (#3778),3778,[long_seq_optim] BSND to TND and FA_UPDATE replacement,Performance,Include,Performance optimization
+[P/D] force with_prefill true after allreduce in kv producer (#3768),3768,[P/D] force with_prefill true after allreduce in kv producer,Others,Include,Miscellaneous
+fix qwen3next full graph break. (#3812),3812,fix qwen3next full graph break.,Highlights,Include,Major feature
+[Doc] Update doc (#3836),3836,[Doc] Update doc,Documentation,Include,Documentation update
+[HybridKV][Bugfix] Fix Hybrid kvcache sharing bug in same attention type (#3760),3760,[HybridKV][Bugfix] Fix Hybrid kvcache sharing bug in same attention type,Others,Include,Bug fix
+[Bugfix] [MoE] fix error in deepseek when using allgather (#3824),3824,[Bugfix] [MoE] fix error in deepseek when using allgather,Others,Include,Bug fix
+[Perf] Delete redundant operations in model_runner and forward_context (#3677),3677,[Perf] Delete redundant operations in model_runner and forward_context,Performance,Include,Performance optimization
+[CI]pin vllm commit id (#3861),3861,[CI]pin vllm commit id,Ignore,Ignore,Internal/CI/test change
+[CI] Optimize nightly CI (#3858),3858,[CI] Optimize nightly CI,Performance,Include,Performance optimization
+[BugFix] deepseek torchair adapt for torch_npu version (#3862),3862,[BugFix] deepseek torchair adapt for torch_npu version,Dependencies,Include,Dependency update
+[CI]Fix eplb nightly tests. (#3863),3863,[CI]Fix eplb nightly tests.,Ignore,Ignore,Internal/CI/test change
+fix mooncake layerwise connector (#3849),3849,fix mooncake layerwise connector,Highlights,Include,Major feature
+bugfix for mtp fullgraph (#3845),3845,bugfix for mtp fullgraph,Highlights,Include,Major feature
+[BugFix] Fix mlapo accuracy problem related with weight processing. (#3850),3850,[BugFix] Fix mlapo accuracy problem related with weight processing.,Hardware and Operator Support,Include,Operator/hardware support
+[CI]Fix oom of deepseek-eplb nigtly test. (#3884),3884,[CI]Fix oom of deepseek-eplb nigtly test.,Ignore,Ignore,Internal/CI/test change
+Add FAQ for docker pull error on Kylin OS (#3870),3870,Add FAQ for docker pull error on Kylin OS,Others,Include,Miscellaneous
+[UT] fix skip ut test for test_utils (#3803),3803,[UT] fix skip ut test for test_utils,Ignore,Ignore,Internal/CI/test change
+[Doc] Remove modeling doc (#3789),3789,[Doc] Remove modeling doc,Documentation,Include,Documentation update
+[Build] Force torch version (#3791),3791,[Build] Force torch version,Others,Include,Miscellaneous
+[FEAT] Refactor spec decode to support efficient padded speculation (#3528),3528,[FEAT] Refactor spec decode to support efficient padded speculation,Features,Include,New feature
+[Model][3/N] Refactor sfa into mla and remove deepseek_v3_2.py (#3769),3769,[Model][3/N] Refactor sfa into mla and remove deepseek_v3_2.py,Hardware and Operator Support,Include,Operator/hardware support
+[feature] Prompt Embeddings Support for v1 Engine (#3026),3026,[feature] Prompt Embeddings Support for v1 Engine,Features,Include,New feature
+[TEST]Add MALPO for aclgraph in nightly test (#3894),3894,[TEST]Add MALPO for aclgraph in nightly test,Highlights,Include,Major feature
+[BugFix]Fix group list type of mc2. (#3864),3864,[BugFix]Fix group list type of mc2.,Others,Include,Bug fix
+[bugfix] layerwise D first plan (#3866),3866,[bugfix] layerwise D first plan,Others,Include,Bug fix
+[CI] Optimize nightly CI (#3898),3898,[CI] Optimize nightly CI,Performance,Include,Performance optimization
+[bugfix]cancel tokenize  for layerwise_proxy (#3914),3914,[bugfix]cancel tokenize  for layerwise_proxy,Others,Include,Bug fix
+add new e2e tests case for aclgraph memory (#3879),3879,add new e2e tests case for aclgraph memory,Highlights,Include,Major feature
+mfix bug when max_seqs=14 in mtp=2 scenario and raise error when cudagraph_capture_sizes can't be an integer multiple of uniform_decode_query_lentp (#3910),3910,mfix bug when max_seqs=14 in mtp=2 scenario and raise error when cudagraph_capture_sizes can't be an integer multiple of uniform_decode_query_lentp,Highlights,Include,Major feature
+[Bugfix] Fix MTP support for lmhead_tensor_parallel_size (#3915),3915,[Bugfix] Fix MTP support for lmhead_tensor_parallel_size,Highlights,Include,Major feature
+[Test] Add new test model for aclgraph single_request (#3888),3888,[Test] Add new test model for aclgraph single_request,Highlights,Include,Major feature
+[main][bugfix] fix valueError in static_forward_context when prefix is empty (#3924),3924,[main][bugfix] fix valueError in static_forward_context when prefix is empty,Others,Include,Bug fix
+[E2E][MM] Add e2e tests for InternVL model (#3796),3796,[E2E][MM] Add e2e tests for InternVL model,Highlights,Include,Model support
+[feature] support pcp + mtp (with pd disaggregate) (#3822),3822,[feature] support pcp + mtp (with pd disaggregate),Highlights,Include,Major feature
+[Doc] Update doc for release notese (#3853),3853,[Doc] Update doc for release notese,Documentation,Include,Documentation update
+Update torch-npu version to 2.7.1 (#3896),3896,Update torch-npu version to 2.7.1,Dependencies,Include,Dependency update
+[CI][Nightly] Correct the commit hash available for mooncake (#3943),3943,[CI][Nightly] Correct the commit hash available for mooncake,Highlights,Include,Major feature
+[Perf] Move attention update stream out of loop to optimize performance (#3848),3848,[Perf] Move attention update stream out of loop to optimize performance,Performance,Include,Performance optimization
+[Feat][UT] Support Deepseekv32 FULL_DECODE_ONLY mode and add unit test of sfa_v1 (#3763),3763,[Feat][UT] Support Deepseekv32 FULL_DECODE_ONLY mode and add unit test of sfa_v1,Ignore,Ignore,Internal/CI/test change
+correct bug to fix the value of max_num_tokens (#3933),3933,correct bug to fix the value of max_num_tokens,Others,Include,Miscellaneous
+[CI][Nightly] Fix mooncake build (#3958),3958,[CI][Nightly] Fix mooncake build,Highlights,Include,Major feature
+[Test] Add new e2e test use deepseek-v2-lite in ge graph mode (#3937),3937,[Test] Add new e2e test use deepseek-v2-lite in ge graph mode,Others,Include,Miscellaneous
+revert TND modify when dcp pcp (#3948),3948,revert TND modify when dcp pcp,Ignore,Ignore,Internal/CI/test change
+Quality enhancement: Immediately interrupt execution when memory OOM (#3932),3932,Quality enhancement: Immediately interrupt execution when memory OOM,Others,Include,Miscellaneous
+[Test] Add accuracy test for qwen3-8b-w8a8 (#3799),3799,[Test] Add accuracy test for qwen3-8b-w8a8,Others,Include,Miscellaneous
+[BugFix] Fix deepseek v3.2 mtp bug. (#3900),3900,[BugFix] Fix deepseek v3.2 mtp bug.,Highlights,Include,Major feature
+[Test]Add accuracy test for multiple models (#3823),3823,[Test]Add accuracy test for multiple models,Others,Include,Miscellaneous
+[PD Disaggregation]Set adxl engine as default backend and update README (#3761),3761,[PD Disaggregation]Set adxl engine as default backend and update README,Highlights,Include,Major feature
+[TEST]Add full graph for multimodal nightly tests (#3968),3968,[TEST]Add full graph for multimodal nightly tests,Highlights,Include,Major feature
+[Perf] move quant before allgather in Allgather EP (#3420),3420,[Perf] move quant before allgather in Allgather EP,Performance,Include,Performance optimization
+[ModelRunner][Refactor] Refactor kv cache tensor initialization logic (#3106),3106,[ModelRunner][Refactor] Refactor kv cache tensor initialization logic,Ignore,Ignore,Internal/CI/test change
+[Test] Add accuracy test for qwen3-30b-a3b-w8a8 (#3807),3807,[Test] Add accuracy test for qwen3-30b-a3b-w8a8,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Refactor the DeepSeek-V3.2-Exp tutorial. (#3871),3871,[Doc] Refactor the DeepSeek-V3.2-Exp tutorial.,Documentation,Include,Model tutorial
+support qwen3-next full_decode_only mode. (#3949),3949,support qwen3-next full_decode_only mode.,Highlights,Include,Major feature
+[docs] add aclgraph developer guide (#3683),3683,[docs] add aclgraph developer guide,Highlights,Include,Major feature
+[Doc] Update version policy (#3999),3999,[Doc] Update version policy,Documentation,Include,Documentation update
+[Doc] add mtp doc (#3770),3770,[Doc] add mtp doc,Highlights,Include,Major feature
+[docs] Add kv pool developer guide (#3752),3752,[docs] Add kv pool developer guide,Highlights,Include,Major feature
+[Doc]Add developer guide of eplb. (#3759),3759,[Doc]Add developer guide of eplb.,Highlights,Include,Major feature
+[main][doc][kv_pool]Add adxl timeout parameter in kv pool user guide (#4012),4012,[main][doc][kv_pool]Add adxl timeout parameter in kv pool user guide,Highlights,Include,Major feature
+[Test] Refactor accuracy test to nightly test (#3814),3814,[Test] Refactor accuracy test to nightly test,Others,Include,Miscellaneous
+[P/D]Make kv-transfer env variable take effect & Fix load-balance proxy (#3981),3981,[P/D]Make kv-transfer env variable take effect & Fix load-balance proxy,Others,Include,Miscellaneous
+[Feat](Mooncake) Supports multiple input suffixes for global_segment_size (#3690),3690,[Feat](Mooncake) Supports multiple input suffixes for global_segment_size,Highlights,Include,Major feature
+[feat]decode convert bsnd to tnd and fix bug when pcp and dcp (#3980),3980,[feat]decode convert bsnd to tnd and fix bug when pcp and dcp,Highlights,Include,Major feature
+[TEST]Update nightly acc test standard (#4032),4032,[TEST]Update nightly acc test standard,Others,Include,Miscellaneous
+[CI] Quick fix mooncake for nightly-ci (#4028),4028,[CI] Quick fix mooncake for nightly-ci,Highlights,Include,Major feature
+[Bugfix] Add constraints for sequence parallelism (#4014),4014,[Bugfix] Add constraints for sequence parallelism,Highlights,Include,Major feature
+[BugFix][main] Adapted to torch_npu.npu_fused_infer_attention_score (#4025),4025,[BugFix][main] Adapted to torch_npu.npu_fused_infer_attention_score,Performance,Include,Operator fusion
+[main][bugfix] Fix a rare bug triggered by _npu_paged_attention in FULL_DECODE_ONLY mode (#3986),3986,[main][bugfix] Fix a rare bug triggered by _npu_paged_attention in FULL_DECODE_ONLY mode,Highlights,Include,Major feature
+[long_seq] fix A2 accuracy problem (#4030),4030,[long_seq] fix A2 accuracy problem,Hardware and Operator Support,Include,Operator/hardware support
+[Feat] update op for mla (#4000),4000,[Feat] update op for mla,Features,Include,New feature
+[UT] Add new ut case for aclgraph in auto enable (#4031),4031,[UT] Add new ut case for aclgraph in auto enable,Ignore,Ignore,Internal/CI/test change
+[Doc] Add model feature matrix table. (#4040),4040,[Doc] Add model feature matrix table.,Documentation,Include,Documentation update
+[Feat] Adapted mtp function to Qwen3-next (#3918),3918,[Feat] Adapted mtp function to Qwen3-next,Highlights,Include,Major feature
+[BugFix]Fix group list type of mc2. (#4047),4047,[BugFix]Fix group list type of mc2.,Others,Include,Bug fix
+[CI]Fix eplb ci. (#4052),4052,[CI]Fix eplb ci.,Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix sleepmode level2 e2e test (#4019),4019,[Bugfix] fix sleepmode level2 e2e test,Ignore,Ignore,Internal/CI/test change
+[P/D][BugFix]Fix proxy format processing errors & Layerwise connector performance optimization (#4043),4043,[P/D][BugFix]Fix proxy format processing errors & Layerwise connector performance optimization,Performance,Include,Performance optimization
+[BugFix] Improve the performance of prefixcache features (#4022),4022,[BugFix] Improve the performance of prefixcache features,Performance,Include,Performance optimization
+[Bugfix]fix pcp dcp attn aclgraph (#4066),4066,[Bugfix]fix pcp dcp attn aclgraph,Highlights,Include,Major feature
+[Info][main] Corrected the errors in the information (#4055),4055,[Info][main] Corrected the errors in the information,Others,Include,Miscellaneous
+[TEST]Add qwen3-235b-w8a8 and qwen3-30b-w8a8 nightly test (#3973),3973,[TEST]Add qwen3-235b-w8a8 and qwen3-30b-w8a8 nightly test,Others,Include,Miscellaneous
+[Doc] Remove extra MLAPO installation step for DeepSeek-V3.2. (#4024),4024,[Doc] Remove extra MLAPO installation step for DeepSeek-V3.2.,Documentation,Include,Model tutorial
+[docs] [P/D] add feature guide for disaggregated-prefill (#3950),3950,[docs] [P/D] add feature guide for disaggregated-prefill,Highlights,Include,Major feature
+[Feat] flashcomm_v2 optim solution (#3232),3232,[Feat] flashcomm_v2 optim solution,Performance,Include,Performance optimization
+[Feature][Build] Upgrade the minimum version to 3.10 (#3926),3926,[Feature][Build] Upgrade the minimum version to 3.10,Features,Include,New feature
+[Fix]  fix Qwen2-Audio-7B-Instruct accuracy test (#4017),4017,[Fix]  fix Qwen2-Audio-7B-Instruct accuracy test,Ignore,Ignore,Internal/CI/test change
+[Typo] LLama has been changed to Llama (#4089),4089,[Typo] LLama has been changed to Llama,Others,Include,Miscellaneous
+[Core] Restore scheduling logic under default configuration (#3967),3967,[Core] Restore scheduling logic under default configuration,Others,Include,Miscellaneous
+[Doc] add qwen3 w4a4 tutorial (#4076),4076,[Doc] add qwen3 w4a4 tutorial,Documentation,Include,Documentation update
+[BugFix] Fixes Qwen3-Next enable nz accuracy problem (#4058),4058,[BugFix] Fixes Qwen3-Next enable nz accuracy problem,Highlights,Include,Model support
+[Doc] Add release note for v0.11.0rc1 (#3931),3931,[Doc] Add release note for v0.11.0rc1,Documentation,Include,Documentation update
+[main][Bugfix] Fix ngram precision issue and open e2e ngram test (#4090),4090,[main][Bugfix] Fix ngram precision issue and open e2e ngram test,Ignore,Ignore,Internal/CI/test change
+[feature] chunkprefill support pcp&dcp (#3801),3801,[feature] chunkprefill support pcp&dcp,Highlights,Include,Major feature
+[Doc] Recover installation doc to use pip install (#4109),4109,[Doc] Recover installation doc to use pip install,Documentation,Include,Documentation update
+[Test] Add nightly test for DeepSeek-V3.2-Exp (#3908),3908,[Test] Add nightly test for DeepSeek-V3.2-Exp,Highlights,Include,Model support
+[Fix] Refactor and fix dist test to e2e full test (#3808),3808,[Fix] Refactor and fix dist test to e2e full test,Ignore,Ignore,Internal/CI/test change
+[Fixbug] Fix ut test (#4116),4116,[Fixbug] Fix ut test,Ignore,Ignore,Internal/CI/test change
+Remove VLLM_USE_V1 (#4086),4086,Remove VLLM_USE_V1,Others,Include,Miscellaneous
+[CI] Integrate mooncake to vllm-ascend base image (#4062),4062,[CI] Integrate mooncake to vllm-ascend base image,Ignore,Ignore,Internal/CI/test change
+[TEST]Update nightly cases and add mtpx (#4111),4111,[TEST]Update nightly cases and add mtpx,Highlights,Include,Major feature
+oproj TP support acl graph (#4073),4073,oproj TP support acl graph,Features,Include,New feature
+[Test][Accuracy] Add accuracy evaluation config for InternVL3_5-8B (#3964),3964,[Test][Accuracy] Add accuracy evaluation config for InternVL3_5-8B,Highlights,Include,Model support
+[Misc][Doc] Add service profiling feature with user guide (#3756),3756,[Misc][Doc] Add service profiling feature with user guide,Documentation,Include,Documentation update
+[Perf] Remove D2H operations to imporve performance (#4063),4063,[Perf] Remove D2H operations to imporve performance,Performance,Include,Performance optimization
+"[Doc] Fix DeepSeek-3.2-Exp doc, remove v0.11.0rc0 outdated infos. (#4095)",4095,"[Doc] Fix DeepSeek-3.2-Exp doc, remove v0.11.0rc0 outdated infos.",Documentation,Include,Documentation update
+fix fullgraph in ds. (#4016),4016,fix fullgraph in ds.,Others,Include,Miscellaneous
+[feature] support pcp + mtp (in pd co-locate scenario) (#4098),4098,[feature] support pcp + mtp (in pd co-locate scenario),Highlights,Include,Major feature
+[main][bugfix] Change seq_lens in dummy attn_metadata to max_query_len (#4097),4097,[main][bugfix] Change seq_lens in dummy attn_metadata to max_query_len,Others,Include,Bug fix
+[CI] Fix nightly-ci (#4159),4159,[CI] Fix nightly-ci,Others,Include,Miscellaneous
+Upgrade to 0.11.1 newest vllm commit (#3982),3982,Upgrade to 0.11.1 newest vllm commit,Others,Include,Miscellaneous
+[Perf] fix async copy for async scheduling (#4113),4113,[Perf] fix async copy for async scheduling,Performance,Include,Performance optimization
+[Perf] [MoE] optimize all2allv (#3738),3738,[Perf] [MoE] optimize all2allv,Performance,Include,Performance optimization
+[Bugfix] fix mtp profile run error where main model and mtp model use different quantization (#4102),4102,[Bugfix] fix mtp profile run error where main model and mtp model use different quantization,Highlights,Include,Major feature
+[BugFix] adapted e2e tests for Qwen3-next-mtp (#4160),4160,[BugFix] adapted e2e tests for Qwen3-next-mtp,Ignore,Ignore,Internal/CI/test change
+[BugFix] Fix kv_no_split not contiguous (#3594),3594,[BugFix] Fix kv_no_split not contiguous,Others,Include,Bug fix
+[Info][main] Correct the mistake in information documents (#4157),4157,[Info][main] Correct the mistake in information documents,Others,Include,Miscellaneous
+[Test]Add ut test qwen3_moe and sfa (#4121),4121,[Test]Add ut test qwen3_moe and sfa,Ignore,Ignore,Internal/CI/test change
+[CI] Remove unsupported python 3.9 format check (#4172),4172,[CI] Remove unsupported python 3.9 format check,Ignore,Ignore,Internal/CI/test change
+[CI] Add daily images build for nightly ci (#3989),3989,[CI] Add daily images build for nightly ci,Others,Include,Miscellaneous
+[long_seq_Feat] support chunk prefill (#4158),4158,[long_seq_Feat] support chunk prefill,Features,Include,New feature
+[CI] Add multi-nodes EPLB configs of DeepSeek-R1-W8A8 & Qwen3-235B-W8A8 (#4144),4144,[CI] Add multi-nodes EPLB configs of DeepSeek-R1-W8A8 & Qwen3-235B-W8A8,Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix cannot import name get_mp_context (#4174),4174,[Bugfix] fix cannot import name get_mp_context,Others,Include,Bug fix
+[Feat] Adds a utility for printing from within ACL graphs (#4162),4162,[Feat] Adds a utility for printing from within ACL graphs,Features,Include,New feature
+[Platform] Add import_kernels interface (#3694),3694,[Platform] Add import_kernels interface,Hardware and Operator Support,Include,Operator/hardware support
+[Misc] Add benchmark results into `.gitignore` (#4200),4200,[Misc] Add benchmark results into `.gitignore`,Others,Include,Miscellaneous
+[Test] Add deepseek v3.2 exp nightly test (#4191),4191,[Test] Add deepseek v3.2 exp nightly test,Highlights,Include,Model support
+[CI] Fix no space left in build wheel CI. (#4215),4215,[CI] Fix no space left in build wheel CI.,Ignore,Ignore,Internal/CI/test change
+support FULL graph mode for GQA (#3970),3970,support FULL graph mode for GQA,Highlights,Include,Major feature
+[TEST]Update prefixcache perf threshold for qwen3-32b-int8 (#4220),4220,[TEST]Update prefixcache perf threshold for qwen3-32b-int8,Others,Include,Miscellaneous
+make vllm-ascend work well in developer mode (#4179),4179,make vllm-ascend work well in developer mode,Others,Include,Miscellaneous
+[Bugfix]Fix moe error when sp chunked the hidden_states (#4212),4212,[Bugfix]Fix moe error when sp chunked the hidden_states,Others,Include,Bug fix
+[main][misc]change default capture size for Qwen3-MoE when using full dp (#4199),4199,[main][misc]change default capture size for Qwen3-MoE when using full dp,Others,Include,Miscellaneous
+[feature] Mooncake_connector support pcp/dcp (#4183),4183,[feature] Mooncake_connector support pcp/dcp,Highlights,Include,Major feature
+[P/D] pd proxy support ipv6 (#4161),4161,[P/D] pd proxy support ipv6,Features,Include,New feature
+[bugfix] fix proxy hen host ip using domain name (#4243),4243,[bugfix] fix proxy hen host ip using domain name,Others,Include,Bug fix
+[Fix] Sorts aclgraph batch sizes in ascending order (#4230),4230,[Fix] Sorts aclgraph batch sizes in ascending order,Highlights,Include,Major feature
+[refactor]support gatingtopk operator generalization (#2958),2958,[refactor]support gatingtopk operator generalization,Ignore,Ignore,Internal/CI/test change
+[bugfix] pcp + mtp acl graph bugfix (#4221),4221,[bugfix] pcp + mtp acl graph bugfix,Highlights,Include,Major feature
+[CI] Fix kubernetes failed to resolve ip by dns name (#4240),4240,[CI] Fix kubernetes failed to resolve ip by dns name,Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix hang in async scheduling (#4233),4233,[Bugfix] fix hang in async scheduling,Performance,Include,Performance optimization
+remove get_metadata_cls (#4087),4087,remove get_metadata_cls,Others,Include,Miscellaneous
+[doc]fix readme for kv pool user guide (#4271),4271,[doc]fix readme for kv pool user guide,Highlights,Include,Major feature
+[Docs] Improve the AISBench multi-modal testing docs (#4255),4255,[Docs] Improve the AISBench multi-modal testing docs,Others,Include,Miscellaneous
+[misc] clean up get_metadata_cls (#4276),4276,[misc] clean up get_metadata_cls,Ignore,Ignore,Internal/CI/test change
+[long seq feat]GQA support long-prefill-token-threshold and fixbug (#4209),4209,[long seq feat]GQA support long-prefill-token-threshold and fixbug,Features,Include,New feature
+"[Bugfix] fix nightly multi-node EPLB tests' ""DYNAMIC_EPLB=true"" environment not working (#4223)",4223,"[Bugfix] fix nightly multi-node EPLB tests' ""DYNAMIC_EPLB=true"" environment not working",Ignore,Ignore,Internal/CI/test change
+avoid mrope fusion op when running qwen2.5-vl on a+x machine (#4270),4270,avoid mrope fusion op when running qwen2.5-vl on a+x machine,Performance,Include,Operator fusion
+[Test] Add tests for the multi-node DeepSeek-V2-Lite network in GE Graph (#4039),4039,[Test] Add tests for the multi-node DeepSeek-V2-Lite network in GE Graph,Others,Include,Miscellaneous
+[CI] Add mla ut (#4280),4280,[CI] Add mla ut,Ignore,Ignore,Internal/CI/test change
+[Feat] Support MTP to running in full graph mode (#3892),3892,[Feat] Support MTP to running in full graph mode,Highlights,Include,Major feature
+[Test] quick fix mla ut (#4318),4318,[Test] quick fix mla ut,Ignore,Ignore,Internal/CI/test change
+[Test] Add ACL graph capture/replay DP test (#4259),4259,[Test] Add ACL graph capture/replay DP test,Others,Include,Miscellaneous
+[Feat][BugFix]Support the Qwen3-Next-80B-A3B-Instruct quantization model&Fix the NZ issue (#4245),4245,[Feat][BugFix]Support the Qwen3-Next-80B-A3B-Instruct quantization model&Fix the NZ issue,Highlights,Include,Model support
+eplb redundant expert bugfix (#4291),4291,eplb redundant expert bugfix,Highlights,Include,Major feature
+[Readme] EPLB Support Scenarios (#4314),4314,[Readme] EPLB Support Scenarios,Highlights,Include,Major feature
+[MM][Bugfix] Add error log for VL models when enabling FLASHCOMM (#4272),4272,[MM][Bugfix] Add error log for VL models when enabling FLASHCOMM,Performance,Include,Performance optimization
+[Feat][Doc] Add a load_balance_dp_proxy in examples and external dp doc. (#4265),4265,[Feat][Doc] Add a load_balance_dp_proxy in examples and external dp doc.,Documentation,Include,Documentation update
+[Test] Add ut test for torchair (#4287),4287,[Test] Add ut test for torchair,Ignore,Ignore,Internal/CI/test change
+[bugfix] bugfix for PD disaggregate (#4319),4319,[bugfix] bugfix for PD disaggregate,Others,Include,Bug fix
+[EPLB] Eplb Verify Fix (#4333),4333,[EPLB] Eplb Verify Fix,Highlights,Include,Major feature
+[Doc] add release note for v0.11.0rc2 (#4348),4348,[Doc] add release note for v0.11.0rc2,Documentation,Include,Documentation update
+[BugFix] Fix some issues caused by the ascending order of cudagraph_capture_sizes (#4338),4338,[BugFix] Fix some issues caused by the ascending order of cudagraph_capture_sizes,Others,Include,Bug fix
+[Bugfix][KV Pool]fix get_ip import in mooncake_store (#4355),4355,[Bugfix][KV Pool]fix get_ip import in mooncake_store,Highlights,Include,Major feature
+[Doc]Add single node PD disaggregation instructions (#4337),4337,[Doc]Add single node PD disaggregation instructions,Highlights,Include,Major feature
+[CI] Fix nightly CI for A2 series (#3825),3825,[CI] Fix nightly CI for A2 series,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Upgrade multi-node doc (#4365),4365,[Doc] Upgrade multi-node doc,Documentation,Include,Documentation update
+Change the first letter to uppercase (#4375),4375,Change the first letter to uppercase,Others,Include,Miscellaneous
+[Fix] Remove unnecessary NPU synchronization in MTP proposer (#4325),4325,[Fix] Remove unnecessary NPU synchronization in MTP proposer,Highlights,Include,Major feature
+[TEST]Update deepseek mtpx acc cases standard (#4321),4321,[TEST]Update deepseek mtpx acc cases standard,Highlights,Include,Major feature
+Drop 0.11.0 support (#4377),4377,Drop 0.11.0 support,Features,Include,New feature
+[Fix] fix aclgraph e2e test. (#4131),4131,[Fix] fix aclgraph e2e test.,Ignore,Ignore,Internal/CI/test change
+[Refactor] remove moe type of multicast. (#4224),4224,[Refactor] remove moe type of multicast.,Ignore,Ignore,Internal/CI/test change
+[Bugfix][MoE] enable force_load_balance in aclgraph (#4366),4366,[Bugfix][MoE] enable force_load_balance in aclgraph,Highlights,Include,Major feature
+[feature] vllm-ascend support msprobe (eager mode dump) (#4241),4241,[feature] vllm-ascend support msprobe (eager mode dump),Features,Include,New feature
+Bump actions/checkout from 4 to 6 (#4380),4380,Bump actions/checkout from 4 to 6,Ignore,Ignore,Internal/CI/test change
+[Bugfix]Fix the hang issue of multimodal model when running with DP>1 (#4392),4392,[Bugfix]Fix the hang issue of multimodal model when running with DP>1,Others,Include,Bug fix
+Document error correction (#4422),4422,Document error correction,Others,Include,Miscellaneous
+[Bugfix] fix patch typo (#4351),4351,[Bugfix] fix patch typo,Others,Include,Bug fix
+[bugfix]Return the Transformer version from 4.57.2 to 4.57.1 (#4423),4423,[bugfix]Return the Transformer version from 4.57.2 to 4.57.1,Others,Include,Bug fix
+[Bugfix] use module-level import for patched function in Qwen3Next (#4354),4354,[Bugfix] use module-level import for patched function in Qwen3Next,Others,Include,Bug fix
+[MM][Bugfix] Minor fix for VL model verification (#4384),4384,[MM][Bugfix] Minor fix for VL model verification,Others,Include,Bug fix
+[misc] Remove useless patch_logits (#4252),4252,[misc] Remove useless patch_logits,Others,Include,Miscellaneous
+[TEST] Delete Comment (#4427),4427,[TEST] Delete Comment,Others,Include,Miscellaneous
+mkdir triton package and move triton files (#4420),4420,mkdir triton package and move triton files,Hardware and Operator Support,Include,Operator/hardware support
+upgrade to vllm 0.11.2 (#4400),4400,upgrade to vllm 0.11.2,Others,Include,Miscellaneous
+[CI] clean up ci (#4452),4452,[CI] clean up ci,Ignore,Ignore,Internal/CI/test change
+[refact] unified soc_version code (#4359),4359,[refact] unified soc_version code,Others,Include,Miscellaneous
+Change comment location (#4432),4432,Change comment location,Others,Include,Miscellaneous
+[UT] Fix ut test (#4472),4472,[UT] Fix ut test,Ignore,Ignore,Internal/CI/test change
+chip type judgement code optimization (#4485),4485,chip type judgement code optimization,Performance,Include,Performance optimization
+[CI][Nightly] Support local debugging for multi-node CI test cases (#4489),4489,[CI][Nightly] Support local debugging for multi-node CI test cases,Features,Include,New feature
+[BugFix] Adapted Qwen3-Next eager mode to v0.11.2 (#4477),4477,[BugFix] Adapted Qwen3-Next eager mode to v0.11.2,Highlights,Include,Model support
+[bugfix] fix ray start failed: local_world_size cannot little than visible device count error (#4457),4457,[bugfix] fix ray start failed: local_world_size cannot little than visible device count error,Others,Include,Bug fix
+[feature] Add Custom Op grouped_matmul_swiglu_quant (#4431),4431,[feature] Add Custom Op grouped_matmul_swiglu_quant,Hardware and Operator Support,Include,Operator/hardware support
+[TEST] Add eagle proposer ut (#4447),4447,[TEST] Add eagle proposer ut,Ignore,Ignore,Internal/CI/test change
+[main]Upgrade cann to 8.3rc2 (#4350),4350,[main]Upgrade cann to 8.3rc2,Others,Include,Miscellaneous
+[Quantization] Support compressed tensors w8a8 static and w8a8 dynamic weight (#4036),4036,[Quantization] Support compressed tensors w8a8 static and w8a8 dynamic weight,Features,Include,New feature
+[MM][Model][Perf] Remove Qwen2.5-VL modeling files and add patch for VisionAttention (#4349),4349,[MM][Model][Perf] Remove Qwen2.5-VL modeling files and add patch for VisionAttention,Performance,Include,Performance optimization
+[P/D] Add readme for PD separation (#4182),4182,[P/D] Add readme for PD separation,Documentation,Include,Documentation update
+[Doc]Delete equals sign (#4537),4537,[Doc]Delete equals sign,Documentation,Include,Documentation update
+[Kernel] add custom op GmmSwigluQuantWeightNzTensorList (#3804),3804,[Kernel] add custom op GmmSwigluQuantWeightNzTensorList,Hardware and Operator Support,Include,Operator/hardware support
+[Feature][main]reconstruction kvpool connector to ascend connector (#4438),4438,[Feature][main]reconstruction kvpool connector to ascend connector,Features,Include,New feature
+【OPS】qwen3-next  support triton chunk_gated_delta_rule ops (#4070),4070,【OPS】qwen3-next  support triton chunk_gated_delta_rule ops,Highlights,Include,Model support
+update triton package url (#4552),4552,update triton package url,Hardware and Operator Support,Include,Operator/hardware support
+[Bugfix] Fix model run _npu_flash_attention hang issue (#4410),4410,[Bugfix] Fix model run _npu_flash_attention hang issue,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Add single NPU tutorial for Qwen2.5-Omni-7B (#4446),4446,[Doc] Add single NPU tutorial for Qwen2.5-Omni-7B,Documentation,Include,Model tutorial
+Update triton package name (#4563),4563,Update triton package name,Hardware and Operator Support,Include,Operator/hardware support
+[bugfix] dep ineffective (#4417),4417,[bugfix] dep ineffective,Others,Include,Bug fix
+[P/D] [bugfix] add get_kv_connector_handshake_metadata func for 0.11.2 (#4567),4567,[P/D] [bugfix] add get_kv_connector_handshake_metadata func for 0.11.2,Others,Include,Bug fix
+drop ascend scheduler (#4498),4498,drop ascend scheduler,Others,Include,Miscellaneous
+improve soc version (#4522),4522,improve soc version,Others,Include,Miscellaneous
+[MM][Model] Remove Qwen2-VL modeling files (#4534),4534,[MM][Model] Remove Qwen2-VL modeling files,Others,Include,Miscellaneous
+Move mla to ops module (#4575),4575,Move mla to ops module,Others,Include,Miscellaneous
+[Bugfix] fix dp parallel + tp > 1 offline inference port conflict (#4539),4539,[Bugfix] fix dp parallel + tp > 1 offline inference port conflict,Others,Include,Bug fix
+remove qwen3-next model file (#4573),4573,remove qwen3-next model file,Highlights,Include,Model support
+[feature]Pooling Features and PCP Adaptation (#4143),4143,[feature]Pooling Features and PCP Adaptation,Highlights,Include,Major feature
+"Revert ""drop ascend scheduler"" (#4580)",4580,"Revert ""drop ascend scheduler""",Ignore,Ignore,Internal/CI/test change
+[CI] Skip test_ngram_correctness as the oom issue block CI (#4578),4578,[CI] Skip test_ngram_correctness as the oom issue block CI,Ignore,Ignore,Internal/CI/test change
+[bugfix] Repair the problem of moe model accuracy caused by version upgrade. (#4562),4562,[bugfix] Repair the problem of moe model accuracy caused by version upgrade.,Others,Include,Bug fix
+[Bugfix] Fix kvpool precision synchronization (#4574),4574,[Bugfix] Fix kvpool precision synchronization,Others,Include,Bug fix
+[feature] Support W8A8 PD-Mix Quantization (#4235),4235,[feature] Support W8A8 PD-Mix Quantization,Features,Include,New feature
+[EPLB][Ops] Integerate grouped_matmul_swiglu_quant_weight_nz_tensor_list operator into dynamic EPLB (#4216),4216,[EPLB][Ops] Integerate grouped_matmul_swiglu_quant_weight_nz_tensor_list operator into dynamic EPLB,Highlights,Include,Major feature
+[OPS] add bmm_transpose ops (#3990),3990,[OPS] add bmm_transpose ops,Others,Include,Miscellaneous
+[BugFix] Fix Qwen2.5_Omni vision customized op attr err (#4568),4568,[BugFix] Fix Qwen2.5_Omni vision customized op attr err,Others,Include,Bug fix
+[Bugfix] Resolve MTP > 1 issue when lm head tp > 1 (#4254),4254,[Bugfix] Resolve MTP > 1 issue when lm head tp > 1,Highlights,Include,Major feature
+Bump actions/setup-python from 6.0.0 to 6.1.0 (#4591),4591,Bump actions/setup-python from 6.0.0 to 6.1.0,Ignore,Ignore,Internal/CI/test change
+[Bugfix] Fix bug with establishing the flashcomm2 and pp communication domains. (#4458),4458,[Bugfix] Fix bug with establishing the flashcomm2 and pp communication domains.,Performance,Include,Performance optimization
+[Kernel] add triton kernels for sampling (#4550),4550,[Kernel] add triton kernels for sampling,Hardware and Operator Support,Include,Operator/hardware support
+add _cann_ops_custom gitignore (#4605),4605,add _cann_ops_custom gitignore,Others,Include,Miscellaneous
+[Feature] Integrate Suffix Spec Decoding (#4045),4045,[Feature] Integrate Suffix Spec Decoding,Highlights,Include,Major feature
+upgrade torch npu version (#4433),4433,upgrade torch npu version,Others,Include,Miscellaneous
+[Bugfix] PCP adaptation for VLLM v0.11.2 modifications (#4604),4604,[Bugfix] PCP adaptation for VLLM v0.11.2 modifications,Highlights,Include,Major feature
+[Bug_fix] fix torchair o_proj forward parameter (#4166),4166,[Bug_fix] fix torchair o_proj forward parameter,Others,Include,Miscellaneous
+[CI] drop ascend scheduler test (#4582),4582,[CI] drop ascend scheduler test,Ignore,Ignore,Internal/CI/test change
+[Feat] shared expert dp for deepseek_mtp (#3811),3811,[Feat] shared expert dp for deepseek_mtp,Highlights,Include,Major feature
+fix qwenvl pd smoke test error (#4597),4597,fix qwenvl pd smoke test error,Ignore,Ignore,Internal/CI/test change
+[Test] Add accuracy nightly test for new models (#4262),4262,[Test] Add accuracy nightly test for new models,Others,Include,Miscellaneous
+"[Doc] Fix DeepSeek-V3.2-Exp doc, add docker command. (#4479)",4479,"[Doc] Fix DeepSeek-V3.2-Exp doc, add docker command.",Documentation,Include,Model tutorial
+[Test] Add GLM-4.5 nightly test (#4225),4225,[Test] Add GLM-4.5 nightly test,Highlights,Include,Model support
+"[Bugfix] Remove ModelSlim-""M4 Quantization"". (#4589)",4589,"[Bugfix] Remove ModelSlim-""M4 Quantization"".",Others,Include,Bug fix
+[main][bugfix] bugfix for qwen3 moe quantization (#4599),4599,[main][bugfix] bugfix for qwen3 moe quantization,Others,Include,Bug fix
+[MM][Model] Remove Qwen3-VL modeling files (#4577),4577,[MM][Model] Remove Qwen3-VL modeling files,Highlights,Include,Model support
+[CI]enable chunked prefill by default (#4569),4569,[CI]enable chunked prefill by default,Ignore,Ignore,Internal/CI/test change
+[Refactor] Remove redundant attention operator branches. (#4531),4531,[Refactor] Remove redundant attention operator branches.,Ignore,Ignore,Internal/CI/test change
+[Bugfix] Fix Qwen2.5-Omni-7B accuarcy test (#4556),4556,[Bugfix] Fix Qwen2.5-Omni-7B accuarcy test,Ignore,Ignore,Internal/CI/test change
+[Bugfix]Fix eplb enable when using mtp float weights. (#4571),4571,[Bugfix]Fix eplb enable when using mtp float weights.,Highlights,Include,Major feature
+Bump actions/checkout from 4.3.1 to 6.0.0 (#4592),4592,Bump actions/checkout from 4.3.1 to 6.0.0,Ignore,Ignore,Internal/CI/test change
+"Revert ""[Bugfix] Fix Qwen2.5-Omni-7B accuarcy test (#4556)"" (#4556)",4556,"Revert ""[Bugfix] Fix Qwen2.5-Omni-7B accuarcy test",Ignore,Ignore,Internal/CI/test change
+[CI] Drop ascend scheduler from test (#4613),4613,[CI] Drop ascend scheduler from test,Ignore,Ignore,Internal/CI/test change
+add hyperlink (#4588),4588,add hyperlink,Others,Include,Miscellaneous
+[Doc]clean up ascend scheduler config from doc (#4612),4612,[Doc]clean up ascend scheduler config from doc,Documentation,Include,Documentation update
+[Doc] Add tutorial for Qwen3-Coder-30B-A3B (#4391),4391,[Doc] Add tutorial for Qwen3-Coder-30B-A3B,Hardware and Operator Support,Include,Operator/hardware support
+[Ops][Triton] Add a triton kernel supporting partial rope. (#4413),4413,[Ops][Triton] Add a triton kernel supporting partial rope.,Hardware and Operator Support,Include,Operator/hardware support
+clean up model module (#4611),4611,clean up model module,Others,Include,Miscellaneous
+[Doc] Refactor the DeepSeek-V3.1 tutorial. (#4399),4399,[Doc] Refactor the DeepSeek-V3.1 tutorial.,Documentation,Include,Model tutorial
+[performance] Enhance performance after enabling min_p (#4529),4529,[performance] Enhance performance after enabling min_p,Performance,Include,Performance optimization
+【doc fix】doc fix: deepseekv3.1 (#4645),4645,【doc fix】doc fix: deepseekv3.1,Others,Include,Miscellaneous
+[Bugfix] fix custom op GmmSwigluQuantWeightNzTensorList (#4593),4593,[Bugfix] fix custom op GmmSwigluQuantWeightNzTensorList,Hardware and Operator Support,Include,Operator/hardware support
+upgrade vLLM to main (#4608),4608,upgrade vLLM to main,Others,Include,Miscellaneous
+[kernel] add AscendC op: lightning_indexer and sparse_flash_attention (#4625),4625,[kernel] add AscendC op: lightning_indexer and sparse_flash_attention,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] add release note for v0.11.0rc3 (#4646),4646,[Doc] add release note for v0.11.0rc3,Documentation,Include,Documentation update
+fix typo (#4657),4657,fix typo,Others,Include,Miscellaneous
+[Model] Add qwen3Next support in Main (#4596),4596,[Model] Add qwen3Next support in Main,Features,Include,New feature
+[Feat] MTP support DeepSeekV3.2 (#4465),4465,[Feat] MTP support DeepSeekV3.2,Highlights,Include,Major feature
+[Fix] Fix FIA `query` and `query_start_loc` shape mismatch error (#4518),4518,[Fix] Fix FIA `query` and `query_start_loc` shape mismatch error,Hardware and Operator Support,Include,Operator/hardware support
+[CI] Fix ut ci: no space on the device (#4662),4662,[CI] Fix ut ci: no space on the device,Ignore,Ignore,Internal/CI/test change
+[Misc] Add cann custom ops to `.gitignore` (#4670),4670,[Misc] Add cann custom ops to `.gitignore`,Hardware and Operator Support,Include,Operator/hardware support
+fix custom ops env set error (#4675),4675,fix custom ops env set error,Hardware and Operator Support,Include,Operator/hardware support
+[Core] Encoder separation for Encode-Prefill-Decode Disaggregation (#4176),4176,[Core] Encoder separation for Encode-Prefill-Decode Disaggregation,Highlights,Include,Major feature
+upgrade vLLM to 0.12.0 tag (#4647),4647,upgrade vLLM to 0.12.0 tag,Others,Include,Miscellaneous
+Remove cancel for main to main check (#4685),4685,Remove cancel for main to main check,Others,Include,Miscellaneous
+Adopt inductor fusion and define quantization fusion pass (#4168),4168,Adopt inductor fusion and define quantization fusion pass,Performance,Include,Operator fusion
+Remove ascend schuduler ut (#4684),4684,Remove ascend schuduler ut,Others,Include,Miscellaneous
+【fix】ops gatingtopk fix nightly ci error (#4340),4340,【fix】ops gatingtopk fix nightly ci error,Others,Include,Miscellaneous
+[MM][Patch] Remove patch for cos/sin cache (#4672),4672,[MM][Patch] Remove patch for cos/sin cache,Others,Include,Miscellaneous
+[Nightly] Optimize nightly CI (#4509),4509,[Nightly] Optimize nightly CI,Performance,Include,Performance optimization
+[Misc] Upgrade vllm vllm commit to 2025_12_04 (#4690),4690,[Misc] Upgrade vllm vllm commit to 2025_12_04,Others,Include,Miscellaneous
+add `dispatch_gmm_combine` kernel (#3532),3532,add `dispatch_gmm_combine` kernel,Hardware and Operator Support,Include,Operator/hardware support
+[Bugfix] Quick hot fix for nightly CI (#4727),4727,[Bugfix] Quick hot fix for nightly CI,Others,Include,Bug fix
+[Doc] Update vLLM version in doc (#4691),4691,[Doc] Update vLLM version in doc,Documentation,Include,Documentation update
+Drop ascend scheduler (#4623),4623,Drop ascend scheduler,Others,Include,Miscellaneous
+[long_seq] remove long_seq env (#4660),4660,[long_seq] remove long_seq env,Others,Include,Miscellaneous
+Update comment doc (#4731),4731,Update comment doc,Others,Include,Miscellaneous
+[BugFix][Triton] Fix ub overflow bug of sample_recover_tokens_kernel (#4673),4673,[BugFix][Triton] Fix ub overflow bug of sample_recover_tokens_kernel,Hardware and Operator Support,Include,Operator/hardware support
+[Bugifx] fix quant_apply_mlp w1_scale type error & fix getting num_local_expert (#4632),4632,[Bugifx] fix quant_apply_mlp w1_scale type error & fix getting num_local_expert,Others,Include,Miscellaneous
+[P/D][main] Clean connector history information (#4650),4650,[P/D][main] Clean connector history information,Others,Include,Miscellaneous
+[CI] Fix unit test fault `no space left` (#4728),4728,[CI] Fix unit test fault `no space left`,Ignore,Ignore,Internal/CI/test change
+【main】[Doc]add 2P1D instruction for single node (#4716),4716,【main】[Doc]add 2P1D instruction for single node,Documentation,Include,Documentation update
+[Refactor] 1/N Refactor attention_v1 & extract attention_cp (#4628),4628,[Refactor] 1/N Refactor attention_v1 & extract attention_cp,Ignore,Ignore,Internal/CI/test change
+[Bugfix]fix bmm_transpose ops for cann version (#4653),4653,[Bugfix]fix bmm_transpose ops for cann version,Others,Include,Bug fix
+rm vanilla attn (#4558),4558,rm vanilla attn,Others,Include,Miscellaneous
+mlapo add qdown output (#4707),4707,mlapo add qdown output,Hardware and Operator Support,Include,Operator/hardware support
+[Bugfix] fix mtp and eagle aclgraph bug (#4710),4710,[Bugfix] fix mtp and eagle aclgraph bug,Highlights,Include,Major feature
+support async mtp (#4511),4511,support async mtp,Highlights,Include,Major feature
+[BugFix] Fix eagle3 accuracy problem when enforce_eager=True (#4521),4521,[BugFix] Fix eagle3 accuracy problem when enforce_eager=True,Highlights,Include,Major feature
+[Kernel] add custom op DispatchGmmCombineDecode (#4139),4139,[Kernel] add custom op DispatchGmmCombineDecode,Hardware and Operator Support,Include,Operator/hardware support
+[Feat]enable sfa cp for dsv3.2 (#4702),4702,[Feat]enable sfa cp for dsv3.2,Hardware and Operator Support,Include,Operator/hardware support
+Support DeepSeekV3.2 with MLAPO operator (#4753),4753,Support DeepSeekV3.2 with MLAPO operator,Hardware and Operator Support,Include,Operator/hardware support
+[P/D] check kv extra config and del hccl backend (#4547),4547,[P/D] check kv extra config and del hccl backend,Others,Include,Miscellaneous
+[BugFix] Refactor ACL graph size adjustment for speculative decoding (#4640),4640,[BugFix] Refactor ACL graph size adjustment for speculative decoding,Highlights,Include,Major feature
+[Feat] Add Euler xlite graph wrapper support (#4526),4526,[Feat] Add Euler xlite graph wrapper support,Highlights,Include,Major feature
+fix synchronize error of exceeds_max_model_len d2h copy (#4708),4708,fix synchronize error of exceeds_max_model_len d2h copy,Others,Include,Miscellaneous
+[CI] Fix ngram & suffix test oom (#4755),4755,[CI] Fix ngram & suffix test oom,Ignore,Ignore,Internal/CI/test change
+Deepseek Mtp model uses the lm_head and embedding from the main model (#2790),2790,Deepseek Mtp model uses the lm_head and embedding from the main model,Highlights,Include,Major feature
+remove useless patch (#4699),4699,remove useless patch,Others,Include,Miscellaneous
+[Op] DeepSeekV3.2 support bmm_transpose operator (#4631),4631,[Op] DeepSeekV3.2 support bmm_transpose operator,Hardware and Operator Support,Include,Operator/hardware support
+[EPLB] Add log Info for moe_load Imbalance Ratio (#4482),4482,[EPLB] Add log Info for moe_load Imbalance Ratio,Highlights,Include,Major feature
+[Fix] skip xlite e2e test (#4786),4786,[Fix] skip xlite e2e test,Ignore,Ignore,Internal/CI/test change
+[Bugfix] Fix Dcp dimension mismatch when enable Mlapo (#4687),4687,[Bugfix] Fix Dcp dimension mismatch when enable Mlapo,Highlights,Include,Major feature
+[Kernel] add custom moe ops for prefill (#4194),4194,[Kernel] add custom moe ops for prefill,Hardware and Operator Support,Include,Operator/hardware support
+Bump actions/checkout from 6.0.0 to 6.0.1 (#4772),4772,Bump actions/checkout from 6.0.0 to 6.0.1,Ignore,Ignore,Internal/CI/test change
+[Doc] Add Qwen3-235B tutorial (#4358),4358,[Doc] Add Qwen3-235B tutorial,Documentation,Include,Documentation update
+[DP] Fix dp padding logic in dummyrun (#4705),4705,[DP] Fix dp padding logic in dummyrun,Others,Include,Miscellaneous
+[MOE]move weight transpose to wakeup for RL secnarios (#4626),4626,[MOE]move weight transpose to wakeup for RL secnarios,Others,Include,Miscellaneous
+Fix incorrect MLAPO weight release in PD mixex scenarios. (#4774),4774,Fix incorrect MLAPO weight release in PD mixex scenarios.,Hardware and Operator Support,Include,Operator/hardware support
+"Revert ""[Kernel] add custom moe ops for prefill"" (#4806)",4806,"Revert ""[Kernel] add custom moe ops for prefill""",Ignore,Ignore,Internal/CI/test change
+[Bugfix] Add the check for a null VllmConfig (#4749),4749,[Bugfix] Add the check for a null VllmConfig,Others,Include,Bug fix
+[CI] Skip `test_suffix_correctness` (#4820),4820,[CI] Skip `test_suffix_correctness`,Ignore,Ignore,Internal/CI/test change
+[Docs]fix the configuration conflicts in documentation (#4823),4823,[Docs]fix the configuration conflicts in documentation,Documentation,Include,Documentation update
+[CI] Optimize CI time (#4821),4821,[CI] Optimize CI time,Ignore,Ignore,Internal/CI/test change
+[KVPOOl]Support pp (#4761),4761,[KVPOOl]Support pp,Features,Include,New feature
+[Feat] Multi-stream for eplb heat collection and aggregation (#4214),4214,[Feat] Multi-stream for eplb heat collection and aggregation,Highlights,Include,Major feature
+[kernel] Adapt DispatchGmmCombineDecode operator to parameters of small operators (#4790),4790,[kernel] Adapt DispatchGmmCombineDecode operator to parameters of small operators,Hardware and Operator Support,Include,Operator/hardware support
+[CI] Increase HCCL_BUFFSIZE for A3 (#4838),4838,[CI] Increase HCCL_BUFFSIZE for A3,Ignore,Ignore,Internal/CI/test change
+[Bugfix]fix bmm_transpose ops in dsv32 (#4791),4791,[Bugfix]fix bmm_transpose ops in dsv32,Others,Include,Bug fix
+[UT]add pcp aclgraph ut (#4804),4804,[UT]add pcp aclgraph ut,Ignore,Ignore,Internal/CI/test change
+"[Usability]local_buffer_size support for units: GB, MB, KB, B (#4829)",4829,"[Usability]local_buffer_size support for units: GB, MB, KB, B",Features,Include,New feature
+[Refactor] 2/N Unify all mask generation methods and cache mask (#4779),4779,[Refactor] 2/N Unify all mask generation methods and cache mask,Ignore,Ignore,Internal/CI/test change
+[CI] Setup github proxy for self_hosted runners (#4841),4841,[CI] Setup github proxy for self_hosted runners,Ignore,Ignore,Internal/CI/test change
+[Fix] Add extra warmup run count for MC2 on specific SoC version (#4843),4843,[Fix] Add extra warmup run count for MC2 on specific SoC version,Others,Include,Bug fix
+[Bugfix] Disable the dispatch_ffn_combine kernel in MTP path (#4751),4751,[Bugfix] Disable the dispatch_ffn_combine kernel in MTP path,Highlights,Include,Major feature
+[P/D][main]Offline the llmdatadist connector related parts of the code and files. (#4780),4780,[P/D][main]Offline the llmdatadist connector related parts of the code and files.,Others,Include,Miscellaneous
+Add gsm8k accuracy test for multi-note Qwen3-235B-A22B (#4802),4802,Add gsm8k accuracy test for multi-note Qwen3-235B-A22B,Hardware and Operator Support,Include,Operator/hardware support
+[bugfix] fix quant method validation bug (#4831),4831,[bugfix] fix quant method validation bug,Others,Include,Bug fix
+[Kernel] add custom op MatmulAllreduceAddRmsnorm (#4606),4606,[Kernel] add custom op MatmulAllreduceAddRmsnorm,Hardware and Operator Support,Include,Operator/hardware support
+Drop torchair (#4814),4814,Drop torchair,Others,Include,Miscellaneous
+[Nightly] Optimize nightly online test logger info (#4798),4798,[Nightly] Optimize nightly online test logger info,Performance,Include,Performance optimization
+[Test] Temporarily skips Qwen3-30B-A3B-W8A8 data parallel test case (#4857),4857,[Test] Temporarily skips Qwen3-30B-A3B-W8A8 data parallel test case,Hardware and Operator Support,Include,Operator/hardware support
+add e2e test for mtp async_scheduling (#4826),4826,add e2e test for mtp async_scheduling,Highlights,Include,Major feature
+[Model] Support pooling models (#3122),3122,[Model] Support pooling models,Highlights,Include,Major feature
+[CI]Cleanup accurary test (#4861),4861,[CI]Cleanup accurary test,Ignore,Ignore,Internal/CI/test change
+[CI] Use offline mode for modelscope (#4875),4875,[CI] Use offline mode for modelscope,Ignore,Ignore,Internal/CI/test change
+[Feat] Support native Kimi-K2-Thinking native W4A16 quantized experts weights (#4516),4516,[Feat] Support native Kimi-K2-Thinking native W4A16 quantized experts weights,Highlights,Include,Model support
+mooncake connector support pipeline parallel & fix pp with flashcomm1 (#4054),4054,mooncake connector support pipeline parallel & fix pp with flashcomm1,Highlights,Include,Major feature
+add multi_npu_qwen3_dense tutorials (#4543),4543,add multi_npu_qwen3_dense tutorials,Documentation,Include,Documentation update
+[CI] fix lint (#4888),4888,[CI] fix lint,Ignore,Ignore,Internal/CI/test change
+[Kernel] Add moe normal ops (#4810),4810,[Kernel] Add moe normal ops,Hardware and Operator Support,Include,Operator/hardware support
+[Bugfix] Fix out-of-bounds access to token_id due to uninitialized logprobs (#4248),4248,[Bugfix] Fix out-of-bounds access to token_id due to uninitialized logprobs,Others,Include,Bug fix
+[FEAT] Support DeepSeek-V3.2 with `FULL_DECODE_ONLY` mode (#4706),4706,[FEAT] Support DeepSeek-V3.2 with `FULL_DECODE_ONLY` mode,Highlights,Include,Major feature
+Fixed the performance degradation issue in post-processing in speculative decoding scenarios. (#4849),4849,Fixed the performance degradation issue in post-processing in speculative decoding scenarios.,Highlights,Include,Major feature
+[Bugfix]  Support for mlapo in deepseekv3.1 w4a8 (#4828),4828,[Bugfix]  Support for mlapo in deepseekv3.1 w4a8,Hardware and Operator Support,Include,Operator/hardware support
+[Feature] Support npuhraph_ex backend (#4700),4700,[Feature] Support npuhraph_ex backend,Features,Include,New feature
+[perf][dsv3.2][async_scheduling] improve dsv3.2 performance by eliminating HD synchronization (#4805),4805,[perf][dsv3.2][async_scheduling] improve dsv3.2 performance by eliminating HD synchronization,Performance,Include,Performance optimization
+[BugFix][main] Adapted Qwen3-Next-MTP to chunked prefill (#4770),4770,[BugFix][main] Adapted Qwen3-Next-MTP to chunked prefill,Highlights,Include,Major feature
+Update patch doc (#4869),4869,Update patch doc,Others,Include,Miscellaneous
+Remove COMPILE_CUSTOM_KERNELS env (#4864),4864,Remove COMPILE_CUSTOM_KERNELS env,Hardware and Operator Support,Include,Operator/hardware support
+Remove VLLM_ASCEND_ENABLE_TOPK_TOPP_OPTIMIZATION (#4860),4860,Remove VLLM_ASCEND_ENABLE_TOPK_TOPP_OPTIMIZATION,Performance,Include,Performance optimization
+Remove useless env (#4858),4858,Remove useless env,Others,Include,Miscellaneous
+add DeepSeek-R1 tutorial. (#4666),4666,add DeepSeek-R1 tutorial.,Documentation,Include,Model tutorial
+[Doc]Add tutorial document for qwen-VL-Dense (#3516),3516,[Doc]Add tutorial document for qwen-VL-Dense,Documentation,Include,Documentation update
+[Doc] Add local running multi-node nightly test case guide (#4884),4884,[Doc] Add local running multi-node nightly test case guide,Documentation,Include,Documentation update
+[E2E] Remove unused PD-disaggreate scripts in E2E test. (#4837),4837,[E2E] Remove unused PD-disaggreate scripts in E2E test.,Others,Include,Miscellaneous
+[E2E] Refactor the e2e testcases. (#4789),4789,[E2E] Refactor the e2e testcases.,Others,Include,Miscellaneous
+[E2E] Optimize nightly testcase. (#4886),4886,[E2E] Optimize nightly testcase.,Performance,Include,Performance optimization
+[feat] mlapo add bf16 no_quant support (#4852),4852,[feat] mlapo add bf16 no_quant support,Hardware and Operator Support,Include,Operator/hardware support
+cleanup useless torchair logic (#4856),4856,cleanup useless torchair logic,Ignore,Ignore,Internal/CI/test change
+[Feat] Flashcomm2 use o_shared linear (#4188),4188,[Feat] Flashcomm2 use o_shared linear,Performance,Include,Performance optimization
+[OPS] support triton causal_conv1d_fn ops (#4119),4119,[OPS] support triton causal_conv1d_fn ops,Hardware and Operator Support,Include,Operator/hardware support
+【Bugfix】bugfix_for_bmm_transpose (#4899),4899,【Bugfix】bugfix_for_bmm_transpose,Others,Include,Miscellaneous
+[Bugfix] Fix the bug in sfa-cp under multi-DP scenarios. (#4850),4850,[Bugfix] Fix the bug in sfa-cp under multi-DP scenarios.,Hardware and Operator Support,Include,Operator/hardware support
+[feat] apply flashcomm1 on bailing (#4868),4868,[feat] apply flashcomm1 on bailing,Performance,Include,Performance optimization
+[Bugfix] support mtp kv transfer and pp partition by hand in kv transfer (#4892),4892,[Bugfix] support mtp kv transfer and pp partition by hand in kv transfer,Highlights,Include,Major feature
+[doc]  Add Qwen2.5 tutorials (#4636),4636,[doc]  Add Qwen2.5 tutorials,Documentation,Include,Documentation update
+[Fix] Delete redundant variable (#4903),4903,[Fix] Delete redundant variable,Others,Include,Bug fix
+[Fusion] normalize fusion naming and enable e2e test (#4693),4693,[Fusion] normalize fusion naming and enable e2e test,Performance,Include,Operator fusion
+[Bugfix] Prevent engine hang during KVCacheSendingThread startup (#4754),4754,[Bugfix] Prevent engine hang during KVCacheSendingThread startup,Others,Include,Bug fix
+[CI] speed up ut (#4901),4901,[CI] speed up ut,Ignore,Ignore,Internal/CI/test change
+Remove mindie_turbo (#4896),4896,Remove mindie_turbo,Others,Include,Miscellaneous
+[Doc] Update structured output doc with upstream link (#4015),4015,[Doc] Update structured output doc with upstream link,Documentation,Include,Documentation update
+Refactor CI workflow (#4912),4912,Refactor CI workflow,Others,Include,Miscellaneous
+[CI] Cancel whl build when submitting a new commit (#4925),4925,[CI] Cancel whl build when submitting a new commit,Ignore,Ignore,Internal/CI/test change
+[CI]cleanup e2e test (#4800),4800,[CI]cleanup e2e test,Ignore,Ignore,Internal/CI/test change
+[Doc] Update tutorial index (#4920),4920,[Doc] Update tutorial index,Documentation,Include,Documentation update
+[bugfix][refactor] fix recompute_scheduler break with vllm 0.12.0 & support async scheduling & refactor recompute_scheduler.py (#4895),4895,[bugfix][refactor] fix recompute_scheduler break with vllm 0.12.0 & support async scheduling & refactor recompute_scheduler.py,Ignore,Ignore,Internal/CI/test change
+[Performance] Pre-issued exponential distribution operator. (#4908),4908,[Performance] Pre-issued exponential distribution operator.,Hardware and Operator Support,Include,Operator/hardware support
+[CI] refect e2e test (#4799),4799,[CI] refect e2e test,Ignore,Ignore,Internal/CI/test change
+[MoE][TorchAir] Remove FusedMoEState (#4927),4927,[MoE][TorchAir] Remove FusedMoEState,Performance,Include,Operator fusion
+[main][Bugfix] Remove the ZMQ communication setup on the D node (#4926),4926,[main][Bugfix] Remove the ZMQ communication setup on the D node,Others,Include,Bug fix
+[Feat] Add custom Embedding tensor model parallel (#2616),2616,[Feat] Add custom Embedding tensor model parallel,Features,Include,New feature
+[Bugfix] bugfix for moe_mlp (#4822),4822,[Bugfix] bugfix for moe_mlp,Others,Include,Bug fix
+BugFix: Resolve PolicyFlashlb warm up function attribute error (#4741),4741,BugFix: Resolve PolicyFlashlb warm up function attribute error,Others,Include,Miscellaneous
+[CI] fix light test (#4954),4954,[CI] fix light test,Ignore,Ignore,Internal/CI/test change
+【doc】Add model feature matrix (#4950),4950,【doc】Add model feature matrix,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Upgrade outdated doc (#4957),4957,[Doc] Upgrade outdated doc,Documentation,Include,Documentation update
+update qwen2.5vl readme (#4938),4938,update qwen2.5vl readme,Documentation,Include,Documentation update
+vllm-ascend support Ascend950 with Qwen dense model. (#4228),4228,vllm-ascend support Ascend950 with Qwen dense model.,Hardware and Operator Support,Include,Operator/hardware support
+[usability]Modify the default value of the protocol to ascend (#4959),4959,[usability]Modify the default value of the protocol to ascend,Others,Include,Miscellaneous
+[Nightly] Remove gen_ranktable logic (#4941),4941,[Nightly] Remove gen_ranktable logic,Others,Include,Miscellaneous
+[Feature] model_runner refactor (#4764),4764,[Feature] model_runner refactor,Features,Include,New feature
+[doc][main] Correct mistakes in doc (#4945),4945,[doc][main] Correct mistakes in doc,Documentation,Include,Documentation update
+[CI] Add mtp_proposer ut (#4397),4397,[CI] Add mtp_proposer ut,Ignore,Ignore,Internal/CI/test change
+[Bugfix] Pass vllm_config to kv_connector_no_forward in NPUModelRunner (#4970),4970,[Bugfix] Pass vllm_config to kv_connector_no_forward in NPUModelRunner,Others,Include,Bug fix
+[Bugfix] fix eagle proposer (#4971),4971,[Bugfix] fix eagle proposer,Highlights,Include,Major feature
+[bugfix] asyncscheduler bug fix (#4968),4968,[bugfix] asyncscheduler bug fix,Performance,Include,Performance optimization
+[doc][main] Correct more doc mistakes (#4958),4958,[doc][main] Correct more doc mistakes,Documentation,Include,Documentation update
+"Revert ""[Bugfix] support mtp kv transfer and pp partition by hand in kv transfer (#4892)"" (#4892)",4892,"Revert ""[Bugfix] support mtp kv transfer and pp partition by hand in kv transfer",Ignore,Ignore,Internal/CI/test change
+[perf] replace all_reduce for kv_consumer and support different num_tokens among all ranks (#4983),4983,[perf] replace all_reduce for kv_consumer and support different num_tokens among all ranks,Performance,Include,Performance optimization
+[CI] Pull latest vllm-ascend src before tests (#4988),4988,[CI] Pull latest vllm-ascend src before tests,Ignore,Ignore,Internal/CI/test change
+add release note for 0.12.0 (#4995),4995,add release note for 0.12.0,Others,Include,Miscellaneous
+[Fix] Fixes issues in MTP with async scheduling and ACL graph (#4963),4963,[Fix] Fixes issues in MTP with async scheduling and ACL graph,Highlights,Include,Major feature
+[Perf]enable prefill flashcommon3 (#4065),4065,[Perf]enable prefill flashcommon3,Performance,Include,Performance optimization
+[CI] CI refactor (#4928),4928,[CI] CI refactor,Ignore,Ignore,Internal/CI/test change
+add ut for model runner (#4991),4991,add ut for model runner,Others,Include,Miscellaneous
+[Misc] Update pooling example (#5002),5002,[Misc] Update pooling example,Highlights,Include,Major feature
+[CI][Bugfix] Fix scheduleroutput has no attr get error in prompt logprobs (#4998),4998,[CI][Bugfix] Fix scheduleroutput has no attr get error in prompt logprobs,Ignore,Ignore,Internal/CI/test change
+Add Qwen3-Next tutorials (#4607),4607,Add Qwen3-Next tutorials,Documentation,Include,Model tutorial
+[Refactor]3/N Refactor mla_v1.py & extract mla_cp (#4933),4933,[Refactor]3/N Refactor mla_v1.py & extract mla_cp,Ignore,Ignore,Internal/CI/test change
+[main][BugFix] Fixed an accuracy bug of Qwen3-next-MTP when batched inferring (#4932),4932,[main][BugFix] Fixed an accuracy bug of Qwen3-next-MTP when batched inferring,Highlights,Include,Major feature
+Bump actions/upload-artifact from 5 to 6 (#5014),5014,Bump actions/upload-artifact from 5 to 6,Ignore,Ignore,Internal/CI/test change
+[bugfix] Fix dummy-run and multi-node issues in MoE routing and MTP (#4947),4947,[bugfix] Fix dummy-run and multi-node issues in MoE routing and MTP,Highlights,Include,Major feature
+[Doc ] Supplement kvpool user guide (#5013),5013,[Doc ] Supplement kvpool user guide,Documentation,Include,Documentation update
+[Test]update accuracy test of models (#4911),4911,[Test]update accuracy test of models,Others,Include,Miscellaneous
+"[Bugfix] Fix the bug in initializing the shared_weight communication domain in sfa-cp, and fix the mtp weight load in pp>1 situation (#4913)",4913,"[Bugfix] Fix the bug in initializing the shared_weight communication domain in sfa-cp, and fix the mtp weight load in pp>1 situation",Highlights,Include,Major feature
+[Bugfix] Add support for PP intermediate value types in graph mode (#4902),4902,[Bugfix] Add support for PP intermediate value types in graph mode,Features,Include,New feature
+[Bugfix] qwen3-vl-235b-w8a8 load weight ERROR when start service (#4292),4292,[Bugfix] qwen3-vl-235b-w8a8 load weight ERROR when start service,Highlights,Include,Model support
+update release note for suffix decoding (#5009),5009,update release note for suffix decoding,Highlights,Include,Major feature
+[Graph][Fusion] Add AddRMSNorm(with bias) and Quant Fusion Pattern (#5011),5011,[Graph][Fusion] Add AddRMSNorm(with bias) and Quant Fusion Pattern,Performance,Include,Operator fusion
+[UT]add pcp dcp ut (#4949),4949,[UT]add pcp dcp ut,Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix the incorrect use of python's sum on tensors. (#4655),4655,[Bugfix] fix the incorrect use of python's sum on tensors.,Others,Include,Bug fix
+[Misc] Upgrade vllm hash to 12_14 (#5000),5000,[Misc] Upgrade vllm hash to 12_14,Others,Include,Miscellaneous
+[CI] Delete deepseek3.2-exp nightly test (#5028),5028,[CI] Delete deepseek3.2-exp nightly test,Others,Include,Miscellaneous
+[E2E] Collect test run time. (#5018),5018,[E2E] Collect test run time.,Others,Include,Miscellaneous
+[doc]Modify quantization tutorials (#5026),5026,[doc]Modify quantization tutorials,Documentation,Include,Documentation update
+[KVPool]Fix PP get bug (#5007),5007,[KVPool]Fix PP get bug,Others,Include,Miscellaneous
+[Attention] Temporarily add back pa for small batch sizes. (#4765),4765,[Attention] Temporarily add back pa for small batch sizes.,Others,Include,Miscellaneous
+[Cleanup] Remove unused attn_metadata parameter from Proposer classes (#4862),4862,[Cleanup] Remove unused attn_metadata parameter from Proposer classes,Ignore,Ignore,Internal/CI/test change
+[bugfix] [main] Fix KV cache query inconsistency across different TP ranks in the KV Pool (#5030),5030,[bugfix] [main] Fix KV cache query inconsistency across different TP ranks in the KV Pool,Highlights,Include,Major feature
+[Bugfix] Fix precision issues in moe_mlp (vllm-ascend main) (#5025),5025,[Bugfix] Fix precision issues in moe_mlp (vllm-ascend main),Others,Include,Bug fix
+[Bugfix] Fix the attn_metadata is None (#5038),5038,[Bugfix] Fix the attn_metadata is None,Others,Include,Bug fix
+[Misc] Upgrade vllm commit hash to 1215 (#5029),5029,[Misc] Upgrade vllm commit hash to 1215,Others,Include,Miscellaneous
+[Fix]Revert temporary skip on mtp1/mtp2 correctness tests (aclgraph fix) (#5039),5039,[Fix]Revert temporary skip on mtp1/mtp2 correctness tests (aclgraph fix),Ignore,Ignore,Internal/CI/test change
+[Core][Worker] Add UCMConnector for KV Cache Offloading (#4411),4411,[Core][Worker] Add UCMConnector for KV Cache Offloading,Highlights,Include,Major feature
+[Bugfix] dynamic eplb does't use fused_alltoall (#4919),4919,[Bugfix] dynamic eplb does't use fused_alltoall,Highlights,Include,Major feature
+Bump actions/checkout from 4 to 6 (#5015),5015,Bump actions/checkout from 4 to 6,Ignore,Ignore,Internal/CI/test change
+[Feat] Refactor rejection sampler (#4975),4975,[Feat] Refactor rejection sampler,Highlights,Include,Major feature
+[bugfix] Fix mooncake kvpool accuracy issue (#4976),4976,[bugfix] Fix mooncake kvpool accuracy issue,Highlights,Include,Major feature
+[Refactor] Remove the process patches of Qwen2.5-VL and Qwen2.5-Omni (#5035),5035,[Refactor] Remove the process patches of Qwen2.5-VL and Qwen2.5-Omni,Ignore,Ignore,Internal/CI/test change
+[Doc] Upgrade some outdated doc (#5062),5062,[Doc] Upgrade some outdated doc,Documentation,Include,Documentation update
+[ModelRunner] apply_grammer uses vllm function (#4974),4974,[ModelRunner] apply_grammer uses vllm function,Others,Include,Miscellaneous
+[Bugfix] fix fastapi version (#5047),5047,[Bugfix] fix fastapi version,Others,Include,Bug fix
+[BugFix]Fix FIA input err in DSv3.1 (#5059),5059,[BugFix]Fix FIA input err in DSv3.1,Hardware and Operator Support,Include,Operator/hardware support
+[Doc] Add user guide of speculative decoding (#5074),5074,[Doc] Add user guide of speculative decoding,Highlights,Include,Major feature
+Add release note for v0.11.0 (#4918),4918,Add release note for v0.11.0,Others,Include,Miscellaneous
+[bugfix] matmul_allreduce_add_rmsnorm aclnn interface (#5082),5082,[bugfix] matmul_allreduce_add_rmsnorm aclnn interface,Others,Include,Bug fix
+【Feature】refactor npu_modelrunner for profile_run (#4993),4993,【Feature】refactor npu_modelrunner for profile_run,Others,Include,Miscellaneous
+Add a Mooncake installation tutorial for kv pool and update Mooncake installation tutorial (#5069),5069,Add a Mooncake installation tutorial for kv pool and update Mooncake installation tutorial,Highlights,Include,Major feature
+[Bugfix] EPLB nightly deepseek (#5095),5095,[Bugfix] EPLB nightly deepseek,Highlights,Include,Major feature
+[Nightly] Upgrade single node test to latest main (#5101),5101,[Nightly] Upgrade single node test to latest main,Others,Include,Miscellaneous
+[Nightly][BugFix] Install triton for nightly e2e op test. (#5096),5096,[Nightly][BugFix] Install triton for nightly e2e op test.,Ignore,Ignore,Internal/CI/test change
+[Feat] Support async_scheduler and disable_padded_drafter_batch in eagle (#4893),4893,[Feat] Support async_scheduler and disable_padded_drafter_batch in eagle,Highlights,Include,Major feature
+[bugfix] fix mtp accept rate (#5093),5093,[bugfix] fix mtp accept rate,Highlights,Include,Major feature
+Upgrade vllm commit hash to 1216 (#5053),5053,Upgrade vllm commit hash to 1216,Others,Include,Miscellaneous
+[Fusion] [Graph] Add qknorm rope fusion operator (#4711),4711,[Fusion] [Graph] Add qknorm rope fusion operator,Performance,Include,Operator fusion
+[UT]add the UT of pcp and dcp in the attention_cp file (#5054),5054,[UT]add the UT of pcp and dcp in the attention_cp file,Ignore,Ignore,Internal/CI/test change
+[Bugfix] Fix DeepSeek FIA error in async_scheduling with mtp (#5046),5046,[Bugfix] Fix DeepSeek FIA error in async_scheduling with mtp,Highlights,Include,Major feature
+[feat]pd disaggregated support cross-machine (#5008),5008,[feat]pd disaggregated support cross-machine,Features,Include,New feature
+[CI] Fix UT (#5106),5106,[CI] Fix UT,Ignore,Ignore,Internal/CI/test change
+[main] rename device type (#5099),5099,[main] rename device type,Others,Include,Miscellaneous
+[main][doc] Instructions for using permissions added to docker (#5092),5092,[main][doc] Instructions for using permissions added to docker,Documentation,Include,Documentation update
+[Pangu][MoE] Remove PanguProMoEV1 related code (#5088),5088,[Pangu][MoE] Remove PanguProMoEV1 related code,Highlights,Include,Model support
+[model] Support PanguUltraMoE (#4615),4615,[model] Support PanguUltraMoE,Highlights,Include,Model support
+[UT] add pcp&dcp UT for mla_cp (#4953),4953,[UT] add pcp&dcp UT for mla_cp,Ignore,Ignore,Internal/CI/test change
+[BugFix] Fix mooncake bug in PCP scenario (#5055),5055,[BugFix] Fix mooncake bug in PCP scenario,Highlights,Include,Major feature
+[Bugfix][MoE] Remove All2All in w4a8_dynamic (#4977),4977,[Bugfix][MoE] Remove All2All in w4a8_dynamic,Others,Include,Bug fix
+Fix a data conversion bug introduced by commit 3b7eb51 in main#4655 (#5115),4655,Fix a data conversion bug introduced by commit 3b7eb51 in main#4655,Others,Include,Miscellaneous
+[Refactor] 4/N Distinguish the branches based on the applicable scenarios of PA and FIA Ops. (#5081),5081,[Refactor] 4/N Distinguish the branches based on the applicable scenarios of PA and FIA Ops.,Ignore,Ignore,Internal/CI/test change
+[Bugfix]delele profile_run in model_runner (#5122),5122,[Bugfix]delele profile_run in model_runner,Others,Include,Bug fix
+[Fix] Synchronize the host query_start_loc with device values to prevent shape mismatches (#5134),5134,[Fix] Synchronize the host query_start_loc with device values to prevent shape mismatches,Others,Include,Bug fix
+fix profile run for vl model (#5136),5136,fix profile run for vl model,Others,Include,Miscellaneous
+enable npugraph_ex (#5120),5120,enable npugraph_ex,Highlights,Include,Major feature
+[Doc] add qwen3 reranker (#5086),5086,[Doc] add qwen3 reranker,Documentation,Include,Documentation update
+[UT] Add model_runner pcp related UTs (#4951),4951,[UT] Add model_runner pcp related UTs,Ignore,Ignore,Internal/CI/test change
+qwen3_next add triton ops : fused_qkvzba_split_reshape (#4788),4788,qwen3_next add triton ops : fused_qkvzba_split_reshape,Performance,Include,Operator fusion
+[test] add w4a8 accuracy case (#5110),5110,[test] add w4a8 accuracy case,Others,Include,Miscellaneous
+[feat] proxy support elastic scaling (#5063),5063,[feat] proxy support elastic scaling,Features,Include,New feature
+"[Fix] Fix DeepSeek V3.2 ""no attr"" error (#5147)",5147,"[Fix] Fix DeepSeek V3.2 ""no attr"" error",Highlights,Include,Model support
+[UT]Ut for function cumsum_group_list  in moe_mlp (ref #5025) (#5036),5025,[UT]Ut for function cumsum_group_list  in moe_mlp (ref #5025),Ignore,Ignore,Internal/CI/test change
+[UT] Add mooncake ut test (#5080),5080,[UT] Add mooncake ut test,Ignore,Ignore,Internal/CI/test change
+fixed fused alltoall execute all reduce (#5109),5109,fixed fused alltoall execute all reduce,Performance,Include,Operator fusion
+Qwen3-Next：Update the gpu-memory-utilization parameter to 0.7 (#5129),5129,Qwen3-Next：Update the gpu-memory-utilization parameter to 0.7,Highlights,Include,Model support
+[Bugfix] fix pipeline parallelism bug introduced by async-scheduling refactor work (#4973),4973,[Bugfix] fix pipeline parallelism bug introduced by async-scheduling refactor work,Performance,Include,Performance optimization
+implement model runner v2 basic framework (#5051),5051,implement model runner v2 basic framework,Features,Include,New feature
+fix: use batch_matmul_transpose operator in MLA _v_up_proj for better performance (#5142),5142,fix: use batch_matmul_transpose operator in MLA _v_up_proj for better performance,Hardware and Operator Support,Include,Operator/hardware support
+Nominate new maintainers @zzzzwwjj @realliujiaxu @LCAIZJ (#5152),5152,Nominate new maintainers @zzzzwwjj @realliujiaxu @LCAIZJ,Others,Include,Miscellaneous
+feat: implement high-performance Triton kernels for rejection sampling (#4830),4830,feat: implement high-performance Triton kernels for rejection sampling,Hardware and Operator Support,Include,Operator/hardware support
+"[Feat] Support MLP_TP feature, exclude MOE layer (#4999)",4999,"[Feat] Support MLP_TP feature, exclude MOE layer",Features,Include,New feature
+[Graph][Fusion]Add new pattern for AddRmsnormQuant with SP. (#5077),5077,[Graph][Fusion]Add new pattern for AddRmsnormQuant with SP.,Performance,Include,Operator fusion
+[Fix] Refines decode mode padding condition for uniform queries (#5164),5164,[Fix] Refines decode mode padding condition for uniform queries,Others,Include,Bug fix
+fix vl pd smoke error (#5103),5103,fix vl pd smoke error,Others,Include,Miscellaneous
+[BugFix]Fix incorrect get_current_vllm_config (#5121),5121,[BugFix]Fix incorrect get_current_vllm_config,Others,Include,Bug fix
+[Nightly]  Avoid max_model_len being smaller than the decoder prompt to prevent single-node-accuray-tests from failing (#5174),5174,[Nightly]  Avoid max_model_len being smaller than the decoder prompt to prevent single-node-accuray-tests from failing,Others,Include,Miscellaneous
+[Doc] Refact benchmark doc (#5173),5173,[Doc] Refact benchmark doc,Documentation,Include,Documentation update
+[Bugfix] Fix in_profile_run in mtp_proposer dummy_run (#5165),5165,[Bugfix] Fix in_profile_run in mtp_proposer dummy_run,Highlights,Include,Major feature
+[Doc][P/D] Fix MooncakeConnector's name (#5172),5172,[Doc][P/D] Fix MooncakeConnector's name,Highlights,Include,Major feature
+"[BugFix] Fix top_p,top_k issue with EAGLE and add top_p,top_k in EAGLE e2e (#5131)",5131,"[BugFix] Fix top_p,top_k issue with EAGLE and add top_p,top_k in EAGLE e2e",Highlights,Include,Major feature
+[bugfix] Use FUSED_MC2 MoE comm path for the op `dispatch_ffn_combine` (#5156),5156,[bugfix] Use FUSED_MC2 MoE comm path for the op `dispatch_ffn_combine`,Performance,Include,Operator fusion
+[2/N][Pangu][MoE] Remove Pangu Related Code (#5130),5130,[2/N][Pangu][MoE] Remove Pangu Related Code,Highlights,Include,Model support
+[Bugfix] install trition for test_custom_op (#5112),5112,[Bugfix] install trition for test_custom_op,Ignore,Ignore,Internal/CI/test change
+support basic long_seq feature st (#5140),5140,support basic long_seq feature st,Features,Include,New feature
+【Doc】Deepseekv3.1/R1 doc enhancement (#4827),4827,【Doc】Deepseekv3.1/R1 doc enhancement,Others,Include,Miscellaneous
+[BugFix]Fix precision issue for LoRA feature (#4141),4141,[BugFix]Fix precision issue for LoRA feature,Others,Include,Bug fix
+[refactor] refactor weight trans nz and transpose (#4878),4878,[refactor] refactor weight trans nz and transpose,Ignore,Ignore,Internal/CI/test change
+[Image] Refactor image build (#5175),5175,[Image] Refactor image build,Others,Include,Miscellaneous
+[Doc] Add a perf tune section (#5127),5127,[Doc] Add a perf tune section,Documentation,Include,Documentation update
+Add Qwen3-VL-235B-A22B-Instruct tutorials (#5167),5167,Add Qwen3-VL-235B-A22B-Instruct tutorials,Documentation,Include,Model tutorial
+[Refactor] remove some metadata variables in attention_v1. (#5160),5160,[Refactor] remove some metadata variables in attention_v1.,Ignore,Ignore,Internal/CI/test change
+[CI] Improve CI (#5078),5078,[CI] Improve CI,Ignore,Ignore,Internal/CI/test change
+[Feature] Add token mask for DispatchGmmCombineDecode operator (#5171),5171,[Feature] Add token mask for DispatchGmmCombineDecode operator,Hardware and Operator Support,Include,Operator/hardware support
+[pref] qwen3_next add triton ops : fused_sigmoid_gating_delta_rule_update (#4818),4818,[pref] qwen3_next add triton ops : fused_sigmoid_gating_delta_rule_update,Performance,Include,Operator fusion
+[Doc]Add the user_guide doc file regarding fine-grained TP. (#5084),5084,[Doc]Add the user_guide doc file regarding fine-grained TP.,Documentation,Include,Documentation update
+restore matmul_allreduce_add_rmsnrom aclnn interface (#5119),5119,restore matmul_allreduce_add_rmsnrom aclnn interface,Others,Include,Miscellaneous
+[CI] Fix image merge bug (#5197),5197,[CI] Fix image merge bug,Ignore,Ignore,Internal/CI/test change
+[CI] Use offline mode for nightly test (#5187),5187,[CI] Use offline mode for nightly test,Others,Include,Miscellaneous
+Drop 0.12.0 support (#5146),5146,Drop 0.12.0 support,Features,Include,New feature
+[CI] unblock CI on suffix spec decoding (#4813),4813,[CI] unblock CI on suffix spec decoding,Ignore,Ignore,Internal/CI/test change
+[e2e] add pcp e2e (#5141),5141,[e2e] add pcp e2e,Highlights,Include,Major feature
+[CI] fix lint (#5216),5216,[CI] fix lint,Ignore,Ignore,Internal/CI/test change
+[lint]clean code (#5218),5218,[lint]clean code,Ignore,Ignore,Internal/CI/test change
+[Fix] Delete pooling redundant code (#4940),4940,[Fix] Delete pooling redundant code,Highlights,Include,Major feature
+[Performance] Add async exponential while model executing (#4501),4501,[Performance] Add async exponential while model executing,Performance,Include,Performance optimization
+"[BugFix]Fix wrong _cos, _sin instantiation (#5154)",5154,"[BugFix]Fix wrong _cos, _sin instantiation",Others,Include,Bug fix
+[Feature]Use DispatchGmmCombineDecode operator to replace MC2(Optional) (#5040),5040,[Feature]Use DispatchGmmCombineDecode operator to replace MC2(Optional),Hardware and Operator Support,Include,Operator/hardware support
+[Perf] vectorize PCP/DCP loops in attention_cp.py (#4944),4944,[Perf] vectorize PCP/DCP loops in attention_cp.py,Highlights,Include,Major feature
+[Perf] vectorize PCP/DCP loops in mla_v1.py (#5003),5003,[Perf] vectorize PCP/DCP loops in mla_v1.py,Highlights,Include,Major feature
+[Misc] Cleanup useless print and logger (#5220),5220,[Misc] Cleanup useless print and logger,Ignore,Ignore,Internal/CI/test change
+[Doc] Fix DeepSeek-V3.2 tutorial. (#5190),5190,[Doc] Fix DeepSeek-V3.2 tutorial.,Documentation,Include,Model tutorial
+[bugfix][ACLGraph][MTP] deletes `cudagraph_batch_sizes` in `MtpProposer` (#5183),5183,[bugfix][ACLGraph][MTP] deletes `cudagraph_batch_sizes` in `MtpProposer`,Highlights,Include,Major feature
+[task] Add fused gdn gating triton kernel (#4304),4304,[task] Add fused gdn gating triton kernel,Performance,Include,Operator fusion
+[CustomOp] Register AscendMMEncoderAttention CustomOp and remove related patch (#4750),4750,[CustomOp] Register AscendMMEncoderAttention CustomOp and remove related patch,Others,Include,Miscellaneous
+[misc][FlashComm1][ACLGraph] Incompatibility between Flashcomm1 and FULL_DECODE_ONLY. (#5200),5200,[misc][FlashComm1][ACLGraph] Incompatibility between Flashcomm1 and FULL_DECODE_ONLY.,Highlights,Include,Major feature
+Bump actions/upload-artifact from 4 to 6 (#5233),5233,Bump actions/upload-artifact from 4 to 6,Ignore,Ignore,Internal/CI/test change
+Bump actions/checkout from 4 to 6 (#5234),5234,Bump actions/checkout from 4 to 6,Ignore,Ignore,Internal/CI/test change
+[Doc] Update readme (#5226),5226,[Doc] Update readme,Documentation,Include,Documentation update
+[1/N][Eagle3] Aligns auxiliary hidden state usage for eagle3 models (#5162),5162,[1/N][Eagle3] Aligns auxiliary hidden state usage for eagle3 models,Highlights,Include,Major feature
+[Triton]support swiglu_quant triton in w4a8 (#5161),5161,[Triton]support swiglu_quant triton in w4a8,Hardware and Operator Support,Include,Operator/hardware support
+[feature] support pcp + mtp in full graph (#4572),4572,[feature] support pcp + mtp in full graph,Highlights,Include,Major feature
+[Feat]Xlite Qwen3-vl Support (#5228),5228,[Feat]Xlite Qwen3-vl Support,Highlights,Include,Major feature
+[bugfix] fix w8a8dynamic fused_moe trans nz (#5199),5199,[bugfix] fix w8a8dynamic fused_moe trans nz,Performance,Include,Operator fusion
+[Bugfix] Implement multimodal_cpu_fields in model runner (#5196),5196,[Bugfix] Implement multimodal_cpu_fields in model runner,Features,Include,New feature
+[TEST]Update mm param --mm-processor-cache-gb (#5242),5242,[TEST]Update mm param --mm-processor-cache-gb,Others,Include,Miscellaneous
+[Bugfix] Use hf_text_config instead of hf_config to support multimodal PD-Disaggregated (#5205),5205,[Bugfix] Use hf_text_config instead of hf_config to support multimodal PD-Disaggregated,Features,Include,New feature
+[Refactor] move the metadata from attention_v1 to util(ready for extract common_cp) & realize Ascendmetadata inherit from the parent class. (#5203),5203,[Refactor] move the metadata from attention_v1 to util(ready for extract common_cp) & realize Ascendmetadata inherit from the parent class.,Ignore,Ignore,Internal/CI/test change
+[refactor] Remove unnecessary attributes from set_ascend_forward_context (#5204),5204,[refactor] Remove unnecessary attributes from set_ascend_forward_context,Ignore,Ignore,Internal/CI/test change
+[Doc] Update the weight download URL. (#5238),5238,[Doc] Update the weight download URL.,Documentation,Include,Documentation update
+[Main] [Patch] support balance scheduling patch (#5212),5212,[Main] [Patch] support balance scheduling patch,Features,Include,New feature
+[Doc] Add new contributors and relative scripts. (#5070),5070,[Doc] Add new contributors and relative scripts.,Documentation,Include,Documentation update
+[CustomOp] Register AscendApplyRotaryEmb CustomOp and remove related patch (#4667),4667,[CustomOp] Register AscendApplyRotaryEmb CustomOp and remove related patch,Others,Include,Miscellaneous
+[Doc] fix docs set rope_theta value is 10e6 in qwen3-235b model (#5258),5258,[Doc] fix docs set rope_theta value is 10e6 in qwen3-235b model,Documentation,Include,Documentation update
+[ModelRunner] Add hunyuan-vl basic support (#5151),5151,[ModelRunner] Add hunyuan-vl basic support,Highlights,Include,Model support
+[KV-Sharing] Support KV-Sharing feature in CLA models (#4138),4138,[KV-Sharing] Support KV-Sharing feature in CLA models,Highlights,Include,Major feature
+[EPLB][CI] Add dynamic EPLB CI for qwen3-moe (#5179),5179,[EPLB][CI] Add dynamic EPLB CI for qwen3-moe,Ignore,Ignore,Internal/CI/test change
+[CI] Add Triton Ascend in CI (#4921),4921,[CI] Add Triton Ascend in CI,Ignore,Ignore,Internal/CI/test change
+[CI]refactor: standardize test case naming convention (#5243),5243,[CI]refactor: standardize test case naming convention,Ignore,Ignore,Internal/CI/test change
+[test]Corrected the Qwen3-Omni-30B-A3B-Instruct accuracy test configuration in nightly tests. (#5195),5195,[test]Corrected the Qwen3-Omni-30B-A3B-Instruct accuracy test configuration in nightly tests.,Hardware and Operator Support,Include,Operator/hardware support
+[main][Refactor] Remove `with_prefill` parameter from `set_ascend_forward_context` (#5094),5094,[main][Refactor] Remove `with_prefill` parameter from `set_ascend_forward_context`,Ignore,Ignore,Internal/CI/test change
+[Doc] Added deploying on k8s with kthena (#4674),4674,[Doc] Added deploying on k8s with kthena,Documentation,Include,Documentation update
+[CI] Mock spawn for vlm tests (#5279),5279,[CI] Mock spawn for vlm tests,Ignore,Ignore,Internal/CI/test change
+[CI] refect e2e ci test (#5246),5246,[CI] refect e2e ci test,Ignore,Ignore,Internal/CI/test change
+[Refactor][MoE] Reuse vLLM's all_reduce logic (#5189),5189,[Refactor][MoE] Reuse vLLM's all_reduce logic,Ignore,Ignore,Internal/CI/test change
+[Bugfix] quick fix balance scheduling patch (#5281),5281,[Bugfix] quick fix balance scheduling patch,Others,Include,Bug fix
+update to vllm 12-19 (#5223),5223,update to vllm 12-19,Others,Include,Miscellaneous
+fix transformer version to 4.57.3 (#5250),5250,fix transformer version to 4.57.3,Others,Include,Miscellaneous
+[Refactor]5/N Extract common code of mla_v1.py & extract mla_cp (#5097),5097,[Refactor]5/N Extract common code of mla_v1.py & extract mla_cp,Ignore,Ignore,Internal/CI/test change
+[CI] Add skipped testcases. (#5254),5254,[CI] Add skipped testcases.,Ignore,Ignore,Internal/CI/test change
+[E2E] Optimize e2e test. (#5091),5091,[E2E] Optimize e2e test.,Performance,Include,Performance optimization
+[bugfix] remove the EP buffer allocation introduced by fused-op dispatch_ffn_c… (#5284),5284,[bugfix] remove the EP buffer allocation introduced by fused-op dispatch_ffn_c…,Performance,Include,Operator fusion
+[Doc] Add pa_shape_list description to qwen dense tutorial (#5225),5225,[Doc] Add pa_shape_list description to qwen dense tutorial,Documentation,Include,Documentation update
+Update vllm pin to 12.24 (#5307),5307,Update vllm pin to 12.24,Others,Include,Miscellaneous
+[CI] Skip some failed ops tests (#5309),5309,[CI] Skip some failed ops tests,Ignore,Ignore,Internal/CI/test change
+[perf][bugfix] improve performance of rejection sampler and eliminate HD synchronize in TopKTopPSampler (#4154),4154,[perf][bugfix] improve performance of rejection sampler and eliminate HD synchronize in TopKTopPSampler,Highlights,Include,Major feature
+[quantization] Add w8a16 quantization support (#4541),4541,[quantization] Add w8a16 quantization support,Features,Include,New feature
+Cleanup uesless env (#5270),5270,Cleanup uesless env,Ignore,Ignore,Internal/CI/test change
+Revert [KV-Sharing] Support KV-Sharing feature in CLA models (#4138) (#4138),4138,Revert [KV-Sharing] Support KV-Sharing feature in CLA models,Ignore,Ignore,Internal/CI/test change
+[Kernel] add l2norm triton kernel (#4595),4595,[Kernel] add l2norm triton kernel,Hardware and Operator Support,Include,Operator/hardware support
+Add MagicMTP(block verify) and Triton optimization (#4443),4443,Add MagicMTP(block verify) and Triton optimization,Highlights,Include,Major feature
+[CI] add xlite e2e test (#5305),5305,[CI] add xlite e2e test,Ignore,Ignore,Internal/CI/test change
+[E2E Refactor] Enable skipped e2e case (#5287),5287,[E2E Refactor] Enable skipped e2e case,Features,Include,New feature
+[BugFix] Fix num_pcp_pads Assignment Issues (#5273),5273,[BugFix] Fix num_pcp_pads Assignment Issues,Highlights,Include,Major feature
+[bugfix] fix Error 'ValueError: Duplicate layer name' (#5280),5280,[bugfix] fix Error 'ValueError: Duplicate layer name',Others,Include,Bug fix
+Remove VLLM_ASCEND_ENABLE_DENSE_OPTIMIZE (#5272),5272,Remove VLLM_ASCEND_ENABLE_DENSE_OPTIMIZE,Performance,Include,Performance optimization
+fix e2e rejection-sampler error (#5341),5341,fix e2e rejection-sampler error,Others,Include,Miscellaneous
+[Bugfix] fix pcp 128K break (#5266),5266,[Bugfix] fix pcp 128K break,Highlights,Include,Major feature
+[Bugfix] fix xlite decode-only e2e test (#5354),5354,[Bugfix] fix xlite decode-only e2e test,Ignore,Ignore,Internal/CI/test change
+[doc] update using command (#5373),5373,[doc] update using command,Documentation,Include,Documentation update
+[Bugfix] Fix Qwen P/D Disaggregation accuracy issue (#5340),5340,[Bugfix] Fix Qwen P/D Disaggregation accuracy issue,Others,Include,Bug fix
+[CI] Skip failed test cases to recover CI (#5368),5368,[CI] Skip failed test cases to recover CI,Ignore,Ignore,Internal/CI/test change
+[FIX] Update _causal_conv1d_update_kernel for Efficient Conv State Handling on NPU (#5322),5322,[FIX] Update _causal_conv1d_update_kernel for Efficient Conv State Handling on NPU,Hardware and Operator Support,Include,Operator/hardware support
+[BugFix][Fusion] Patch compile backend to make fusion available (#5308),5308,[BugFix][Fusion] Patch compile backend to make fusion available,Performance,Include,Operator fusion
+move contiguous in fused_sigmoid_gating_delta_rule_update to model_runner_v1 (#5274),5274,move contiguous in fused_sigmoid_gating_delta_rule_update to model_runner_v1,Performance,Include,Operator fusion
+[Nightly] Initial logging for nightly multi-node testing (#5362),5362,[Nightly] Initial logging for nightly multi-node testing,Others,Include,Miscellaneous
+Update vllm pin to 12.25 (#5342),5342,Update vllm pin to 12.25,Others,Include,Miscellaneous
+cleanup ascend config (#5296),5296,cleanup ascend config,Ignore,Ignore,Internal/CI/test change
+[E2E] Optimize the E2E test time. (#5294),5294,[E2E] Optimize the E2E test time.,Performance,Include,Performance optimization
+"Revert ""Add MagicMTP(block verify) and Triton optimization (#4443)"" (#4443)",4443,"Revert ""Add MagicMTP(block verify) and Triton optimization",Ignore,Ignore,Internal/CI/test change
+[doc]<PCP&DCP> add developer guide for PCP&DCP (#5372),5372,[doc]<PCP&DCP> add developer guide for PCP&DCP,Highlights,Include,Major feature
+[Bugfix] Fix unsuitable moe_comm_type under ep=1 scenario (#5388),5388,[Bugfix] Fix unsuitable moe_comm_type under ep=1 scenario,Others,Include,Bug fix
+[doc] Add context parallel user guide (#5358),5358,[doc] Add context parallel user guide,Highlights,Include,Major feature
+[Doc] update R1/V3.1 doc (#5383),5383,[Doc] update R1/V3.1 doc,Documentation,Include,Documentation update
+[Feature] Enhance all-reduce skipping logic for MoE models in NPUModelRunner (#5329),5329,[Feature] Enhance all-reduce skipping logic for MoE models in NPUModelRunner,Features,Include,New feature
+[TEST]Add sending request with and without chat (#5286),5286,[TEST]Add sending request with and without chat,Ignore,Ignore,Internal/CI/test change
+rollback causal_conv1d_fn to torch ops & update qwen3Next doc (#5391),5391,rollback causal_conv1d_fn to torch ops & update qwen3Next doc,Others,Include,Miscellaneous
+[bugfix] Fix MHA model runtime error in aclgraph mode (#5397),5397,[bugfix] Fix MHA model runtime error in aclgraph mode,Highlights,Include,Major feature
+[Feature] Remove the transpose step after attention and switch to transpose_batchmatmul (#5390),5390,[Feature] Remove the transpose step after attention and switch to transpose_batchmatmul,Features,Include,New feature
+Update vllm pin to 12.26 (#5378),5378,Update vllm pin to 12.26,Others,Include,Miscellaneous
+[CI] Add qwen-235b-a22b a2 multi-node test (#5393),5393,[CI] Add qwen-235b-a22b a2 multi-node test,Ignore,Ignore,Internal/CI/test change
+[Build] Add installation script of fused_infer_attention_score kernel with flash decoding (#5402),5402,[Build] Add installation script of fused_infer_attention_score kernel with flash decoding,Performance,Include,Operator fusion
+[Test] Add acceptance test for eagle/eagle3 (#5366),5366,[Test] Add acceptance test for eagle/eagle3,Highlights,Include,Major feature
+[TEST]Add vllm bench (#5306),5306,[TEST]Add vllm bench,Others,Include,Miscellaneous
+MLA prefill preformance optimization (#5275),5275,MLA prefill preformance optimization,Performance,Include,Performance optimization
+"Revert ""MLA prefill preformance optimization (#5275)"" (#5275)",5275,"Revert ""MLA prefill preformance optimization",Ignore,Ignore,Internal/CI/test change
+[Doc]add long sequence tutorials (#5364),5364,[Doc]add long sequence tutorials,Documentation,Include,Documentation update
+[bugfix][main]KV Pool for KV Transfer in PD Disaggregation Scenarios (#5398),5398,[bugfix][main]KV Pool for KV Transfer in PD Disaggregation Scenarios,Highlights,Include,Major feature
+[BugFix] Fix npu-cpu offloading interface change bug. (#5290),5290,[BugFix] Fix npu-cpu offloading interface change bug.,Others,Include,Bug fix
+[Doc] modify pcp tutorials (#5411),5411,[Doc] modify pcp tutorials,Highlights,Include,Major feature
+[bugfix] solve dp scenario Host-Device sync (#5298),5298,[bugfix] solve dp scenario Host-Device sync,Others,Include,Bug fix
+[Doc] add long_sequence feature user guide (#5343),5343,[Doc] add long_sequence feature user guide,Documentation,Include,Documentation update
+[Doc] delete environment variable HCCL_OP_EXPANSION_MODE in DeepSeekV3.1/R1 (#5419),5419,[Doc] delete environment variable HCCL_OP_EXPANSION_MODE in DeepSeekV3.1/R1,Documentation,Include,Documentation update
+[feat] enable hierarchical mc2 ops on A2 by default (#5300),5300,[feat] enable hierarchical mc2 ops on A2 by default,Hardware and Operator Support,Include,Operator/hardware support
+[doc] Update Qwen3-235B doc for reproducing latest performance (#5323),5323,[doc] Update Qwen3-235B doc for reproducing latest performance,Performance,Include,Performance optimization
+[Bugfix] fix greedy temperature detection (#5417),5417,[Bugfix] fix greedy temperature detection,Others,Include,Bug fix
+"Revert ""[feat] enable hierarchical mc2 ops on A2 by default (#5300)"" (#5300)",5300,"Revert ""[feat] enable hierarchical mc2 ops on A2 by default",Ignore,Ignore,Internal/CI/test change
+[Doc] Modify DeepSeek-R1/V3.1 documentation (#5426),5426,[Doc] Modify DeepSeek-R1/V3.1 documentation,Documentation,Include,Model tutorial
+[DOC]Fix model weight download links (#5436),5436,[DOC]Fix model weight download links,Documentation,Include,Documentation update
+[Doc] Update DeepSeek V3.1/R1 2P1D doc (#5387),5387,[Doc] Update DeepSeek V3.1/R1 2P1D doc,Documentation,Include,Documentation update
+[Misc] fast fail for exiting if tools/install_flash_infer_attention_score_ops_a2.sh (#5422),5422,[Misc] fast fail for exiting if tools/install_flash_infer_attention_score_ops_a2.sh,Hardware and Operator Support,Include,Operator/hardware support
+[Doc]modify pcp tutorial doc (#5440),5440,[Doc]modify pcp tutorial doc,Highlights,Include,Major feature
+[bugfix] fix typo of _skip_all_reduce_across_dp_group (#5435),5435,[bugfix] fix typo of _skip_all_reduce_across_dp_group,Others,Include,Bug fix
+Fix nightly (#5413),5413,Fix nightly,Others,Include,Miscellaneous
+[Bugfix] Correctly handle the output shape in multimodal attention (#5443),5443,[Bugfix] Correctly handle the output shape in multimodal attention,Others,Include,Bug fix
+[ReleaseNote] Add release note for v0.13.0rc1 (#5334),5334,[ReleaseNote] Add release note for v0.13.0rc1,Others,Include,Miscellaneous
+update vllm pin to 12.27 (#5412),5412,update vllm pin to 12.27,Others,Include,Miscellaneous
+[Refactor] cache cos/sin in mla & remove parameter model in builder. (#5277),5277,[Refactor] cache cos/sin in mla & remove parameter model in builder.,Ignore,Ignore,Internal/CI/test change
+[Refactor]6/N Extract common code of class AscendMLAImpl (#5314),5314,[Refactor]6/N Extract common code of class AscendMLAImpl,Ignore,Ignore,Internal/CI/test change
+[EPLB][refactor] Modification of the initialization logic for expert_map and log2phy（depend on pr5285） (#5311),5311,[EPLB][refactor] Modification of the initialization logic for expert_map and log2phy（depend on pr5285）,Ignore,Ignore,Internal/CI/test change
+[Feature] Support to use fullgraph with eagle (#5118),5118,[Feature] Support to use fullgraph with eagle,Highlights,Include,Major feature
+Optimize some rejectsampler functions to make npu op launch non-blocking (#4587),4587,Optimize some rejectsampler functions to make npu op launch non-blocking,Performance,Include,Performance optimization
+[feature] fia support sliding windows (#5239),5239,[feature] fia support sliding windows,Hardware and Operator Support,Include,Operator/hardware support
+[Feature] support eager mode in model runner v2 (#5210),5210,[Feature] support eager mode in model runner v2,Features,Include,New feature
+[Refactor][Triton] Move reject sample triton kernels into ops/triton (#5324),5324,[Refactor][Triton] Move reject sample triton kernels into ops/triton,Ignore,Ignore,Internal/CI/test change
+[Refactor][EAGLE] 1/N delete __init__ in mtp_proposer (#5176),5176,[Refactor][EAGLE] 1/N delete __init__ in mtp_proposer,Ignore,Ignore,Internal/CI/test change
+[OP] add custom op aclnnMoeInitRoutingCustom (#5251),5251,[OP] add custom op aclnnMoeInitRoutingCustom,Hardware and Operator Support,Include,Operator/hardware support
+[Kernel]update csrc cmakelist for open-source cann (#5458),5458,[Kernel]update csrc cmakelist for open-source cann,Hardware and Operator Support,Include,Operator/hardware support
+Update corresponding vllm commit ID to 12 29 (#5475),5475,Update corresponding vllm commit ID to 12 29,Others,Include,Miscellaneous
+[refactor] refactor model runner capture model (#5230),5230,[refactor] refactor model runner capture model,Ignore,Ignore,Internal/CI/test change
+moe_gating_top_k (#5271),5271,moe_gating_top_k,Others,Include,Miscellaneous
+[CI]update triton ascend version (#5392),5392,[CI]update triton ascend version,Ignore,Ignore,Internal/CI/test change
+[Doc] Fix issue link for 0.12.0 (#5500),5500,[Doc] Fix issue link for 0.12.0,Documentation,Include,Documentation update
+"Revert ""moe_gating_top_k"" (#5512)",5512,"Revert ""moe_gating_top_k""",Ignore,Ignore,Internal/CI/test change
+Docs: Remove deprecated --task parameter for embedding models (#5257),5257,Docs: Remove deprecated --task parameter for embedding models,Deprecation & Breaking Changes,Include,Breaking change
+[1/N] Refactor nightly test structure (#5479),5479,[1/N] Refactor nightly test structure,Others,Include,Miscellaneous
+[3/N][Nightly] Move ops tests to nightly (#5538),5538,[3/N][Nightly] Move ops tests to nightly,Others,Include,Miscellaneous
+[Doc] Add new contributors. (#5537),5537,[Doc] Add new contributors.,Documentation,Include,Documentation update
+[2/N] Upgrade nightly doc (#5534),5534,[2/N] Upgrade nightly doc,Others,Include,Miscellaneous
+[smoke][bugfix] moe_init_routing_v2 active_expert_range use int type (#5521),5521,[smoke][bugfix] moe_init_routing_v2 active_expert_range use int type,Others,Include,Bug fix
+[main][test] Refactor the mtp and eagle test case (#5326),5326,[main][test] Refactor the mtp and eagle test case,Highlights,Include,Major feature
+[Feature] Refactor PCP &DCP related code (#5214),5214,[Feature] Refactor PCP &DCP related code,Highlights,Include,Major feature
+[Main2Main] Upgrade vllm commit to 1230 (#5495),5495,[Main2Main] Upgrade vllm commit to 1230,Others,Include,Miscellaneous
+[Bugfix] Fix mm_merge (#5249),5249,[Bugfix] Fix mm_merge,Others,Include,Bug fix
+[feature] mooncake support pcp/dcp in common conditions (#5224),5224,[feature] mooncake support pcp/dcp in common conditions,Highlights,Include,Major feature
+[Feature] Support kv nz feature for DeepSeek decode node in disagg-prefill scenario (#3072),3072,[Feature] Support kv nz feature for DeepSeek decode node in disagg-prefill scenario,Highlights,Include,Major feature
+[Refactor] Formatting output types related to FuseMoE (#5481),5481,[Refactor] Formatting output types related to FuseMoE,Ignore,Ignore,Internal/CI/test change
+[P/D] Improve the performance of Layerwise Connector (#5303),5303,[P/D] Improve the performance of Layerwise Connector,Performance,Include,Performance optimization
+[Bugfix] fix the precision issues that may raise from the inter-layer reuse of the workspace in certain scenarios (#5522),5522,[Bugfix] fix the precision issues that may raise from the inter-layer reuse of the workspace in certain scenarios,Others,Include,Bug fix
+[Model] Add LongCat-Flash (#3833),3833,[Model] Add LongCat-Flash,Highlights,Include,Model support
+[Graph][Fusion] Add AddRMSNorm(with bias) (#5491),5491,[Graph][Fusion] Add AddRMSNorm(with bias),Performance,Include,Operator fusion
+[P/D] Bugfix zmq send/receive failed (#5503),5503,[P/D] Bugfix zmq send/receive failed,Others,Include,Miscellaneous
+[Nightly] Trigger image build for nightly (#5547),5547,[Nightly] Trigger image build for nightly,Others,Include,Miscellaneous
+Bump actions/upload-artifact from 4 to 6 (#5466),5466,Bump actions/upload-artifact from 4 to 6,Ignore,Ignore,Internal/CI/test change
+Bump actions/download-artifact from 4 to 7 (#5465),5465,Bump actions/download-artifact from 4 to 7,Ignore,Ignore,Internal/CI/test change
+[CI] Add multi-nodes longseq configs of DeepSeek-R1-W8A8 & Qwen3-235B-W8A8 (#5381),5381,[CI] Add multi-nodes longseq configs of DeepSeek-R1-W8A8 & Qwen3-235B-W8A8,Ignore,Ignore,Internal/CI/test change
+Cleanup pass config override (#5283),5283,Cleanup pass config override,Ignore,Ignore,Internal/CI/test change
+[Doc] Fix spelling mistake of environment variable name ASCEND_RT_VISIBLE_DEVICES in Doc (#5570),5570,[Doc] Fix spelling mistake of environment variable name ASCEND_RT_VISIBLE_DEVICES in Doc,Documentation,Include,Documentation update
+[Feat][main] Supported to use full-graph with Qwen3-Next-MTP (#5477),5477,[Feat][main] Supported to use full-graph with Qwen3-Next-MTP,Highlights,Include,Major feature
+[Feat] enable hierarchical mc2 ops on A2 by default (#5545),5545,[Feat] enable hierarchical mc2 ops on A2 by default,Hardware and Operator Support,Include,Operator/hardware support
+[CI] Move longseq Nightly CI (#5577),5577,[CI] Move longseq Nightly CI,Others,Include,Miscellaneous
+[Perf][PCP][DCP] add multi-stream for GQA to enable computation-communication overlap (#5382),5382,[Perf][PCP][DCP] add multi-stream for GQA to enable computation-communication overlap,Highlights,Include,Major feature
+[Recover] [Bugfix] support mtp kv transfer and pp partition by hand in kv transfer (#4892) (revert in #4981) (#4892),4892,[Recover] [Bugfix] support mtp kv transfer and pp partition by hand in kv transfer,Ignore,Ignore,Internal/CI/test change
+[Doc] Fix typo in ASCEND_RT_VISIBLE_DEVICES (#5581),5581,[Doc] Fix typo in ASCEND_RT_VISIBLE_DEVICES,Documentation,Include,Documentation update
+[bugfix](pcp) expand max_num_tokens for pcp pad (#5478),5478,[bugfix](pcp) expand max_num_tokens for pcp pad,Highlights,Include,Major feature
+"[BugFix]Disable dispatch_gmm_combine_decode operator when mtp drafter model uses non-w8a8 while main model uses w8a8, or drafter model is eagle series (#5293)",5293,"[BugFix]Disable dispatch_gmm_combine_decode operator when mtp drafter model uses non-w8a8 while main model uses w8a8, or drafter model is eagle series",Highlights,Include,Major feature
+[KVPOOL]decode save kvcache (#5168),5168,[KVPOOL]decode save kvcache,Others,Include,Miscellaneous
+"[refactor](UT,PCP,DCP) refactor pcp&dcp patches in UTs (#5505)",5505,"[refactor](UT,PCP,DCP) refactor pcp&dcp patches in UTs",Ignore,Ignore,Internal/CI/test change
+[Doc]modify the quantization user guide and add a quantization adaptation developer guide (#5554),5554,[Doc]modify the quantization user guide and add a quantization adaptation developer guide,Documentation,Include,Documentation update
+[bugfix]update bishengir source envs (#5582),5582,[bugfix]update bishengir source envs,Others,Include,Bug fix
+[Bugfix] Fix chunk prefill bug for long_sequence feature (#5444),5444,[Bugfix] Fix chunk prefill bug for long_sequence feature,Others,Include,Bug fix
+[Bugfix] Fix weight transpose in RL scenarios (#5567),5567,[Bugfix] Fix weight transpose in RL scenarios,Others,Include,Bug fix
+[Doc] update supported models (#5379),5379,[Doc] update supported models,Documentation,Include,Documentation update
+[CI] skip xlite-decode-only e2e test (#5407),5407,[CI] skip xlite-decode-only e2e test,Ignore,Ignore,Internal/CI/test change
+[Doc] eval-type not support service but server (#2920),2920,[Doc] eval-type not support service but server,Documentation,Include,Documentation update
+MLA prefill preformance optimization (#5456),5456,MLA prefill preformance optimization,Performance,Include,Performance optimization
+[Refactor][EAGLE] 2/N: load model and generate token (#5437),5437,[Refactor][EAGLE] 2/N: load model and generate token,Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix pcp + eplb error (#5561),5561,[Bugfix] fix pcp + eplb error,Highlights,Include,Major feature
+[Doc] add new doc for mooncake: PD-Colocated cross-node multi-instance validation of Mooncake's KV Cache reuse and performance. (#5415),5415,[Doc] add new doc for mooncake: PD-Colocated cross-node multi-instance validation of Mooncake's KV Cache reuse and performance.,Highlights,Include,Major feature
+[BugFix][kernel] fix matmul_allreduce_add_rmsnorm_kernel (#5335),5335,[BugFix][kernel] fix matmul_allreduce_add_rmsnorm_kernel,Hardware and Operator Support,Include,Operator/hardware support
+feat: implement high-performance Triton kernels for rejection sampling: optimization for rejection_random_sample_kernel (#5259),5259,feat: implement high-performance Triton kernels for rejection sampling: optimization for rejection_random_sample_kernel,Hardware and Operator Support,Include,Operator/hardware support
+[Feat][Spec] Optimize token index calculation in spec decode with Triton kernel (#5356),5356,[Feat][Spec] Optimize token index calculation in spec decode with Triton kernel,Hardware and Operator Support,Include,Operator/hardware support
+[Refactor]7/N Extract common code to common_cp (#5490),5490,[Refactor]7/N Extract common code to common_cp,Ignore,Ignore,Internal/CI/test change
+[BugFix][Fusion] Fix graph fusion failure problem (#5253),5253,[BugFix][Fusion] Fix graph fusion failure problem,Performance,Include,Operator fusion
+Add the requirement of arctic-inference which  speculative decoding with suffix_decode (#5045),5045,Add the requirement of arctic-inference which  speculative decoding with suffix_decode,Highlights,Include,Major feature
+[Doc] Add NNAL installation guide and requirements (#5235),5235,[Doc] Add NNAL installation guide and requirements,Documentation,Include,Documentation update
+Docs: Add A3 Docker image guidance for Atlas A3 machines (#5256),5256,Docs: Add A3 Docker image guidance for Atlas A3 machines,Hardware and Operator Support,Include,Operator/hardware support
+[CI] Download models from ms (#5405),5405,[CI] Download models from ms,Ignore,Ignore,Internal/CI/test change
+[UT]add triton ops ut :  test_fused_qkvzba_split_reshape_cat (#5474),5474,[UT]add triton ops ut :  test_fused_qkvzba_split_reshape_cat,Ignore,Ignore,Internal/CI/test change
+[bugfix] fix test_camem failed with triton-ascend (#5492),5492,[bugfix] fix test_camem failed with triton-ascend,Ignore,Ignore,Internal/CI/test change
+[Bugfix] record cos and sin cache in AscendRotaryEmbedding (#5516),5516,[Bugfix] record cos and sin cache in AscendRotaryEmbedding,Others,Include,Bug fix
+[P/D]Remove mooncake kvpool unused parameter `local_hostname` (#5574),5574,[P/D]Remove mooncake kvpool unused parameter `local_hostname`,Highlights,Include,Major feature
+[CI] update triton-ascend version (#5584),5584,[CI] update triton-ascend version,Ignore,Ignore,Internal/CI/test change
+[docs] Correct image about prefill phase of PCP (#5598),5598,[docs] Correct image about prefill phase of PCP,Highlights,Include,Major feature
+[perf] Fix MLAPO weight disposal for KV-consumer MLA in PD-mix deploy... (#5192),5192,[perf] Fix MLAPO weight disposal for KV-consumer MLA in PD-mix deploy...,Hardware and Operator Support,Include,Operator/hardware support
+[TRITON][TEST]Add nightly test for triton split_qkv_rmsnorm_rope (#5267),5267,[TRITON][TEST]Add nightly test for triton split_qkv_rmsnorm_rope,Hardware and Operator Support,Include,Operator/hardware support
+"Revert ""[Feat] enable hierarchical mc2 ops on A2 by default (#5545)"" (#5545)",5545,"Revert ""[Feat] enable hierarchical mc2 ops on A2 by default",Ignore,Ignore,Internal/CI/test change
+[BugFix] Fix Smoke Testing Bug for DSR1 longseq (#5613),5613,[BugFix] Fix Smoke Testing Bug for DSR1 longseq,Ignore,Ignore,Internal/CI/test change
+[CI] mv ops to correct path (#5615),5615,[CI] mv ops to correct path,Ignore,Ignore,Internal/CI/test change
+[Main2Main] Upgrade vllm commit to 0105 (#5595),5595,[Main2Main] Upgrade vllm commit to 0105,Others,Include,Miscellaneous
+[UT][PCP&DCP] UT for block_table.py (#5032),5032,[UT][PCP&DCP] UT for block_table.py,Ignore,Ignore,Internal/CI/test change
+[CI]update bisheng version (#5621),5621,[CI]update bisheng version,Ignore,Ignore,Internal/CI/test change
+[Main2Main] Upgrade vllm commit to 0106 (#5617),5617,[Main2Main] Upgrade vllm commit to 0106,Others,Include,Miscellaneous
+[CI] Specify the version of xlite (#5612),5612,[CI] Specify the version of xlite,Ignore,Ignore,Internal/CI/test change
+[MM][Bugfix] Update `hf_config` to `hf_text_config` (#5319),5319,[MM][Bugfix] Update `hf_config` to `hf_text_config`,Others,Include,Bug fix
+[Refactor][EAGLE] 3/N delete redundant methods in mtp_proposer (#5420),5420,[Refactor][EAGLE] 3/N delete redundant methods in mtp_proposer,Ignore,Ignore,Internal/CI/test change
+Bugfix: Align expert map shapes with redundant experts in EPLB adjustment (#5285),5285,Bugfix: Align expert map shapes with redundant experts in EPLB adjustment,Highlights,Include,Major feature
+[Bugfix] Remove swa parameter of fia (#5602),5602,[Bugfix] Remove swa parameter of fia,Hardware and Operator Support,Include,Operator/hardware support
+[Nightly][Test] Add Qwen3-Next-80B-A3B-Instruct-W8A8 nightly test (#5616),5616,[Nightly][Test] Add Qwen3-Next-80B-A3B-Instruct-W8A8 nightly test,Highlights,Include,Model support
+[Misc] Remove useless weight loader patch (#5619),5619,[Misc] Remove useless weight loader patch,Others,Include,Miscellaneous
+[P/D] Performance enhancement of Layerwise connector in TP asymmetric scenarios (#5540),5540,[P/D] Performance enhancement of Layerwise connector in TP asymmetric scenarios,Performance,Include,Performance optimization
+"Revert ""[BugFix][Fusion] Fix graph fusion failure problem (#5253)"" (#5253)",5253,"Revert ""[BugFix][Fusion] Fix graph fusion failure problem",Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix dcp_only bug and add e2e accuracy test for dcp only and pcp only (#5565),5565,[Bugfix] fix dcp_only bug and add e2e accuracy test for dcp only and pcp only,Ignore,Ignore,Internal/CI/test change
+[Graph][Fusion] Add AddRMSNormSPPattern and AddRMSNormSPPatternWithBias (#5569),5569,[Graph][Fusion] Add AddRMSNormSPPattern and AddRMSNormSPPatternWithBias,Performance,Include,Operator fusion
+[Feature] implement basic framework for batch invariant (#5517),5517,[Feature] implement basic framework for batch invariant,Features,Include,New feature
+[Refactor] Cleanup platform (#5566),5566,[Refactor] Cleanup platform,Ignore,Ignore,Internal/CI/test change
+[bugfix (pcp)] fix chunked prefill accurancy issue (#5647),5647,[bugfix (pcp)] fix chunked prefill accurancy issue,Highlights,Include,Major feature
+[CI] Add DeepSeek-V3.2-W8A8 nightly ci test (#5371),5371,[CI] Add DeepSeek-V3.2-W8A8 nightly ci test,Highlights,Include,Model support
+[Feature]EPLB:Adapt DispatchGmmCombineDecode operator to eplb tensor list and expert token numbers (#5552),5552,[Feature]EPLB:Adapt DispatchGmmCombineDecode operator to eplb tensor list and expert token numbers,Highlights,Include,Major feature
+[Bugfix] Revert pr4214 multi-stream collect expert hotpot (#5529),5529,[Bugfix] Revert pr4214 multi-stream collect expert hotpot,Ignore,Ignore,Internal/CI/test change
+[Bugfix]Add register_kv_cache in ucm_connector (#5657),5657,[Bugfix]Add register_kv_cache in ucm_connector,Highlights,Include,Major feature
+[misc]Add Kimi-K2 series to CI model list (#5656),5656,[misc]Add Kimi-K2 series to CI model list,Highlights,Include,Model support
+[CI] cleanup single/multi-card test (#5623),5623,[CI] cleanup single/multi-card test,Ignore,Ignore,Internal/CI/test change
+[CI] Bump lm-eval version to v0.4.9.2 (#5655),5655,[CI] Bump lm-eval version to v0.4.9.2,Ignore,Ignore,Internal/CI/test change
+[CI] Add workflow to cancel running workflows on PR close (#5646),5646,[CI] Add workflow to cancel running workflows on PR close,Ignore,Ignore,Internal/CI/test change
+[Bugfix] fix resource are insufficient when pcp and piecewise (#5377),5377,[Bugfix] fix resource are insufficient when pcp and piecewise,Highlights,Include,Major feature
+[Bugfix] Fix the graph capture failure issue in the eagle3+full scenario. (#5553),5553,[Bugfix] Fix the graph capture failure issue in the eagle3+full scenario.,Highlights,Include,Major feature
+[CI] move image and wheel job to schedule way (#5685),5685,[CI] move image and wheel job to schedule way,Ignore,Ignore,Internal/CI/test change
+[Refactor] Fix AttentionMaskBuilder singleton and remove redundant pcp_prefill_mask (#4870),4870,[Refactor] Fix AttentionMaskBuilder singleton and remove redundant pcp_prefill_mask,Ignore,Ignore,Internal/CI/test change
+[Refactor] Import global var form vllm instead of overwirte it (#5469),5469,[Refactor] Import global var form vllm instead of overwirte it,Ignore,Ignore,Internal/CI/test change
+[Tests] Add qwen3-8b nightly test (#5597),5597,[Tests] Add qwen3-8b nightly test,Others,Include,Miscellaneous
+[BugFix][Fusion] Fix graph fusion failure problem (#5676),5676,[BugFix][Fusion] Fix graph fusion failure problem,Performance,Include,Operator fusion
+[1/N][CI] Refactor accuracy test (#5400),5400,[1/N][CI] Refactor accuracy test,Ignore,Ignore,Internal/CI/test change
+[Kernel] Add moe_gating_top_k operator support for Ascend NPU (#5579),5579,[Kernel] Add moe_gating_top_k operator support for Ascend NPU,Hardware and Operator Support,Include,Operator/hardware support
+[BugFix][P/D] Fix pre-create link parameter error (#5694),5694,[BugFix][P/D] Fix pre-create link parameter error,Others,Include,Bug fix
+[refactor] Refactor the interface for shard weight and remove the flashcomm2 o_shared interface. (#5181),5181,[refactor] Refactor the interface for shard weight and remove the flashcomm2 o_shared interface.,Ignore,Ignore,Internal/CI/test change
+[bugfix] adapt to new implemented get_kv_cache_spec in cpuoffload connector (#4311),4311,[bugfix] adapt to new implemented get_kv_cache_spec in cpuoffload connector,Features,Include,New feature
+[Feature] add the magicmtp speculative decoding acceleration algorithm (#5542),5542,[Feature] add the magicmtp speculative decoding acceleration algorithm,Highlights,Include,Major feature
+Optimize the print info format when deprecated code is used in vllm-ascend (#5696),5696,Optimize the print info format when deprecated code is used in vllm-ascend,Performance,Include,Performance optimization
+[CI] fix image build tag (#5703),5703,[CI] fix image build tag,Ignore,Ignore,Internal/CI/test change
+[EPLB][CI] EPLB add aclgraph and redundant expert ci (#5625),5625,[EPLB][CI] EPLB add aclgraph and redundant expert ci,Ignore,Ignore,Internal/CI/test change
+[CI] Drop outdated cases (#5709),5709,[CI] Drop outdated cases,Ignore,Ignore,Internal/CI/test change
+[CI] Fix image build workflow_dispatch error (#5717),5717,[CI] Fix image build workflow_dispatch error,Ignore,Ignore,Internal/CI/test change
+[Feat][Bugfix][main] Adapted SP to eagle3 (#5562),5562,[Feat][Bugfix][main] Adapted SP to eagle3,Highlights,Include,Major feature
+[bugfix] Support dsv3.2 enable both mtp and full_decode_only (#5679),5679,[bugfix] Support dsv3.2 enable both mtp and full_decode_only,Highlights,Include,Major feature
+[Doc] Add Qwen3-Omni-30B-A3B-Thinking Tutorials (#3991),3991,[Doc] Add Qwen3-Omni-30B-A3B-Thinking Tutorials,Hardware and Operator Support,Include,Operator/hardware support
+[Fix] Fixes speculative decode indexing and unpad condition for attention metadata (#5626),5626,[Fix] Fixes speculative decode indexing and unpad condition for attention metadata,Highlights,Include,Major feature
+[CI] Add triton ascend in nightly CI (#5716),5716,[CI] Add triton ascend in nightly CI,Hardware and Operator Support,Include,Operator/hardware support
+[feature]dcp&pcp support mlapo (#5672),5672,[feature]dcp&pcp support mlapo,Highlights,Include,Major feature
+[CI] Remove workflow_dispatch way for image build (#5742),5742,[CI] Remove workflow_dispatch way for image build,Ignore,Ignore,Internal/CI/test change
+[Nightly] Move ops to the correct path (#5642),5642,[Nightly] Move ops to the correct path,Others,Include,Miscellaneous
+[OP] Enable custom op aclnnMoeInitRoutingCustom (#5332),5332,[OP] Enable custom op aclnnMoeInitRoutingCustom,Hardware and Operator Support,Include,Operator/hardware support
+[CI] Add qwen3 next ci (#5395),5395,[CI] Add qwen3 next ci,Ignore,Ignore,Internal/CI/test change
+[Doc] add PaddleOCR-VL tutorials guide (#5556),5556,[Doc] add PaddleOCR-VL tutorials guide,Documentation,Include,Model tutorial
+[BugFix][DS 3.2] Fix ds indexer accuracy problem caused by rope. (#4641),4641,[BugFix][DS 3.2] Fix ds indexer accuracy problem caused by rope.,Others,Include,Bug fix
+[Doc][fix] Fix the title of the document for the layer_sharding feature (#5759),5759,[Doc][fix] Fix the title of the document for the layer_sharding feature,Documentation,Include,Documentation update
+[CI] lint and ut use self_hosted runner (#5652),5652,[CI] lint and ut use self_hosted runner,Ignore,Ignore,Internal/CI/test change
+[BugFix] NetLoader: No backend type associated with device type npu (#5700),5700,[BugFix] NetLoader: No backend type associated with device type npu,Others,Include,Bug fix
+[CI] Accuracy issue of qwen3-next-w8a8 nightly test fix. (#5746),5746,[CI] Accuracy issue of qwen3-next-w8a8 nightly test fix.,Highlights,Include,Model support
+[BugFix] Xlite: Bypass the padding of the graph mode in non-MTP cases to obtain the correct decode num. (#5711),5711,[BugFix] Xlite: Bypass the padding of the graph mode in non-MTP cases to obtain the correct decode num.,Highlights,Include,Major feature
+[CustomOp] support TensorList for dispatchFFNCombine (#5665),5665,[CustomOp] support TensorList for dispatchFFNCombine,Features,Include,New feature
+[CI] Avoid lint and ut for PR push (#5762),5762,[CI] Avoid lint and ut for PR push,Ignore,Ignore,Internal/CI/test change
+[BufFix]Fix the error when using Ascend custom operators with rank=128 (#5394),5394,[BufFix]Fix the error when using Ascend custom operators with rank=128,Hardware and Operator Support,Include,Operator/hardware support
+"[Refactor] Replace the implementations of o_proj, q_b_proj, and kv_b_proj with custom_op for sharded CP (#5698)",5698,"[Refactor] Replace the implementations of o_proj, q_b_proj, and kv_b_proj with custom_op for sharded CP",Ignore,Ignore,Internal/CI/test change
+[Bugfix] Fix matmul allreduce precision issue by using original weight (#4939),4939,[Bugfix] Fix matmul allreduce precision issue by using original weight,Others,Include,Bug fix
+[Feature] GLM4.6 support mtp with fullgraph (#5460),5460,[Feature] GLM4.6 support mtp with fullgraph,Highlights,Include,Major feature
+[CI]Add Disaggregated PD Nightly Test for  Qwen3-235B and Qwen3-VL-235B (#5502),5502,[CI]Add Disaggregated PD Nightly Test for  Qwen3-235B and Qwen3-VL-235B,Highlights,Include,Model support
+support mxfp8 quantization (qwen dense) (#5723),5723,support mxfp8 quantization (qwen dense),Highlights,Include,Major feature
+[Doc] Add GLM4.5 GLM4.6 doc (#5740),5740,[Doc] Add GLM4.5 GLM4.6 doc,Documentation,Include,Model tutorial
+[bugfix] Fixing KV Pool Memory Retention and Performance Degradation Issues (#5751),5751,[bugfix] Fixing KV Pool Memory Retention and Performance Degradation Issues,Highlights,Include,Major feature
+[P/D][bugfix]Fix the PCP port mapping error issue (#5706),5706,[P/D][bugfix]Fix the PCP port mapping error issue,Highlights,Include,Major feature
+[Feat] flashcomm2+oshard Generalized (#4723),4723,[Feat] flashcomm2+oshard Generalized,Performance,Include,Performance optimization
+adapt to minimax_m2 (#5624),5624,adapt to minimax_m2,Highlights,Include,Model support
+[P/D] layerwise connector supports DeepSeek-V3.2 sparse attention && Distribute transfer tasks to redundant kv_head cards (#5722),5722,[P/D] layerwise connector supports DeepSeek-V3.2 sparse attention && Distribute transfer tasks to redundant kv_head cards,Highlights,Include,Model support
+[main][bugfix] Fix fullgraph padding bug in mtp eagle refactor (#5692),5692,[main][bugfix] Fix fullgraph padding bug in mtp eagle refactor,Highlights,Include,Major feature
+[Perf] Supports compute-communication overlap in the forward of sfa_v1 in the Sharded-CP feature. (#5701),5701,[Perf] Supports compute-communication overlap in the forward of sfa_v1 in the Sharded-CP feature.,Hardware and Operator Support,Include,Operator/hardware support
+[Feature] Support for cross-attention and whisper model (#5592),5592,[Feature] Support for cross-attention and whisper model,Highlights,Include,Major feature
+[0.13.0][doc] correct doc url (#5791),5791,[0.13.0][doc] correct doc url,Documentation,Include,Documentation update
+[0.13.0][CI] disable main CI (#5792),5792,[0.13.0][CI] disable main CI,Ignore,Ignore,Internal/CI/test change
+[0.13.0][Cherry Pick] cherry pick from 5638 Update pd readme (#5811),5811,[0.13.0][Cherry Pick] cherry pick from 5638 Update pd readme,Documentation,Include,Documentation update
+[0.13.0][cherry-pick][bugfix](cp) align max_context_chunk to cp_virtual_block_size (#5782),5782,[0.13.0][cherry-pick][bugfix](cp) align max_context_chunk to cp_virtual_block_size,Others,Include,Bug fix
+[0.13.0][Bugfix] bugfix for the order of dummy run pad and sync (#5778),5778,[0.13.0][Bugfix] bugfix for the order of dummy run pad and sync,Others,Include,Bug fix
+[0.13.0][Patch] AscendLoRAModelManager.__init__ (#5800),5800,[0.13.0][Patch] AscendLoRAModelManager.__init__,Others,Include,Miscellaneous
+[cherry-pick][BugFix] Support setting tp=1 for the Eagle draft model to take effect (#5804),5804,[cherry-pick][BugFix] Support setting tp=1 for the Eagle draft model to take effect,Highlights,Include,Major feature
+[v0.13.0][Bugfix] Support ALL D-Nodes in fullgraph when running MTP in PD (#5786),5786,[v0.13.0][Bugfix] Support ALL D-Nodes in fullgraph when running MTP in PD,Highlights,Include,Major feature
+[0.13.0][cherry-pick]enable ep32 for dispatch_ffn_combine (#5788),5788,[0.13.0][cherry-pick]enable ep32 for dispatch_ffn_combine,Features,Include,New feature
+[P/D] [CherryPick] 5846 fix layerwise connector for decoder tp size > num kv he… (#5857),5857,[P/D] [CherryPick] 5846 fix layerwise connector for decoder tp size > num kv he…,Others,Include,Miscellaneous
+[0.13.0][cherry-pick][bugfix]Synchronize memcache adaptation on A2 (#5842),5842,[0.13.0][cherry-pick][bugfix]Synchronize memcache adaptation on A2,Hardware and Operator Support,Include,Operator/hardware support
+[0.13.0][cherry-pick][Bugfix] Fixed an accuracy problem of sp with eagle3 (#5814),5814,[0.13.0][cherry-pick][Bugfix] Fixed an accuracy problem of sp with eagle3,Highlights,Include,Major feature
+[0.13.0][cherry-pick][P/D] bugfix for p node force free requset (#5431) (#5431),5431,[0.13.0][cherry-pick][P/D] bugfix for p node force free requset,Others,Include,Miscellaneous
+[0.13.0][cherry-pick][bugfix](cp) replace None with zeros/inf tensor to avoid TypeError (#5844),5844,[0.13.0][cherry-pick][bugfix](cp) replace None with zeros/inf tensor to avoid TypeError,Others,Include,Bug fix
+[v0.13.0][bugfix] patch set cudagraph size (#5860),5860,[v0.13.0][bugfix] patch set cudagraph size,Others,Include,Bug fix
+[v0.13.0][Bugfix] Fix acc bug when enbale dispatch_gmm_combine_decode and eplb[RFC: issue 5476] (#5836),5836,[v0.13.0][Bugfix] Fix acc bug when enbale dispatch_gmm_combine_decode and eplb[RFC: issue 5476],Highlights,Include,Major feature
+[0.13.0][Bugfix] Fix memory inconsistency in cross-process shared memory (#5779),5779,[0.13.0][Bugfix] Fix memory inconsistency in cross-process shared memory,Others,Include,Bug fix
+[v0.13.0][cherry-pick][BugFix] Fix DispatchGmmCombineDecode acc bug when big batch (#5873),5873,[v0.13.0][cherry-pick][BugFix] Fix DispatchGmmCombineDecode acc bug when big batch,Others,Include,Bug fix
+[v0.13.0][bugfix]Fix graph sync (#5809),5809,[v0.13.0][bugfix]Fix graph sync,Others,Include,Bug fix
+[0.13.0][cherry-pick][bugfix]support dsv3.2 enable both mtp and full_decode_only (#5849) (#5849),5849,[0.13.0][cherry-pick][bugfix]support dsv3.2 enable both mtp and full_decode_only,Highlights,Include,Major feature
+"Revert ""[BugFix] Support setting tp=1 for the Eagle draft model to take effect(#5519) (#5519)",5519,"Revert ""[BugFix] Support setting tp=1 for the Eagle draft model to take effect",Ignore,Ignore,Internal/CI/test change
+enbale qwen3-vl model fc1 feature (#5848),5848,enbale qwen3-vl model fc1 feature,Highlights,Include,Model support
+"Revert ""[v0.13.0][bugfix]Fix graph sync (#5809)"" (#5809)",5809,"Revert ""[v0.13.0][bugfix]Fix graph sync",Ignore,Ignore,Internal/CI/test change
+[Performance]use triton mrope for Qwen3-VL (#5827),5827,[Performance]use triton mrope for Qwen3-VL,Highlights,Include,Model support
+"[P/D]The issue of solving the force-free secondary release request, which causes the node to crash. (#5970)",5970,"[P/D]The issue of solving the force-free secondary release request, which causes the node to crash.",Others,Include,Miscellaneous
+[0.13.0][bugfix] fix mooncake kv cache transfer when one P has multi nodes (#5961),5961,[0.13.0][bugfix] fix mooncake kv cache transfer when one P has multi nodes,Highlights,Include,Major feature
+[0.13.0][Feature] Support fine-grained shared expert overlap (#5962),5962,[0.13.0][Feature] Support fine-grained shared expert overlap,Performance,Include,Performance optimization
+[0.13.0][Bugfix] fix bug of pcp+mtp+async scheduler (#5995),5995,[0.13.0][Bugfix] fix bug of pcp+mtp+async scheduler,Highlights,Include,Major feature
+[0.13.0][Bugfix] Add `synced_cudagraph_mode` to limit mixed graph modes in dp ranks (#6011),6011,[0.13.0][Bugfix] Add `synced_cudagraph_mode` to limit mixed graph modes in dp ranks,Others,Include,Bug fix
+【0.13.0】【bugfix】Resolved memory deallocation failure in the pooling layer under re-computation workloads. (#6056),6056,【0.13.0】【bugfix】Resolved memory deallocation failure in the pooling layer under re-computation workloads.,Highlights,Include,Major feature
+[0.13.0][cherry-pick][bugfix] fix bug of triton mrope (#6009),6009,[0.13.0][cherry-pick][bugfix] fix bug of triton mrope,Hardware and Operator Support,Include,Operator/hardware support
+[0.13.0][Bugfix] fix pcp aclgraph qwen FIA bug (#6038),6038,[0.13.0][Bugfix] fix pcp aclgraph qwen FIA bug,Highlights,Include,Major feature
+[Bugfix]Fixed precision issues caused by pooled request pooling (#6057),6057,[Bugfix]Fixed precision issues caused by pooled request pooling,Highlights,Include,Major feature
+[0.13.0][Bugfix] Fixed an problem related to embeddings sharing (#5972),5972,[0.13.0][Bugfix] Fixed an problem related to embeddings sharing,Others,Include,Bug fix
+[v0.13.0][Bugfix] Fix XliteModelRunner init failed when aclgraph is enabled (#5887),5887,[v0.13.0][Bugfix] Fix XliteModelRunner init failed when aclgraph is enabled,Highlights,Include,Major feature
+[0.13.0][Bugfix] Fix setting of `speculative_config.enforce_eager` for dsv32 (#5958),5958,[0.13.0][Bugfix] Fix setting of `speculative_config.enforce_eager` for dsv32,Highlights,Include,Major feature
+"Revert ""[0.13.0][cherry-pick][bugfix] fix bug of triton mrope"" (#6075)",6075,"Revert ""[0.13.0][cherry-pick][bugfix] fix bug of triton mrope""",Ignore,Ignore,Internal/CI/test change
+[0.13.0][cherry-pick][bugfix] fix the complex and potentially problematic generate_kv_idx. (#5955),5955,[0.13.0][cherry-pick][bugfix] fix the complex and potentially problematic generate_kv_idx.,Others,Include,Bug fix
+[0.13.0][CI]fix for CI lint (#6093),6093,[0.13.0][CI]fix for CI lint,Ignore,Ignore,Internal/CI/test change
+[EPLB][Bugfix] Dispatch Allgather use log2phy if enable eplb (#5933) (#5933),5933,[EPLB][Bugfix] Dispatch Allgather use log2phy if enable eplb,Highlights,Include,Major feature
+[EPLB][Bugfix][v0.13.0] Incorporate the warm up of the EPLB into the profile run. (#6099),6099,[EPLB][Bugfix][v0.13.0] Incorporate the warm up of the EPLB into the profile run.,Highlights,Include,Major feature
+[0.13.0][Doc] Supplement PD separation parameters of DeepSeek V3.1 (#6054),6054,[0.13.0][Doc] Supplement PD separation parameters of DeepSeek V3.1,Documentation,Include,Documentation update
+[v0.13.0][CI] Upgrade to CANN 8.5.0 (#6101),6101,[v0.13.0][CI] Upgrade to CANN 8.5.0,Ignore,Ignore,Internal/CI/test change
+[0.13.0][Bugfix] Fix Triton operator usage for multimodal models based on `the mrope_interleaved` parameter (#6074),6074,[0.13.0][Bugfix] Fix Triton operator usage for multimodal models based on `the mrope_interleaved` parameter,Hardware and Operator Support,Include,Operator/hardware support
+[v0.13.0][BugFix][Cherry Pick] Fix input parameter bug of dispatch_gmm_combine_decode (#5931),5931,[v0.13.0][BugFix][Cherry Pick] Fix input parameter bug of dispatch_gmm_combine_decode,Others,Include,Bug fix
+"[Feature][Cherry Pick]Enable DispatchGmmCombineDecode when eagle is moe with w8a8, or not moe (#6081)",6081,"[Feature][Cherry Pick]Enable DispatchGmmCombineDecode when eagle is moe with w8a8, or not moe",Highlights,Include,Major feature
+[v0.13.0][Bugfix] Fix the input constraints checks for the mlapo and bmm_transpose operators (#5764) (#5764),5764,[v0.13.0][Bugfix] Fix the input constraints checks for the mlapo and bmm_transpose operators,Hardware and Operator Support,Include,Operator/hardware support
+[EPLB] Config Rename wrapper (#6111),6111,[EPLB] Config Rename wrapper,Highlights,Include,Major feature
+[v0.13.0][cherry-pick][BugFix]converting pa get_workspace back to capturing (#6108),6108,[v0.13.0][cherry-pick][BugFix]converting pa get_workspace back to capturing,Others,Include,Bug fix
+[cherry-pick][BugFix] Support setting tp=1 for the Eagle draft model to take effect (#6095),6095,[cherry-pick][BugFix] Support setting tp=1 for the Eagle draft model to take effect,Highlights,Include,Major feature
+[kv_cache] support multi_block_pool (#6106),6106,[kv_cache] support multi_block_pool,Features,Include,New feature
+[CI] Skip some persistently stuck ut cases (#6133),6133,[CI] Skip some persistently stuck ut cases,Ignore,Ignore,Internal/CI/test change
+[0.13.0][CI]Add triton ascend version to 3.2.0 (#6105),6105,[0.13.0][CI]Add triton ascend version to 3.2.0,Ignore,Ignore,Internal/CI/test change
+[0.13.0][cherry-pick][CP&SP] Integrate FIA operator in mla_cp._forward_decode (#6046),6046,[0.13.0][cherry-pick][CP&SP] Integrate FIA operator in mla_cp._forward_decode,Hardware and Operator Support,Include,Operator/hardware support
+[0.13.0][cherry-pick][BugFix] fix 3vl dense model load quant weight (#6103),6103,[0.13.0][cherry-pick][BugFix] fix 3vl dense model load quant weight,Others,Include,Bug fix
+[0.13.0][cherry-pick] Reset incompatible config (#6118),6118,[0.13.0][cherry-pick] Reset incompatible config,Others,Include,Miscellaneous
+[0.13.0][Bugfix] Remove `use_aclgraph` in mtp_proposer and use `use_cuda_graph` (#6102),6102,[0.13.0][Bugfix] Remove `use_aclgraph` in mtp_proposer and use `use_cuda_graph`,Highlights,Include,Major feature
+[0.13.0][BugFix][cherry-pick]hccl bufferSize check for dispatch_ffn_combine (#6131),6131,[0.13.0][BugFix][cherry-pick]hccl bufferSize check for dispatch_ffn_combine,Others,Include,Bug fix
+Mix placement (#6086),6086,Mix placement,Others,Include,Miscellaneous
+[v0.13.0][Feature] Support DSA-CP for Hybrid scenario (#5702) (#5702),5702,[v0.13.0][Feature] Support DSA-CP for Hybrid scenario,Features,Include,New feature
+[0.13.0][P/D][PCP]bugfix pcp force free twice caused logger error (#6132),6132,[0.13.0][P/D][PCP]bugfix pcp force free twice caused logger error,Highlights,Include,Major feature
+[EPLB][Bugfix] Do not refresh parameters when eplb_config is not passed (#6160),6160,[EPLB][Bugfix] Do not refresh parameters when eplb_config is not passed,Highlights,Include,Major feature
+[0.13.0][Doc] update supported features (#6150),6150,[0.13.0][Doc] update supported features,Documentation,Include,Documentation update
+[0.13.0][cherry-pick][CP&SP] Remove CP Redundant Variables after FIA operator enables for CANN 8.5 (#6039),6039,[0.13.0][cherry-pick][CP&SP] Remove CP Redundant Variables after FIA operator enables for CANN 8.5,Hardware and Operator Support,Include,Operator/hardware support
+[v0.13.0][cherry-pick][Bugfix] Fix seq_lens reset issue causing performance degradation (#6166),6166,[v0.13.0][cherry-pick][Bugfix] Fix seq_lens reset issue causing performance degradation,Performance,Include,Performance optimization
+[0.13.0][Bugix] fix kv pcp+pooling+pd separation bug (#6152),6152,[0.13.0][Bugix] fix kv pcp+pooling+pd separation bug,Highlights,Include,Major feature
+[Doc] Document translation (#6066),6066,[Doc] Document translation,Documentation,Include,Documentation update
+[v0.13.0][bugfix] fix capture shape in sp_eagle_fullgraph (#6159),6159,[v0.13.0][bugfix] fix capture shape in sp_eagle_fullgraph,Highlights,Include,Major feature
+[0.13.0][Feat] Merge the multi eagle graphs to one graph (#6178),6178,[0.13.0][Feat] Merge the multi eagle graphs to one graph,Highlights,Include,Major feature
+[0.13.0][BugFix] Avoided a bug of `torch_npu.npu_mm_reduce_scatter_base` when sp size >= 16 (#6167),6167,[0.13.0][BugFix] Avoided a bug of `torch_npu.npu_mm_reduce_scatter_base` when sp size >= 16,Dependencies,Include,Dependency update
+[0.13.0][BugFix]bug fix for dispatch_ffn_combine (#6157),6157,[0.13.0][BugFix]bug fix for dispatch_ffn_combine,Others,Include,Bug fix
+[0.13.0]Add has_connector_metadata (#6154),6154,[0.13.0]Add has_connector_metadata,Others,Include,Miscellaneous
+[v0.13.0]skip eagle dp allreduce (#6162),6162,[v0.13.0]skip eagle dp allreduce,Highlights,Include,Major feature
+[0.13.0][KVCache] Support different page sizes (#6171),6171,[0.13.0][KVCache] Support different page sizes,Features,Include,New feature
+[Bugfix] Fix the issue of the acceptance rate decline for Qwen3-30B-A3B-EAGLE3 (#6139),6139,[Bugfix] Fix the issue of the acceptance rate decline for Qwen3-30B-A3B-EAGLE3,Highlights,Include,Major feature
+[0.13.0][cherry-pick] addrmsnorm op support bias (#6140),6140,[0.13.0][cherry-pick] addrmsnorm op support bias,Features,Include,New feature
+[Doc] Refresh doc for 0.13.0 (#6184),6184,[Doc] Refresh doc for 0.13.0,Documentation,Include,Documentation update
+[Doc] Add release note for 0.13.0rc2 (#6208),6208,[Doc] Add release note for 0.13.0rc2,Documentation,Include,Documentation update
+[0.13.0] [BugFix] buildwheel dependency install (#6211),6211,[0.13.0] [BugFix] buildwheel dependency install,Dependencies,Include,Dependency update
+[ci] Fix docker image build (#6215),6215,[ci] Fix docker image build,Ignore,Ignore,Internal/CI/test change
+[0.13.0] [BugFix] Fix build wheel (#6220),6220,[0.13.0] [BugFix] Fix build wheel,Others,Include,Bug fix
+[Bugfix][v0.13.0] Fix a bug when cherry-pick from main (#6209),6209,[Bugfix][v0.13.0] Fix a bug when cherry-pick from main,Others,Include,Bug fix
+[0.13.0][Bugfix] Avoided a bug of drafter when `dp` and `sp` are enabled (#6224),6224,[0.13.0][Bugfix] Avoided a bug of drafter when `dp` and `sp` are enabled,Features,Include,New feature
+[Inductor][v0.13.0]Adapt AddRmsNormQuant pass to new addrmsnormBias operator (#6210),6210,[Inductor][v0.13.0]Adapt AddRmsNormQuant pass to new addrmsnormBias operator,Hardware and Operator Support,Include,Operator/hardware support
+[v0.13.0][cherry-pick][BugFix] Fix moe_load accumulation error in ACL graph mode (#6258),6258,[v0.13.0][cherry-pick][BugFix] Fix moe_load accumulation error in ACL graph mode,Others,Include,Bug fix
+[CI] migrate single card runner to hk (#6260),6260,[CI] migrate single card runner to hk,Ignore,Ignore,Internal/CI/test change
+[Refactor] use the count of kv_cache_group to create multi_block_table (#6116),6116,[Refactor] use the count of kv_cache_group to create multi_block_table,Ignore,Ignore,Internal/CI/test change
+[Misc][v0.13.0]Removes unnecessary graph size re-initialization (#6281),6281,[Misc][v0.13.0]Removes unnecessary graph size re-initialization,Others,Include,Miscellaneous
+[0.13.0][KVCache] Prioritize using a hybrid manager to manage different types of kvcache (#6289),6289,[0.13.0][KVCache] Prioritize using a hybrid manager to manage different types of kvcache,Others,Include,Miscellaneous
+[CI] Update pta to 2.8.0.post2 (#6287),6287,[CI] Update pta to 2.8.0.post2,Ignore,Ignore,Internal/CI/test change
+[0.13.0][cherry-pick][BugFix][CI]Fix DeepSeek-R1-W8A8-longseq nightly CI (#6337),6337,[0.13.0][cherry-pick][BugFix][CI]Fix DeepSeek-R1-W8A8-longseq nightly CI,Highlights,Include,Model support
+[CI] Add per pr image build for nightly test (#6353),6353,[CI] Add per pr image build for nightly test,Others,Include,Miscellaneous
+[CI] Cherry pick nightly test from main (#6365),6365,[CI] Cherry pick nightly test from main,Others,Include,Miscellaneous
+[cherry-pick][BugFix] Disable enable_shared_expert_dp by default if tensor_parallel_size=1 (#6363),6363,[cherry-pick][BugFix] Disable enable_shared_expert_dp by default if tensor_parallel_size=1,Features,Include,New feature
+[0.13.0][Bugfix] Fix hash conflict due to reset incompatible configuations (#6330),6330,[0.13.0][Bugfix] Fix hash conflict due to reset incompatible configuations,Others,Include,Bug fix
+[0.13.0][Bugfix] Fix FIA operator validation error in Eagle scenario with CANN 8.5 (#6284),6284,[0.13.0][Bugfix] Fix FIA operator validation error in Eagle scenario with CANN 8.5,Highlights,Include,Major feature
+[CI]Limit transformers version (#6373),6373,[CI]Limit transformers version,Ignore,Ignore,Internal/CI/test change
+[Doc] Reranker guide remove deprecate task option (#6380),6380,[Doc] Reranker guide remove deprecate task option,Deprecation & Breaking Changes,Include,Breaking change
+"[0.13.0][cherry-pick][bugfix](CP,MLA) fix wrong slot_mapping of decode for mixed p/d batch (#6346)",6346,"[0.13.0][cherry-pick][bugfix](CP,MLA) fix wrong slot_mapping of decode for mixed p/d batch",Others,Include,Bug fix
+[0.13.0][Profiler] Fix profiler bug (#6383),6383,[0.13.0][Profiler] Fix profiler bug,Others,Include,Miscellaneous
+"[0.13.0][cherry-pick][bugfix](pcp,gqa) set kv_inverse_idx_for_chunk and cp_kv_recover_idx_for_chunk to None when dcp only (#6318)",6318,"[0.13.0][cherry-pick][bugfix](pcp,gqa) set kv_inverse_idx_for_chunk and cp_kv_recover_idx_for_chunk to None when dcp only",Highlights,Include,Major feature
+[0.13.0][Bugfix]Fix of Pooling Code (#6146),6146,[0.13.0][Bugfix]Fix of Pooling Code,Highlights,Include,Major feature
+[0.13.0][cherry-pick][Bugfix][CI] Specify tensorflow version in accuracy test to avoid segmentation fault (#6292) (#6292),6292,[0.13.0][cherry-pick][Bugfix][CI] Specify tensorflow version in accuracy test to avoid segmentation fault,Ignore,Ignore,Internal/CI/test change
+[0.13.0][bugfix]Raise exception for Omni models with FLASHCOMM enabled (#6392),6392,[0.13.0][bugfix]Raise exception for Omni models with FLASHCOMM enabled,Performance,Include,Performance optimization
+[CI][Nightly] Correct the nightly image build ref (#6396),6396,[CI][Nightly] Correct the nightly image build ref,Others,Include,Miscellaneous
+[P/D][0.13.0]Add ssl cert for metaserver proxy (#6400),6400,[P/D][0.13.0]Add ssl cert for metaserver proxy,Others,Include,Miscellaneous
+[0.13.0]fix patch cudagraph size (#6397),6397,[0.13.0]fix patch cudagraph size,Others,Include,Miscellaneous
+fix: resolve sync bug in DispathFFNCombine when expert num per card is 32 (#6422),6422,fix: resolve sync bug in DispathFFNCombine when expert num per card is 32,Others,Include,Miscellaneous
+work around: reset the None reference count to prevent it from droppi… (#6441),6441,work around: reset the None reference count to prevent it from droppi…,Others,Include,Miscellaneous
+[v0.13.0][Eagle3]Extend PR #5786 to eagle3 (#6443),5786,[v0.13.0][Eagle3]Extend PR #5786 to eagle3,Highlights,Include,Major feature
+[0.13.0][cherry-pick]pick from 6310 to fix rope op (#6444),6444,[0.13.0][cherry-pick]pick from 6310 to fix rope op,Others,Include,Miscellaneous
+[CI] change ds32 cudagraph_sizes (#6399),6399,[CI] change ds32 cudagraph_sizes,Ignore,Ignore,Internal/CI/test change
+[bugfix][0.13.0]fix bug in dispatch_ffn_combine kernel (#6464),6464,[bugfix][0.13.0]fix bug in dispatch_ffn_combine kernel,Hardware and Operator Support,Include,Operator/hardware support
+[v0.13.0][Lora][BugFix] Fix crash on base model requests with LoRA enabled (#6457),6457,[v0.13.0][Lora][BugFix] Fix crash on base model requests with LoRA enabled,Features,Include,New feature
+Bugfix: Pre-compile EPLB algorithm successfully in subprocess under graph mode (#6472),6472,Bugfix: Pre-compile EPLB algorithm successfully in subprocess under graph mode,Highlights,Include,Major feature
+[0.13.0][Bugfix] fix npu memory is not released in cp (#6479),6479,[0.13.0][Bugfix] fix npu memory is not released in cp,Others,Include,Bug fix
+[0.13.0][Bugfix] Fix problematic dummy_run & improper input_batch_size in eagle (#6518),6518,[0.13.0][Bugfix] Fix problematic dummy_run & improper input_batch_size in eagle,Highlights,Include,Major feature

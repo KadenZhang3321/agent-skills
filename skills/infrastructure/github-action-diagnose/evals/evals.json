@@ -1,0 +1,17 @@
+{
+  "skill_name": "ci-diagnosis",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我们的 PR CI 挂了，Run ID 是 23326177540，repo 是 vllm-project/vllm-ascend，帮我诊断一下哪里出问题了",
+      "expected_output": "诊断所有失败 Job，写入 reports/diagnosis-23326177540.md，对话输出简短摘要和汇总表格",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "这个 Job 一直失败，帮我看下：https://github.com/vllm-project/vllm-ascend/actions/runs/23282406275/job/67875153370",
+      "expected_output": "只诊断这一个 Job（不拉取整个 Run），写入 reports/diagnosis-job-67875153370.md，对话输出简短摘要和汇总表格",
+      "files": []
+    }
+  ]
+}
