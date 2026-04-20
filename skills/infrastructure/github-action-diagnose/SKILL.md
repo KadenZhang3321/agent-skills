@@ -66,12 +66,22 @@ compatibility:
 ```bash
 bash <skill目录>/scripts/fetch-run.sh --job <job_id> [owner/repo]
 # 例如：bash scripts/fetch-run.sh --job 68954806226 vllm-project/vllm-ascend
+# 或（无 bash 环境时）：python scripts/fetch_run.py --job 68954806226 vllm-project/vllm-ascend
 ```
 
 **Run ID/URL 场景（诊断所有失败 Job）**：
 ```bash
 bash <skill目录>/scripts/fetch-run.sh <run_id> [owner/repo]
 # 例如：bash scripts/fetch-run.sh 23326177540
+# 或（无 bash 环境时）：python scripts/fetch_run.py --run 23326177540
+# 默认 repo 为 vllm-project/vllm-ascend
+```
+
+**Run ID/URL 场景（诊断所有失败 Job）**：
+```bash
+python <skill目录>/scripts/fetch_run.py --run <run_id> [owner/repo]
+# 例如：python scripts/fetch_run.py --run 23326177540
+# 或：   bash scripts/fetch-run.sh 23326177540
 # 默认 repo 为 vllm-project/vllm-ascend
 ```
 
@@ -84,7 +94,7 @@ bash <skill目录>/scripts/fetch-run.sh <run_id> [owner/repo]
 - 预过滤的编译/安装错误（依赖冲突、git dubious ownership 等）
 - PR 变更文件列表
 
-脚本位置：`<skill目录>/scripts/fetch-run.sh`
+脚本位置：`<skill目录>/scripts/fetch_run.py`（Python，跨平台）或 `<skill目录>/scripts/fetch-run.sh`（Bash）
 
 **Step 1c：依赖解析错误优先检查（Install 阶段失败时必做）**
 
@@ -106,6 +116,24 @@ bash <skill目录>/scripts/fetch-run.sh <run_id> [owner/repo]
 # 依赖解析错误专用
 gh run view --job <job_id> --log --repo <owner/repo> | grep -iE "unsatisfiable|No solution found|no version of|modelscope.*error"
 ```
+
+### Step 1e. 集群日志查询（MCP，当 GitHub 日志不足时）
+
+当 GitHub Actions 日志不足以定位根因（如只显示 exit code 1 但无具体错误），可使用 MCP 查询 LTS 集群日志：
+
+```bash
+# 一键获取 Runner Pod 日志
+mcp_get_runner_logs(runner_name="linux-aarch64-a3-0-ggwx6-runner-qbq72", start="2026-03-27 21:20:00", end="2026-03-27 22:00:00")
+
+# 或分步调用：
+mcp_list_pods(namespace="vllm-project", start="...", end="...")
+mcp_export_logs(namespace="vllm-project", pod_name="...", keywords="RuntimeError|OOM", start="...", end="...")
+mcp_get_export(export_id="...")
+```
+
+**MCP 服务地址**：`http://150.158.143.223:30089/mcp`
+**默认日志源**：`ascend-ci-log`
+**默认 namespace**：`vllm-project`（与仓库名对应）
 
 ---
 
